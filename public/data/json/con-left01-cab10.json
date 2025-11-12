@@ -1,0 +1,6116 @@
+{
+  "meta": {
+    "editorVersion": "1.4.9"
+  },
+  "id": "con-left01-cab10",
+  "position": {
+    "x": 4979,
+    "y": 1110
+  },
+  "sounds": [
+    {
+      "id": "cab-open-1",
+      "actions": [
+        {
+          "action": "play",
+          "conditions": [
+            {
+              "model": "con-left01-cab10",
+              "key": "enabled",
+              "value": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cab-close-1",
+      "actions": [
+        {
+          "action": "play",
+          "conditions": [
+            {
+              "model": "con-left01-cab10",
+              "key": "enabled",
+              "value": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "states": [
+    {
+      "name": "open",
+      "img": "images/con-left01-cab10-open.jpg",
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "conditions": [
+        {
+          "model": "con-left01-cab10",
+          "key": "enabled",
+          "value": true
+        }
+      ],
+      "interactions": {
+        "51c384b3-137a-438e-a076-466ff0f3d823": {
+          "meta": {
+            "name": "Ground",
+            "color": "#ffa526",
+            "ref": "51c384b3-137a-438e-a076-466ff0f3d823"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "ground",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "ground",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "4e8076b2-62a3-442f-8d1c-ac7c8d238cb3": {
+          "meta": {
+            "name": "Power Dead",
+									"output": "output0",
+            "color": "#f26500",
+            "ref": "4e8076b2-62a3-442f-8d1c-ac7c8d238cb3"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "powerDead",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "powerDead",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "2b69630d-d85d-4356-86df-50df01590bbc": {
+          "meta": {
+            "name": "VDC 12",
+            "color": "#7f0030",
+            "ref": "2b69630d-d85d-4356-86df-50df01590bbc"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power12-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power12-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "23c4317f-7b61-482f-b87c-89f42bd063b7": {
+          "meta": {
+            "name": "15 VDC",
+            "ref": "23c4317f-7b61-482f-b87c-89f42bd063b7",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power15",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power15",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "4c3ebd43-fcf9-46f4-b578-5522a1b64b0f": {
+          "meta": {
+            "name": "24 VDC",
+            "ref": "4c3ebd43-fcf9-46f4-b578-5522a1b64b0f",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power24-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power24-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "4de7ddff-c83c-4ec5-aa91-a1eef42703ce": {
+          "meta": {
+            "name": "48 VDC",
+            "ref": "4de7ddff-c83c-4ec5-aa91-a1eef42703ce",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power48-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power48-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "5f7e3788-0e01-4a97-aca6-adceb497da41": {
+          "meta": {
+            "name": "52 VDC",
+            "ref": "5f7e3788-0e01-4a97-aca6-adceb497da41",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power52-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power52-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "a690d830-d706-4b52-88c7-d261fbe8f7a3": {
+          "meta": {
+            "name": "110 VDC",
+            "ref": "a690d830-d706-4b52-88c7-d261fbe8f7a3",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power110-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power110-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "a9cac1f3-3bbe-4f7a-a11d-77347dff73b5": {
+          "meta": {
+            "name": "213 VDC",
+            "ref": "a9cac1f3-3bbe-4f7a-a11d-77347dff73b5",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power213-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power213-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "fa95c25b-dec9-44d3-9724-cea5dadd442e": {
+          "meta": {
+            "name": "213 VDC NEG",
+            "ref": "fa95c25b-dec9-44d3-9724-cea5dadd442e",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power213neg-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power213neg-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "f5d79fe9-46e3-4189-bf55-746ce6cd4cc4": {
+          "meta": {
+            "name": "280 VDC POS",
+            "ref": "f5d79fe9-46e3-4189-bf55-746ce6cd4cc4",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power280-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power280-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "60ef1147-f189-4c17-8d36-f5598190e29f": {
+          "meta": {
+            "name": "280 VDC NEG",
+            "ref": "60ef1147-f189-4c17-8d36-f5598190e29f",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power280neg-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power280neg-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "a9621156-035a-4862-a94d-85f018dc6388": {
+          "meta": {
+            "name": "1150 VDC",
+            "ref": "a9621156-035a-4862-a94d-85f018dc6388",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power1150-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power1150-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "3594f160-2d0c-45ff-9ba6-b41a7c48b965": {
+          "meta": {
+            "name": "5.5 VAC",
+            "ref": "3594f160-2d0c-45ff-9ba6-b41a7c48b965",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power5.5",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power5.5",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "2d0cecfd-9a49-4336-b04a-02b75bd18e77": {
+          "meta": {
+            "name": "0 VAC P1",
+            "ref": "2d0cecfd-9a49-4336-b04a-02b75bd18e77",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power0p1",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power0p1",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "de73eb72-8328-45e7-b24d-2a7c6f02b4e6": {
+          "meta": {
+            "name": "0 VAC P2",
+            "ref": "de73eb72-8328-45e7-b24d-2a7c6f02b4e6",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power0p2",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power0p2",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "e43f2293-cdde-4bdc-a4bb-90c8dbd80205": {
+          "meta": {
+            "name": "0 VAC P3",
+            "ref": "e43f2293-cdde-4bdc-a4bb-90c8dbd80205",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power0p3",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power0p3",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "509edeb1-82d8-405d-9722-39450120aa08": {
+          "meta": {
+            "name": "230 VAC P1",
+            "ref": "509edeb1-82d8-405d-9722-39450120aa08",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power230p1-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power230p1-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "06f88a45-c2b0-4fb3-bce5-2d37a0d8bb90": {
+          "meta": {
+            "name": "230 VAC P2",
+            "ref": "06f88a45-c2b0-4fb3-bce5-2d37a0d8bb90",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power230p2-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power230p2-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "96362f36-b85e-4861-840b-4c2c6bc316e8": {
+          "meta": {
+            "name": "230 VAC P3",
+            "ref": "96362f36-b85e-4861-840b-4c2c6bc316e8",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power230p3",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power230p3",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "1b101036-f565-4574-84c1-a1ccfa794e30": {
+          "meta": {
+            "name": "414 VAC P1",
+            "ref": "1b101036-f565-4574-84c1-a1ccfa794e30",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power414p1-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power414p1-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "47cad9e7-1016-4d14-a264-c3f6336c30c4": {
+          "meta": {
+            "name": "414 VAC P2",
+            "ref": "47cad9e7-1016-4d14-a264-c3f6336c30c4",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power414p2-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power414p2-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "08997245-0634-4b50-83c5-4b1a39512fba": {
+          "meta": {
+            "name": "414 VAC P3",
+            "ref": "08997245-0634-4b50-83c5-4b1a39512fba",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power414p3-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power414p3-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "82dd755a-d0d6-4c7f-b845-2482b928565e": {
+          "meta": {
+            "name": "460 VAC P1",
+            "ref": "82dd755a-d0d6-4c7f-b845-2482b928565e",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power460p1-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power460p1-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "d904301e-9e32-4e03-b373-800a1771f8d1": {
+          "meta": {
+            "name": "460 VAC P2",
+            "ref": "d904301e-9e32-4e03-b373-800a1771f8d1",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power460p2-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power460p2-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "9972b6cd-d7b4-465a-b74f-f62550545d30": {
+          "meta": {
+            "name": "460 VAC P3",
+            "ref": "9972b6cd-d7b4-465a-b74f-f62550545d30",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power460p3-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power460p3-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "05ef2e93-d2cc-4994-9322-8b7239d8c2f4": {
+          "meta": {
+            "name": "5 Bar",
+            "ref": "05ef2e93-d2cc-4994-9322-8b7239d8c2f4",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": []
+            }
+          ],
+          "manometer": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": []
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": [
+                {
+                  "component": "pressure5",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": []
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": []
+            }
+          ]
+        },
+        "9c35fbdd-7292-429e-8fac-a557e6fea4e6": {
+          "meta": {
+            "name": "5,6 Bar",
+            "ref": "9c35fbdd-7292-429e-8fac-a557e6fea4e6",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": []
+            }
+          ],
+          "manometer": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": []
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": [
+                {
+                  "component": "pressure5.6",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": []
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": []
+            }
+          ]
+        },
+        "5984852a-905c-4b93-8fe4-73e474cf932e": {
+          "meta": {
+            "name": "80 Bar",
+            "ref": "5984852a-905c-4b93-8fe4-73e474cf932e",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": []
+            }
+          ],
+          "manometer": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": []
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": [
+                {
+                  "component": "pressure80",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": []
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": []
+            }
+          ]
+        },
+        "9f55c789-704d-4594-b4db-6459d88bb60b": {
+          "meta": {
+            "name": "105 Bar",
+            "ref": "9f55c789-704d-4594-b4db-6459d88bb60b",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": []
+            }
+          ],
+          "manometer": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": []
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": [
+                {
+                  "component": "pressure105",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": []
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": []
+            }
+          ]
+        },
+        "6c4936af-0a11-44f4-90bc-ca51f6024e03": {
+          "meta": {
+            "name": "236 Bar",
+            "ref": "6c4936af-0a11-44f4-90bc-ca51f6024e03",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": []
+            }
+          ],
+          "manometer": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": []
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": [
+                {
+                  "component": "pressure236",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": []
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": []
+            }
+          ]
+        },
+        "ebcdd2c1-3ef2-4d84-b163-1530286b6158": {
+          "meta": {
+            "name": "255 Bar",
+            "ref": "ebcdd2c1-3ef2-4d84-b163-1530286b6158",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": []
+            }
+          ],
+          "manometer": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": []
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": [
+                {
+                  "component": "pressure255",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": []
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": []
+            }
+          ]
+        },
+        "bbbe75fe-7ebc-467b-b0e5-b152bfc7160f": {
+          "meta": {
+            "name": "close-interaction",
+            "ref": "bbbe75fe-7ebc-467b-b0e5-b152bfc7160f"
+          },
+          "pointer": [
+            {
+              "actions": [
+                {
+                  "model": "con-left01-cab10",
+                  "key": "enabled",
+                  "value": false
+                }
+              ]
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": []
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "dsp5": [
+            {
+              "actions": []
+            }
+          ]
+        }
+      },
+      "interactionShapes": [
+        {
+          "id": "bbbe75fe-7ebc-467b-b0e5-b152bfc7160f",
+          "name": "close-interaction",
+          "color": "#370074",
+          "elements": [
+            {
+              "type": "Polygon",
+              "x": 3,
+              "y": 9,
+              "vertices": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 965,
+                  "y": 1
+                },
+                {
+                  "x": 968,
+                  "y": 1941
+                },
+                {
+                  "x": -2,
+                  "y": 1941
+                },
+                {
+                  "x": 1,
+                  "y": 80
+                },
+                {
+                  "x": 80,
+                  "y": 80
+                },
+                {
+                  "x": 82,
+                  "y": 1856
+                },
+                {
+                  "x": 881,
+                  "y": 1854
+                },
+                {
+                  "x": 882,
+                  "y": 85
+                },
+                {
+                  "x": 0,
+                  "y": 79
+                }
+              ]
+            }
+          ],
+          "anchors": [],
+          "index": 0
+        },
+        {
+          "id": "51c384b3-137a-438e-a076-466ff0f3d823",
+          "name": "Ground",
+          "color": "#ffa526",
+          "elements": [
+            {
+              "type": "Polygon",
+              "x": 114,
+              "y": 1863,
+              "vertices": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 61,
+                  "y": -168
+                },
+                {
+                  "x": 68,
+                  "y": -1
+                },
+                {
+                  "x": -1,
+                  "y": -1
+                }
+              ]
+            },
+            {
+              "type": "Polygon",
+              "x": 86,
+              "y": 1288,
+              "vertices": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 50,
+                  "y": 2
+                },
+                {
+                  "x": 64,
+                  "y": 0
+                },
+                {
+                  "x": 75,
+                  "y": -2
+                },
+                {
+                  "x": 82,
+                  "y": -13
+                },
+                {
+                  "x": 83,
+                  "y": 84
+                },
+                {
+                  "x": 87,
+                  "y": 96
+                },
+                {
+                  "x": 94,
+                  "y": 105
+                },
+                {
+                  "x": 104,
+                  "y": 115
+                },
+                {
+                  "x": 113,
+                  "y": 119
+                },
+                {
+                  "x": 123,
+                  "y": 123
+                },
+                {
+                  "x": 129,
+                  "y": 125
+                },
+                {
+                  "x": 60,
+                  "y": 275
+                },
+                {
+                  "x": 2,
+                  "y": 398
+                },
+                {
+                  "x": 0,
+                  "y": 285
+                },
+                {
+                  "x": -1,
+                  "y": -1
+                }
+              ]
+            },
+            {
+              "type": "Polygon",
+              "x": 880,
+              "y": 190,
+              "vertices": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": -156,
+                  "y": 227
+                },
+                {
+                  "x": -145,
+                  "y": 233
+                },
+                {
+                  "x": -125,
+                  "y": 231
+                },
+                {
+                  "x": -112,
+                  "y": 231
+                },
+                {
+                  "x": -98,
+                  "y": 235
+                },
+                {
+                  "x": -84,
+                  "y": 236
+                },
+                {
+                  "x": -78,
+                  "y": 240
+                },
+                {
+                  "x": -75,
+                  "y": 272
+                },
+                {
+                  "x": -82,
+                  "y": 274
+                },
+                {
+                  "x": -78,
+                  "y": 276
+                },
+                {
+                  "x": -72,
+                  "y": 275
+                },
+                {
+                  "x": -70,
+                  "y": 279
+                },
+                {
+                  "x": -70,
+                  "y": 282
+                },
+                {
+                  "x": -72,
+                  "y": 287
+                },
+                {
+                  "x": -71,
+                  "y": 291
+                },
+                {
+                  "x": -68,
+                  "y": 295
+                },
+                {
+                  "x": -66,
+                  "y": 297
+                },
+                {
+                  "x": -65,
+                  "y": 301
+                },
+                {
+                  "x": -64,
+                  "y": 305
+                },
+                {
+                  "x": -66,
+                  "y": 312
+                },
+                {
+                  "x": -65,
+                  "y": 314
+                },
+                {
+                  "x": -60,
+                  "y": 319
+                },
+                {
+                  "x": -60,
+                  "y": 322
+                },
+                {
+                  "x": -60,
+                  "y": 328
+                },
+                {
+                  "x": -62,
+                  "y": 334
+                },
+                {
+                  "x": -59,
+                  "y": 335
+                },
+                {
+                  "x": -56,
+                  "y": 340
+                },
+                {
+                  "x": -55,
+                  "y": 345
+                },
+                {
+                  "x": -55,
+                  "y": 347
+                },
+                {
+                  "x": -52,
+                  "y": 351
+                },
+                {
+                  "x": -49,
+                  "y": 354
+                },
+                {
+                  "x": -49,
+                  "y": 358
+                },
+                {
+                  "x": -51,
+                  "y": 390
+                },
+                {
+                  "x": 3,
+                  "y": 391
+                },
+                {
+                  "x": 5,
+                  "y": 67
+                },
+                {
+                  "x": 2,
+                  "y": 9
+                },
+                {
+                  "x": 0,
+                  "y": -1
+                }
+              ]
+            },
+            {
+              "type": "Polygon",
+              "x": 702,
+              "y": 383,
+              "vertices": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 34,
+                  "y": -72
+                },
+                {
+                  "x": 50,
+                  "y": -99
+                },
+                {
+                  "x": 60,
+                  "y": -110
+                },
+                {
+                  "x": 102,
+                  "y": -207
+                },
+                {
+                  "x": 142,
+                  "y": -289
+                },
+                {
+                  "x": -120,
+                  "y": -288
+                },
+                {
+                  "x": -127,
+                  "y": -256
+                },
+                {
+                  "x": -132,
+                  "y": -227
+                },
+                {
+                  "x": -134,
+                  "y": -212
+                },
+                {
+                  "x": -116,
+                  "y": -217
+                },
+                {
+                  "x": -112,
+                  "y": -251
+                },
+                {
+                  "x": 77,
+                  "y": -243
+                },
+                {
+                  "x": 83,
+                  "y": -241
+                },
+                {
+                  "x": 85,
+                  "y": -232
+                },
+                {
+                  "x": 84,
+                  "y": -224
+                },
+                {
+                  "x": 82,
+                  "y": -211
+                },
+                {
+                  "x": 83,
+                  "y": -199
+                },
+                {
+                  "x": 82,
+                  "y": -188
+                },
+                {
+                  "x": 64,
+                  "y": -147
+                },
+                {
+                  "x": 62,
+                  "y": -148
+                },
+                {
+                  "x": 53,
+                  "y": -171
+                },
+                {
+                  "x": -103,
+                  "y": -173
+                },
+                {
+                  "x": -108,
+                  "y": -143
+                },
+                {
+                  "x": -121,
+                  "y": -143
+                },
+                {
+                  "x": -132,
+                  "y": -144
+                },
+                {
+                  "x": -135,
+                  "y": -141
+                },
+                {
+                  "x": -133,
+                  "y": -105
+                },
+                {
+                  "x": -127,
+                  "y": -68
+                },
+                {
+                  "x": -122,
+                  "y": -21
+                },
+                {
+                  "x": -89,
+                  "y": -21
+                },
+                {
+                  "x": -69,
+                  "y": -18
+                },
+                {
+                  "x": -61,
+                  "y": -12
+                },
+                {
+                  "x": -56,
+                  "y": -2
+                },
+                {
+                  "x": 0,
+                  "y": -2
+                }
+              ]
+            },
+            {
+              "type": "Polygon",
+              "x": 884,
+              "y": 1400,
+              "vertices": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": -51,
+                  "y": -44
+                },
+                {
+                  "x": -55,
+                  "y": 70
+                },
+                {
+                  "x": -54,
+                  "y": 75
+                },
+                {
+                  "x": -50,
+                  "y": 135
+                },
+                {
+                  "x": -55,
+                  "y": 144
+                },
+                {
+                  "x": -56,
+                  "y": 195
+                },
+                {
+                  "x": -48,
+                  "y": 204
+                },
+                {
+                  "x": -49,
+                  "y": 210
+                },
+                {
+                  "x": -2,
+                  "y": 334
+                },
+                {
+                  "x": 0,
+                  "y": 1
+                }
+              ]
+            },
+            {
+              "type": "Polygon",
+              "x": 650,
+              "y": 635,
+              "vertices": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 199,
+                  "y": 3
+                },
+                {
+                  "x": 227,
+                  "y": 63
+                },
+                {
+                  "x": 233,
+                  "y": 68
+                },
+                {
+                  "x": 234,
+                  "y": 763
+                },
+                {
+                  "x": 182,
+                  "y": 719
+                },
+                {
+                  "x": 182,
+                  "y": 835
+                },
+                {
+                  "x": 159,
+                  "y": 836
+                },
+                {
+                  "x": 153,
+                  "y": 843
+                },
+                {
+                  "x": 147,
+                  "y": 846
+                },
+                {
+                  "x": 109,
+                  "y": 847
+                },
+                {
+                  "x": 105,
+                  "y": 259
+                },
+                {
+                  "x": 26,
+                  "y": 232
+                },
+                {
+                  "x": -3,
+                  "y": 223
+                }
+              ]
+            },
+            {
+              "type": "Polygon",
+              "x": 291,
+              "y": 1324,
+              "vertices": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 2,
+                  "y": 23
+                },
+                {
+                  "x": -6,
+                  "y": 45
+                },
+                {
+                  "x": -6,
+                  "y": 59
+                },
+                {
+                  "x": -3,
+                  "y": 159
+                },
+                {
+                  "x": 130,
+                  "y": 161
+                },
+                {
+                  "x": 133,
+                  "y": 157
+                },
+                {
+                  "x": 135,
+                  "y": 156
+                },
+                {
+                  "x": 138,
+                  "y": 179
+                },
+                {
+                  "x": 144,
+                  "y": 186
+                },
+                {
+                  "x": 178,
+                  "y": 186
+                },
+                {
+                  "x": 185,
+                  "y": 179
+                },
+                {
+                  "x": 185,
+                  "y": 167
+                },
+                {
+                  "x": 192,
+                  "y": 161
+                },
+                {
+                  "x": 224,
+                  "y": 159
+                },
+                {
+                  "x": 224,
+                  "y": 162
+                },
+                {
+                  "x": 216,
+                  "y": 163
+                },
+                {
+                  "x": 217,
+                  "y": 184
+                },
+                {
+                  "x": 224,
+                  "y": 189
+                },
+                {
+                  "x": 230,
+                  "y": 300
+                },
+                {
+                  "x": 233,
+                  "y": 306
+                },
+                {
+                  "x": 236,
+                  "y": 306
+                },
+                {
+                  "x": 369,
+                  "y": 307
+                },
+                {
+                  "x": 377,
+                  "y": 299
+                },
+                {
+                  "x": 374,
+                  "y": 167
+                },
+                {
+                  "x": 383,
+                  "y": 159
+                },
+                {
+                  "x": 467,
+                  "y": 156
+                },
+                {
+                  "x": 466,
+                  "y": 106
+                },
+                {
+                  "x": 427,
+                  "y": 68
+                },
+                {
+                  "x": 425,
+                  "y": 43
+                },
+                {
+                  "x": 417,
+                  "y": 23
+                },
+                {
+                  "x": 417,
+                  "y": 11
+                },
+                {
+                  "x": 422,
+                  "y": 9
+                },
+                {
+                  "x": 449,
+                  "y": 11
+                },
+                {
+                  "x": 461,
+                  "y": 23
+                },
+                {
+                  "x": 466,
+                  "y": -77
+                },
+                {
+                  "x": 453,
+                  "y": -97
+                },
+                {
+                  "x": 419,
+                  "y": -97
+                },
+                {
+                  "x": 374,
+                  "y": -86
+                },
+                {
+                  "x": 372,
+                  "y": -94
+                },
+                {
+                  "x": 355,
+                  "y": -96
+                },
+                {
+                  "x": 339,
+                  "y": -97
+                },
+                {
+                  "x": 330,
+                  "y": -91
+                },
+                {
+                  "x": 309,
+                  "y": -89
+                },
+                {
+                  "x": 302,
+                  "y": -91
+                },
+                {
+                  "x": 297,
+                  "y": -97
+                },
+                {
+                  "x": 283,
+                  "y": -97
+                },
+                {
+                  "x": 266,
+                  "y": -98
+                },
+                {
+                  "x": 260,
+                  "y": -91
+                },
+                {
+                  "x": 259,
+                  "y": -82
+                },
+                {
+                  "x": 259,
+                  "y": -77
+                },
+                {
+                  "x": 260,
+                  "y": -66
+                },
+                {
+                  "x": 258,
+                  "y": -60
+                },
+                {
+                  "x": 191,
+                  "y": -47
+                },
+                {
+                  "x": 94,
+                  "y": -25
+                },
+                {
+                  "x": 6,
+                  "y": -7
+                }
+              ]
+            }
+          ],
+          "anchors": [],
+          "index": 1
+        },
+        {
+          "id": "4e8076b2-62a3-442f-8d1c-ac7c8d238cb3",
+          "name": "Power Dead",
+									"output": "output0",
+          "color": "#ab9cb7",
+          "elements": [
+            {
+              "type": "Polygon",
+              "x": 589,
+              "y": 135,
+              "vertices": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 190,
+                  "y": 6
+                },
+                {
+                  "x": 196,
+                  "y": 26
+                },
+                {
+                  "x": 194,
+                  "y": 57
+                },
+                {
+                  "x": 176,
+                  "y": 104
+                },
+                {
+                  "x": 166,
+                  "y": 77
+                },
+                {
+                  "x": 9,
+                  "y": 75
+                },
+                {
+                  "x": 6,
+                  "y": 105
+                },
+                {
+                  "x": -19,
+                  "y": 103
+                },
+                {
+                  "x": -20,
+                  "y": 38
+                },
+                {
+                  "x": 0,
+                  "y": 33
+                }
+              ]
+            },
+            {
+              "type": "Polygon",
+              "x": 531,
+              "y": 173,
+              "vertices": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": -3,
+                  "y": 121
+                },
+                {
+                  "x": -119,
+                  "y": 115
+                },
+                {
+                  "x": -122,
+                  "y": 135
+                },
+                {
+                  "x": -306,
+                  "y": 141
+                },
+                {
+                  "x": -289,
+                  "y": 279
+                },
+                {
+                  "x": -291,
+                  "y": 363
+                },
+                {
+                  "x": -332,
+                  "y": 368
+                },
+                {
+                  "x": -342,
+                  "y": 479
+                },
+                {
+                  "x": -332,
+                  "y": 646
+                },
+                {
+                  "x": -357,
+                  "y": 700
+                },
+                {
+                  "x": -394,
+                  "y": 736
+                },
+                {
+                  "x": -400,
+                  "y": 773
+                },
+                {
+                  "x": -414,
+                  "y": 576
+                },
+                {
+                  "x": -416,
+                  "y": 335
+                },
+                {
+                  "x": -416,
+                  "y": 66
+                },
+                {
+                  "x": -410,
+                  "y": 16
+                },
+                {
+                  "x": -370,
+                  "y": -5
+                }
+              ]
+            },
+            {
+              "type": "Polygon",
+              "x": 738,
+              "y": 431,
+              "vertices": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 61,
+                  "y": -1
+                },
+                {
+                  "x": 66,
+                  "y": 31
+                },
+                {
+                  "x": 22,
+                  "y": 47
+                },
+                {
+                  "x": 19,
+                  "y": 103
+                },
+                {
+                  "x": 12,
+                  "y": 111
+                },
+                {
+                  "x": 0,
+                  "y": 108
+                }
+              ]
+            },
+            {
+              "type": "Polygon",
+              "x": 459,
+              "y": 1284,
+              "vertices": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": -23,
+                  "y": 5
+                },
+                {
+                  "x": -14,
+                  "y": -40
+                },
+                {
+                  "x": 26,
+                  "y": -54
+                },
+                {
+                  "x": 90,
+                  "y": -31
+                },
+                {
+                  "x": 85,
+                  "y": -21
+                },
+                {
+                  "x": 52,
+                  "y": -18
+                },
+                {
+                  "x": 19,
+                  "y": -25
+                }
+              ]
+            },
+            {
+              "type": "Polygon",
+              "x": 635,
+              "y": 1175,
+              "vertices": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 22,
+                  "y": 1
+                },
+                {
+                  "x": 23,
+                  "y": 42
+                },
+                {
+                  "x": 20,
+                  "y": 50
+                },
+                {
+                  "x": -3,
+                  "y": 49
+                }
+              ]
+            },
+            {
+              "type": "Polygon",
+              "x": 240,
+              "y": 1253,
+              "vertices": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 16,
+                  "y": 0
+                },
+                {
+                  "x": 57,
+                  "y": 27
+                },
+                {
+                  "x": 64,
+                  "y": 56
+                },
+                {
+                  "x": 38,
+                  "y": 85
+                },
+                {
+                  "x": 38,
+                  "y": 276
+                },
+                {
+                  "x": 24,
+                  "y": 281
+                },
+                {
+                  "x": -14,
+                  "y": 210
+                },
+                {
+                  "x": -18,
+                  "y": 462
+                },
+                {
+                  "x": -36,
+                  "y": 471
+                },
+                {
+                  "x": -44,
+                  "y": 222
+                },
+                {
+                  "x": -34,
+                  "y": 200
+                },
+                {
+                  "x": -2,
+                  "y": 181
+                },
+                {
+                  "x": -10,
+                  "y": 164
+                },
+                {
+                  "x": -50,
+                  "y": 148
+                },
+                {
+                  "x": -70,
+                  "y": 122
+                },
+                {
+                  "x": -67,
+                  "y": 21
+                },
+                {
+                  "x": -53,
+                  "y": 4
+                }
+              ]
+            },
+            {
+              "type": "Polygon",
+              "x": 464,
+              "y": 1555,
+              "vertices": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 40,
+                  "y": 0
+                },
+                {
+                  "x": 49,
+                  "y": 119
+                },
+                {
+                  "x": 58,
+                  "y": 124
+                },
+                {
+                  "x": 46,
+                  "y": 171
+                },
+                {
+                  "x": 43,
+                  "y": 193
+                },
+                {
+                  "x": 23,
+                  "y": 198
+                },
+                {
+                  "x": -11,
+                  "y": 195
+                },
+                {
+                  "x": -11,
+                  "y": 214
+                },
+                {
+                  "x": -138,
+                  "y": 208
+                },
+                {
+                  "x": -124,
+                  "y": 91
+                },
+                {
+                  "x": -26,
+                  "y": 83
+                },
+                {
+                  "x": -10,
+                  "y": 86
+                }
+              ]
+            },
+            {
+              "type": "Polygon",
+              "x": 532,
+              "y": 1693,
+              "vertices": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 6,
+                  "y": 24
+                },
+                {
+                  "x": -5,
+                  "y": 41
+                },
+                {
+                  "x": -8,
+                  "y": 42
+                }
+              ]
+            }
+          ],
+          "anchors": [],
+          "index": 2
+        }
+      ],
+      "infolayer": [
+        {
+          "id": "13cfc107-e935-455c-b903-669387eb5ca4",
+          "name": "info-1",
+          "elements": [
+            {
+              "type": "Text",
+              "text": "=MSE72TA001-TB001",
+              "x": 456,
+              "y": 857,
+              "rotation": 0,
+              "color": "white"
+            },
+            {
+              "type": "Text",
+              "text": "X10",
+              "x": 557,
+              "y": 1500,
+              "rotation": 0,
+              "color": "white"
+            },
+            {
+              "type": "Text",
+              "text": "X9",
+              "x": 606,
+              "y": 1499,
+              "rotation": 0,
+              "color": "white"
+            }
+          ],
+          "index": 3
+        }
+      ],
+      "components": []
+    },
+    {
+      "name": "closed",
+      "img": "images/con-left01-cab10-closed.jpg",
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "conditions": [
+        {
+          "model": "con-left01-cab10",
+          "key": "enabled",
+          "value": false
+        }
+      ],
+      "interactions": {
+        "51c384b3-137a-438e-a076-466ff0f3d823": {
+          "meta": {
+            "name": "Ground",
+            "color": "#ffa526",
+            "ref": "51c384b3-137a-438e-a076-466ff0f3d823"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "ground",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "ground",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "4e8076b2-62a3-442f-8d1c-ac7c8d238cb3": {
+          "meta": {
+            "name": "Power Dead",
+									"output": "output0",
+            "color": "#f26500",
+            "ref": "4e8076b2-62a3-442f-8d1c-ac7c8d238cb3"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "powerDead",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "powerDead",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "2b69630d-d85d-4356-86df-50df01590bbc": {
+          "meta": {
+            "name": "VDC 12",
+            "color": "#7f0030",
+            "ref": "2b69630d-d85d-4356-86df-50df01590bbc"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power12-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power12-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "23c4317f-7b61-482f-b87c-89f42bd063b7": {
+          "meta": {
+            "name": "15 VDC",
+            "ref": "23c4317f-7b61-482f-b87c-89f42bd063b7",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power15",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power15",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "4c3ebd43-fcf9-46f4-b578-5522a1b64b0f": {
+          "meta": {
+            "name": "24 VDC",
+            "ref": "4c3ebd43-fcf9-46f4-b578-5522a1b64b0f",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power24-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power24-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "4de7ddff-c83c-4ec5-aa91-a1eef42703ce": {
+          "meta": {
+            "name": "48 VDC",
+            "ref": "4de7ddff-c83c-4ec5-aa91-a1eef42703ce",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power48-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power48-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "5f7e3788-0e01-4a97-aca6-adceb497da41": {
+          "meta": {
+            "name": "52 VDC",
+            "ref": "5f7e3788-0e01-4a97-aca6-adceb497da41",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power52-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power52-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "a690d830-d706-4b52-88c7-d261fbe8f7a3": {
+          "meta": {
+            "name": "110 VDC",
+            "ref": "a690d830-d706-4b52-88c7-d261fbe8f7a3",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power110-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power110-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "a9cac1f3-3bbe-4f7a-a11d-77347dff73b5": {
+          "meta": {
+            "name": "213 VDC",
+            "ref": "a9cac1f3-3bbe-4f7a-a11d-77347dff73b5",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power213-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power213-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "fa95c25b-dec9-44d3-9724-cea5dadd442e": {
+          "meta": {
+            "name": "213 VDC NEG",
+            "ref": "fa95c25b-dec9-44d3-9724-cea5dadd442e",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power213neg-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power213neg-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "f5d79fe9-46e3-4189-bf55-746ce6cd4cc4": {
+          "meta": {
+            "name": "280 VDC POS",
+            "ref": "f5d79fe9-46e3-4189-bf55-746ce6cd4cc4",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power280-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power280-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "60ef1147-f189-4c17-8d36-f5598190e29f": {
+          "meta": {
+            "name": "280 VDC NEG",
+            "ref": "60ef1147-f189-4c17-8d36-f5598190e29f",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power280neg-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power280neg-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "a9621156-035a-4862-a94d-85f018dc6388": {
+          "meta": {
+            "name": "1150 VDC",
+            "ref": "a9621156-035a-4862-a94d-85f018dc6388",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power1150-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power1150-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "3594f160-2d0c-45ff-9ba6-b41a7c48b965": {
+          "meta": {
+            "name": "5.5 VAC",
+            "ref": "3594f160-2d0c-45ff-9ba6-b41a7c48b965",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power5.5",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power5.5",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "2d0cecfd-9a49-4336-b04a-02b75bd18e77": {
+          "meta": {
+            "name": "0 VAC P1",
+            "ref": "2d0cecfd-9a49-4336-b04a-02b75bd18e77",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power0p1",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power0p1",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "de73eb72-8328-45e7-b24d-2a7c6f02b4e6": {
+          "meta": {
+            "name": "0 VAC P2",
+            "ref": "de73eb72-8328-45e7-b24d-2a7c6f02b4e6",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power0p2",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power0p2",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "e43f2293-cdde-4bdc-a4bb-90c8dbd80205": {
+          "meta": {
+            "name": "0 VAC P3",
+            "ref": "e43f2293-cdde-4bdc-a4bb-90c8dbd80205",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power0p3",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power0p3",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "509edeb1-82d8-405d-9722-39450120aa08": {
+          "meta": {
+            "name": "230 VAC P1",
+            "ref": "509edeb1-82d8-405d-9722-39450120aa08",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power230p1-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power230p1-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "06f88a45-c2b0-4fb3-bce5-2d37a0d8bb90": {
+          "meta": {
+            "name": "230 VAC P2",
+            "ref": "06f88a45-c2b0-4fb3-bce5-2d37a0d8bb90",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power230p2-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power230p2-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "96362f36-b85e-4861-840b-4c2c6bc316e8": {
+          "meta": {
+            "name": "230 VAC P3",
+            "ref": "96362f36-b85e-4861-840b-4c2c6bc316e8",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power230p3",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power230p3",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "1b101036-f565-4574-84c1-a1ccfa794e30": {
+          "meta": {
+            "name": "414 VAC P1",
+            "ref": "1b101036-f565-4574-84c1-a1ccfa794e30",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power414p1-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power414p1-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "47cad9e7-1016-4d14-a264-c3f6336c30c4": {
+          "meta": {
+            "name": "414 VAC P2",
+            "ref": "47cad9e7-1016-4d14-a264-c3f6336c30c4",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power414p2-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power414p2-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "08997245-0634-4b50-83c5-4b1a39512fba": {
+          "meta": {
+            "name": "414 VAC P3",
+            "ref": "08997245-0634-4b50-83c5-4b1a39512fba",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power414p3-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power414p3-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "82dd755a-d0d6-4c7f-b845-2482b928565e": {
+          "meta": {
+            "name": "460 VAC P1",
+            "ref": "82dd755a-d0d6-4c7f-b845-2482b928565e",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power460p1-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power460p1-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "d904301e-9e32-4e03-b373-800a1771f8d1": {
+          "meta": {
+            "name": "460 VAC P2",
+            "ref": "d904301e-9e32-4e03-b373-800a1771f8d1",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power460p2-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power460p2-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "9972b6cd-d7b4-465a-b74f-f62550545d30": {
+          "meta": {
+            "name": "460 VAC P3",
+            "ref": "9972b6cd-d7b4-465a-b74f-f62550545d30",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": [
+                {
+                  "component": "power460p3-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": [
+                {
+                  "component": "power460p3-lc",
+                  "output": "output0"
+                }
+              ]
+            }
+          ]
+        },
+        "05ef2e93-d2cc-4994-9322-8b7239d8c2f4": {
+          "meta": {
+            "name": "5 Bar",
+            "ref": "05ef2e93-d2cc-4994-9322-8b7239d8c2f4",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": []
+            }
+          ],
+          "manometer": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": []
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": [
+                {
+                  "component": "pressure5",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": []
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": []
+            }
+          ]
+        },
+        "9c35fbdd-7292-429e-8fac-a557e6fea4e6": {
+          "meta": {
+            "name": "5,6 Bar",
+            "ref": "9c35fbdd-7292-429e-8fac-a557e6fea4e6",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": []
+            }
+          ],
+          "manometer": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": []
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": [
+                {
+                  "component": "pressure5.6",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": []
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": []
+            }
+          ]
+        },
+        "5984852a-905c-4b93-8fe4-73e474cf932e": {
+          "meta": {
+            "name": "80 Bar",
+            "ref": "5984852a-905c-4b93-8fe4-73e474cf932e",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": []
+            }
+          ],
+          "manometer": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": []
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": [
+                {
+                  "component": "pressure80",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": []
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": []
+            }
+          ]
+        },
+        "9f55c789-704d-4594-b4db-6459d88bb60b": {
+          "meta": {
+            "name": "105 Bar",
+            "ref": "9f55c789-704d-4594-b4db-6459d88bb60b",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": []
+            }
+          ],
+          "manometer": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": []
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": [
+                {
+                  "component": "pressure105",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": []
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": []
+            }
+          ]
+        },
+        "6c4936af-0a11-44f4-90bc-ca51f6024e03": {
+          "meta": {
+            "name": "236 Bar",
+            "ref": "6c4936af-0a11-44f4-90bc-ca51f6024e03",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": []
+            }
+          ],
+          "manometer": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": []
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": [
+                {
+                  "component": "pressure236",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": []
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": []
+            }
+          ]
+        },
+        "ebcdd2c1-3ef2-4d84-b163-1530286b6158": {
+          "meta": {
+            "name": "255 Bar",
+            "ref": "ebcdd2c1-3ef2-4d84-b163-1530286b6158",
+            "color": "#121212"
+          },
+          "pointer": [
+            {
+              "actions": []
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": []
+            }
+          ],
+          "manometer": [
+            {
+              "actions": [
+                {
+                  "model": "interface",
+                  "properties": {
+                    "error": 5
+                  }
+                }
+              ]
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "[ppe]multimeter": [
+            {
+              "actions": []
+            }
+          ],
+          "[ppe]manometer": [
+            {
+              "actions": [
+                {
+                  "component": "pressure255",
+                  "output": "output0"
+                }
+              ]
+            }
+          ],
+          "action": [],
+          "dsp5": [
+            {
+              "actions": []
+            }
+          ],
+          "[ppe]dsp5": [
+            {
+              "actions": []
+            }
+          ]
+        },
+        "bbbe75fe-7ebc-467b-b0e5-b152bfc7160f": {
+          "meta": {
+            "name": "open-interaction",
+            "ref": "bbbe75fe-7ebc-467b-b0e5-b152bfc7160f"
+          },
+          "pointer": [
+            {
+              "actions": [
+                {
+                  "model": "con-left01-cab10",
+                  "key": "enabled",
+                  "value": true
+                }
+              ]
+            }
+          ],
+          "loto": [
+            {
+              "actions": []
+            }
+          ],
+          "multimeter": [
+            {
+              "actions": []
+            }
+          ],
+          "manometer": [
+            {
+              "actions": []
+            }
+          ],
+          "replace": [],
+          "screwdriver": [],
+          "hand": [],
+          "dsp5": [
+            {
+              "actions": []
+            }
+          ]
+        }
+      },
+      "interactionShapes": [
+        {
+          "id": "bbbe75fe-7ebc-467b-b0e5-b152bfc7160f",
+          "name": "open-interaction",
+          "color": "#370074",
+          "elements": [
+            {
+              "type": "Polygon",
+              "x": 0,
+              "y": 0,
+              "vertices": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 10000,
+                  "y": 0
+                },
+                {
+                  "x": 10000,
+                  "y": 10000
+                },
+                {
+                  "x": 0,
+                  "y": 10000
+                }
+              ]
+            }
+          ],
+          "anchors": [],
+          "index": 0
+        }
+      ],
+      "infolayer": [
+        {
+          "id": "b01f80dc-3e06-43b7-8dea-cbacb0b980c3",
+          "name": "info-1",
+          "elements": [
+            {
+              "type": "Text",
+              "text": "+MSE42UC001.E1\n=MSE72TA001\n",
+              "x": 205,
+              "y": 111,
+              "rotation": 0,
+              "color": "white"
+            }
+          ],
+          "index": 1
+        }
+      ],
+      "components": []
+    }
+  ]
+}

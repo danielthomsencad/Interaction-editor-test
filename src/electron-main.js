@@ -7,11 +7,14 @@ import { fileURLToPath } from 'url'
 
 function createWindow() {
   const __dirname = fileURLToPath(new URL('.', import.meta.url))
+  const preloadPath = join(__dirname, 'electron/preload.js')
+  console.log('Preload path:', preloadPath)
+
   const win = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      preload: join(__dirname, 'electron/preload.js'),
+      preload: preloadPath,
     },
   })
 
