@@ -1,11 +1,8 @@
 <script setup>
 // import { Canvas } from '@avolutions/canvas-painter';
+import ViewContainer from "./ViewContainer.vue";
 import useJsonStore from "@/stores/store";
 import { onMounted, watchEffect } from 'vue';
-
-
-
-
 
 
 
@@ -32,21 +29,15 @@ watchEffect(() => {   if (jsonStore.currentImg) {
 
 </script>
 <template>
-<div class="container">
+<ViewContainer>
 <div class="canvas-wrapper">
 <canvas id="myCanvas" :width="width" :height="height"></canvas>
 <img :src="jsonStore.currentImg" />
 </div>
-
-</div>
+</ViewContainer>
 </template>
 <style scoped>
-.container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: scroll;
-}
+
 .canvas-wrapper{
   position: absolute;
   top: 0;
