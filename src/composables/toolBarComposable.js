@@ -8,8 +8,9 @@ const useToolBar = () => {
       const data = await window.api.showOpenDialog()
       jsonStore.jsonData = data
       jsonStore.states = data.states || []
-      jsonStore.currentImg =
-        data.states && data.states.length > 0 ? `data/${data.states[0].img}` : null
+      if (data.states && data.states.length > 0) {
+        jsonStore.setCurrentState(0) // This will set currentImg AND currentInteractionShapes!
+      }
       console.log('Current Image set to:', jsonStore.currentImg)
       console.log('File opened successfully', jsonStore.states)
     } catch (error) {

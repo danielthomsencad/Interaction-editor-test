@@ -2,20 +2,14 @@
 // import { Canvas } from '@avolutions/canvas-painter';
 import ViewContainer from './ViewContainer.vue'
 import { useJsonStore, useTransformStore } from '@/stores/store'
-import { onMounted, watchEffect, ref } from 'vue'
+import { watchEffect, ref } from 'vue'
+import ShapeRenderer from './ShapeRenderer.vue'
 
 const img = new Image()
 const jsonStore = useJsonStore()
 const transformStore = useTransformStore()
 const viewContainerRef = ref(null)
 img.src = jsonStore.currentImg
-// let canvas = null;
-
-onMounted(() => {
-  // canvas = Canvas.init('myCanvas');
-})
-
-const renderCanvas = () => {}
 
 watchEffect(() => {
   if (jsonStore.currentImg) {
@@ -45,8 +39,6 @@ watchEffect(() => {
         transformStore.zoomLevel = 1.0
       }
     }
-
-    renderCanvas()
   }
 })
 </script>
@@ -56,8 +48,9 @@ watchEffect(() => {
       class="canvas-wrapper"
       :style="`transform: translate(${transformStore.panX}px, ${transformStore.panY}px) scale(${transformStore.zoomLevel})`"
     >
-      <canvas id="myCanvas" :width="width" :height="height"></canvas>
+      <!-- <canvas id="myCanvas" :width="width" :height="height"></canvas> -->
       <img :src="jsonStore.currentImg" />
+      <ShapeRenderer :canvasId="'myCanvas'" />
     </div>
   </ViewContainer>
 </template>

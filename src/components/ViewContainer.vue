@@ -198,7 +198,7 @@ const handleMouseWheel = (event) => {
     const boundedPan = clampPanToBounds(newPanX, newPanY)
 
     transformStore.panX = boundedPan.x
-    transformStore.panY = boundedPan.y // Update zoom level
+    transformStore.panY = boundedPan.y
     transformStore.zoomLevel = newZoom
   }
 }
