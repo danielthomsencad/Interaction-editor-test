@@ -2,19 +2,24 @@
 import Toolbar from './components/ToolBar.vue'
 import SideBar from './components/SideBar.vue'
 import CanvasComponent from './components/CanvasComponent.vue'
-</script>
+import ActionContainer from './components/ActionContainer.vue'
 
+
+
+
+</script>
 <template>
   <main>
     <Toolbar class="toolbar" />
     <CanvasComponent class="content" />
-
     <SideBar class="sidebar" />
+    <ActionContainer class="action-container" />
   </main>
 </template>
 
 <style scoped>
 main {
+  position: relative;
   display: grid;
   height: 100vh; /* full viewport height */
   grid-template-areas:
@@ -35,9 +40,19 @@ main {
   border: 2px dotted black;
 }
 
+.action-container {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+}
+
 .sidebar {
   grid-area: sidebar;
   background-color: grey;
   border: 2px dotted black;
+  overflow-y: auto;      /* Enable vertical scrolling */
+  max-height: 100vh;     /* Prevent sidebar from growing beyond viewport */
 }
 </style>

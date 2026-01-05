@@ -18,6 +18,7 @@ Currently testing **canvaspainter.js** as the first canvas drawing framework imp
 - **DO** ask guiding questions to help the developer think through problems
 - **DO** point out potential pitfalls or edge cases
 - **DO** explain why certain patterns are better than others
+- **DO** add small snippets only to illustrate specific points (never full implementations) for the current step in currentStep.md
 
 ### Learning Objectives:
 - Canvas drawing and shape management

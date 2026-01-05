@@ -1,169 +1,159 @@
 # 🎯 Your Learning Path
 
-## ✅ STEP 1: Store Enhancement (COMPLETED)
+## 📊 Phase 1: Data (COMPLETED) ✅
 
-Add currentStateIndex, currentInteractionShapes, selectedShapeId and understand how state management works
-
-## ✅ Step 2: State Switching Logic (COMPLETED)
-
-Implement the action to switch between states and see how data flows
-
-## ✅ Step 3: Shape Data Loading (COMPLETED)
-
-Extract interactionShapes from JSON states and understand the data structure
-
-## ✅ STEP 4: Basic Shape Rendering (COMPLETED)
-
-Create a simple canvas overlay and draw your first polygon
-
-## **➡️ STEP 5: Shape Selection** (CURRENT)
-
-Add click detection and see how point-in-polygon algorithms work
-
-## Step 6: Sidebar Integration
-
-Connect the sidebar to show current shapes and handle selection
+You successfully implemented:
+- Store management for JSON data, states, and selections
+- Canvas rendering with shapes, interactions, and infolayers
+- Shape selection (single, double-click for elements, drag selection)
+- Sidebar integration with dynamic lists
+- Info layer with bitmap fonts and grayscale filters
+- Performance optimizations for drag selection
+- Action container with CodeMirror integration
 
 ---
 
-# Step 5: Shape Selection
+## 🎨 Phase 2: Changing Data (CURRENT)
 
-## Goal
+Now you'll learn how to **modify** the visual and data properties of your canvas elements. This phase focuses on user interactions that change the appearance and content of shapes, text, images, and code.
 
-Add click detection to your canvas so users can select shapes by clicking on them.
+### **✅ Step 1: Color Picker for Shapes** (COMPLETED)
 
-## What to implement
+Implemented a color picker to change polygon fill and stroke colors:
+- Added HTML5 `<input type="color">` to sidebar
+- Created `updateShapeColor` store action to update both `interactionShapes` and `interactions.meta`
+- Automatic canvas re-render through reactive watchers
+- Two-way data binding between UI and canvas
 
-### 1. Add Click Handler to ShapeRenderer
+#### Key Concepts Learned
+- Reactive color updates with Pinia store mutations
+- Canvas fill/stroke style management
+- Event handling with `@change` on input elements
+- Maintaining data consistency across multiple JSON structures
 
-Add this to your ShapeRenderer.vue:
+---
 
-```javascript
-const handleCanvasClick = (event) => {
-  if (!ctx || !jsonStore.currentInteractionShapes) return
+### **✅ Step 2: Drag-and-Drop Layer Ordering** (COMPLETED)
 
-  const rect = canvas.value.getBoundingClientRect()
-  const scaleX = canvas.value.width / rect.width
-  const scaleY = canvas.value.height / rect.height
+Implemented HTML5 Drag-and-Drop API to reorder interaction layers in the sidebar:
+- Made all sidebar list items draggable with `draggable="true"`
+- Implemented drag event handlers: `dragstart`, `dragover`, `dragleave`, `drop`
+- Track dragged item by ID (not index) for flexibility
+- Visual drop indicator line shows exactly where item will land
+- Maintains separate sidebar display order and shapes array order
+- Fixed index-shift bug when moving items forward in array
+- Canvas automatically re-renders with new z-order
 
-  const x = (event.clientX - rect.left) * scaleX
-  const y = (event.clientY - rect.top) * scaleY
+#### Key Concepts Learned
+- **HTML5 Drag-and-Drop API**: `dragstart`, `dragover`, `drop` events
+- **DataTransfer object**: Passing interaction ID between events
+- **Array manipulation**: Using `splice()` with index adjustment for reordering
+- **Z-order/layer stacking**: Array order determines canvas render order (last item = top layer)
+- **Event.preventDefault()**: Required in `dragover` to enable drop zones
+- **Visual feedback**: CSS borders for drop position indicators
+- **Mouse position detection**: `getBoundingClientRect()` to determine drop position (before/after)
+- **Reactive state management**: Separate `sidebarOrder` ref for display vs `currentInteractionShapes` for canvas
+- **Edge case handling**: Works with interactions that don't have shapes
 
-  // Check shapes from top to bottom (reverse order)
-  for (let i = jsonStore.currentInteractionShapes.length - 1; i >= 0; i--) {
-    const shape = jsonStore.currentInteractionShapes[i]
+#### What Was Implemented
+1. Local `sidebarOrder` ref to track sidebar display order independently
+2. Watcher on `currentInteractionShapes` to initialize order from shapes array
+3. Smart drag handlers that calculate adjusted insert index after removal
+4. Drop position detection (top half = before, bottom half = after)
+5. Blue line indicator showing precise drop location
+6. Store action `reorderInteractionShapes` with index-shift correction
+7. Dual reordering: sidebar list AND shapes array when both items have shapes
 
-    if (isPointInShape(x, y, shape)) {
-      jsonStore.setCurrentInteraction(i)
-      return
-    }
-  }
+---
 
-  // No shape clicked, clear selection
-  jsonStore.selectedShapeId = null
-}
-```
+### **➡️ Step 3: Shape Manipulation (Move, Resize, Rotate)** (Current)
 
-### 2. Point-in-Polygon Detection
+Transform shapes by dragging vertices and handles:
+- Drag to move entire shapes
+- Drag vertices to reshape polygons
+- Add rotation and scale handles
+- Update vertex coordinates in real-time
 
-Add these helper functions:
+#### Key Concepts to Learn
+- Mouse event coordinate transformations (screen → canvas space)
+- Polygon vertex manipulation algorithms
+- Transform matrices for rotation/scaling
+- Debouncing vs throttling for performance during drag
+- Collision detection while dragging
 
-```javascript
-const isPointInShape = (x, y, shape) => {
-  if (!shape.elements) return false
+---
 
-  return shape.elements.some((element) => {
-    if (element.type === 'Polygon' && element.vertices) {
-      return isPointInPolygon(x, y, element)
-    }
-    return false
-  })
-}
+### Step 4: Text Editing in Infolayers
 
-const isPointInPolygon = (x, y, element) => {
-  const vertices = element.vertices.map((v) => ({
-    x: element.x + v.x,
-    y: element.y + v.y,
-  }))
+Enable editing of text elements in infolayers:
+- Click text to enter edit mode
+- Show text input field with current content
+- Update text in store and re-render with bitmap font
+- Handle multi-line text and line breaks
 
-  let inside = false
-  for (let i = 0, j = vertices.length - 1; i < vertices.length; j = i++) {
-    if (
-      vertices[i].y > y !== vertices[j].y > y &&
-      x <
-        ((vertices[j].x - vertices[i].x) * (y - vertices[i].y)) / (vertices[j].y - vertices[i].y) +
-          vertices[i].x
-    ) {
-      inside = !inside
-    }
-  }
-  return inside
-}
-```
+#### Key Concepts to Learn
+- Inline editing patterns (contenteditable, input overlays)
+- Text cursor positioning on canvas
+- String manipulation and validation
+- Textarea auto-sizing to match canvas text bounds
+- Focus management and keyboard event handling
 
-### 3. Visual Selection Feedback
+---
 
-Update your `drawPolygon` function:
+### Step 5: Add/Remove Images
 
-```javascript
-const drawPolygon = (shape, isSelected = false) => {
-  if (!ctx || !shape.elements) return
+Add new images to infolayers and manage image elements:
+- File picker to select images from filesystem
+- Upload and cache images in the application
+- Position new images on canvas with drag-and-drop
+- Delete selected images
 
-  shape.elements.forEach((element) => {
-    if (element.type === 'Polygon' && element.vertices) {
-      ctx.beginPath()
-      // ... drawing code ...
+#### Key Concepts to Learn
+- File API for image uploads
+- Image validation (format, size, dimensions)
+- Drag-and-drop file handling
+- Image caching strategies (URL.createObjectURL vs base64)
+- Electron IPC for file system access (if needed)
 
-      // Style based on selection state
-      if (isSelected) {
-        ctx.fillStyle = shape.color + '80' // More opacity when selected
-        ctx.strokeStyle = '#ffffff'
-        ctx.lineWidth = 3
-      } else {
-        ctx.fillStyle = shape.color + '40' // Less opacity when not selected
-        ctx.strokeStyle = shape.color
-        ctx.lineWidth = 2
-      }
+---
 
-      ctx.fill()
-      ctx.stroke()
-    }
-  })
-}
-```
+### Step 6: Code Editor Integration for Actions
 
-### 4. Update Template
+Edit action code in the CodeMirror editor:
+- Parse action arrays from JSON
+- Allow editing individual action objects
+- Validate JSON structure on change
+- Save edited actions back to the interaction object
 
-Add click handler to canvas:
+#### Key Concepts to Learn
+- CodeMirror change event handling
+- JSON validation and error display
+- Bi-directional data sync (editor ↔ store)
+- Debouncing editor changes to avoid excessive updates
+- Syntax highlighting for action-specific fields
 
-```vue
-<template>
-  <canvas
-    :id="canvasId"
-    @click="handleCanvasClick"
-    style="position: absolute; top: 0; left: 0; pointer-events: auto; z-index: 10; cursor: pointer;"
-  />
-</template>
-```
+---
 
-## Key Concepts to Understand
+### Step 7: Shape Creation Tools
 
-### 🎯 **Click Detection**
+Add new shapes to the canvas:
+- Click to add polygon vertices
+- Close polygon on double-click or Enter key
+- Preview shape while drawing
+- Add new shape to interactionShapes array
 
-- **Coordinate conversion**: Converting mouse clicks to canvas coordinates
-- **Layer priority**: Top shapes (last in array) get click priority
-- **Boundary calculations**: Account for canvas scaling and positioning
+#### Key Concepts to Learn
+- Interactive drawing state machines (idle → drawing → complete)
+- Path preview rendering (dashed lines, temporary shapes)
+- Coordinate capture and storage
+- Shape validation (minimum vertices, self-intersection check)
+- Store mutation for adding new objects to arrays
 
-### 📐 **Point-in-Polygon Algorithm**
+---
 
-- **Ray casting**: Mathematical test to see if point is inside polygon
-- **Edge crossing**: Count how many polygon edges a horizontal ray crosses
-- **Odd = inside**: If ray crosses odd number of edges, point is inside
+## 📝 Phase 3: Saving Data (UPCOMING)
 
-### 🎨 **Visual Feedback**
+Future focus: Persisting all changes back to the correct JSON structure and file system.
 
-- **Selection highlighting**: Different colors/opacity for selected shapes
-- **Cursor changes**: Pointer cursor to indicate clickable areas
-- **State synchronization**: Selection updates both canvas and sidebar
 
-Try implementing this and you should be able to click on shapes to select them!
+

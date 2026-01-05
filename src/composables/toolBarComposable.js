@@ -11,8 +11,7 @@ const useToolBar = () => {
       if (data.states && data.states.length > 0) {
         jsonStore.setCurrentState(0) // This will set currentImg AND currentInteractionShapes!
       }
-      console.log('Current Image set to:', jsonStore.currentImg)
-      console.log('File opened successfully', jsonStore.states)
+      console.log('File opened successfully', jsonStore.currentActions)
     } catch (error) {
       console.error('Failed to open file:', error)
     }

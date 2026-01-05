@@ -2,8 +2,9 @@
 // import { Canvas } from '@avolutions/canvas-painter';
 import ViewContainer from './ViewContainer.vue'
 import { useJsonStore, useTransformStore } from '@/stores/store'
-import { watchEffect, ref } from 'vue'
+import { watchEffect, ref, watch } from 'vue'
 import ShapeRenderer from './ShapeRenderer.vue'
+
 
 const img = new Image()
 const jsonStore = useJsonStore()
@@ -41,15 +42,25 @@ watchEffect(() => {
     }
   }
 })
+
+watch(() => jsonStore.selectedInfolayerId, (infolayer) => {
+  console.log('Detected change in selectedInfolayer:', infolayer);
+  if (infolayer) {
+    console.log('Applying grayscale for infolayer:', infolayer);
+    transformStore.setGrayscale();
+  } else {
+    console.log('Clearing grayscale');
+    transformStore.clearGrayscale();
+  }
+});
 </script>
 <template>
-  <ViewContainer ref="viewContainerRef">
+  <ViewContainer :ref="viewContainerRef">
     <div
       class="canvas-wrapper"
       :style="`transform: translate(${transformStore.panX}px, ${transformStore.panY}px) scale(${transformStore.zoomLevel})`"
     >
-      <!-- <canvas id="myCanvas" :width="width" :height="height"></canvas> -->
-      <img :src="jsonStore.currentImg" />
+      <img :src="jsonStore.currentImg" :style="transformStore.grayscale ? 'filter: grayscale(100%) brightness(50%)' : ''" style="user-select: none;" />
       <ShapeRenderer :canvasId="'myCanvas'" />
     </div>
   </ViewContainer>

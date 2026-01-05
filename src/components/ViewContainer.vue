@@ -6,11 +6,12 @@ const viewContainer = ref(null)
 const transformStore = useTransformStore()
 
 const ZOOM_STEP = 0.1 // 10% increments
-const MIN_ZOOM = 0.5 // 50% minimum
+const MIN_ZOOM = 0.15 // 15% minimum
 const MAX_ZOOM = 3.0 // 300 % maximum
 const DEFAULT_ZOOM = 1.0
 
 const isSpacePressed = ref(false)
+const isCtrlPressed = ref(false)
 const isPanning = ref(false) // Currently dragging?
 const dragStartX = ref(0) // Mouse position when drag started
 const dragStartY = ref(0)
@@ -95,6 +96,11 @@ const deactivateListener = () => {
   viewContainer.value?.removeEventListener('mousemove', handleMouseMove)
 }
 const handleKeyDown = (event) => {
+  if (event.ctrlKey && !isCtrlPressed.value) {
+    isCtrlPressed.value = true
+    updateCursor()
+  }
+  
   if (event.ctrlKey) {
     switch (event.key) {
       case '+':
@@ -113,8 +119,7 @@ const handleKeyDown = (event) => {
     }
   } else if (event.key === ' ') {
     isSpacePressed.value = true
-    //enter pan mode
-    viewContainer.value.style.cursor = 'grab'
+    updateCursor()
     event.preventDefault() // Prevent page scroll
   }
 }
@@ -136,8 +141,24 @@ const handleMouseMove = (event) => {
 const handleKeyUp = (event) => {
   if (event.key === ' ') {
     isSpacePressed.value = false
+    updateCursor()
+  } else if (event.key === 'Control') {
+    isCtrlPressed.value = false
+    updateCursor()
+  }
+}
+
+const updateCursor = () => {
+  if (!viewContainer.value) return
+  
+  if (isPanning.value) {
+    viewContainer.value.style.cursor = 'grabbing'
+  } else if (isCtrlPressed.value) {
+    viewContainer.value.style.cursor = 'zoom-in'
+  } else if (isSpacePressed.value) {
+    viewContainer.value.style.cursor = 'grab'
+  } else {
     viewContainer.value.style.cursor = 'default'
-    //exit pan mode
   }
 }
 const handleMouseDown = (event) => {
@@ -151,8 +172,8 @@ const handleMouseDown = (event) => {
     dragStartY.value = event.clientY
     initialPanX.value = transformStore.panX
     initialPanY.value = transformStore.panY
-    // Change cursor to "grabbing"
-    viewContainer.value.style.cursor = 'grabbing'
+    // Update cursor
+    updateCursor()
   }
 }
 const handleMouseUp = () => {
@@ -163,8 +184,8 @@ const handleMouseUp = () => {
     transformStore.panY = boundedPan.y
 
     // End panning
-    viewContainer.value.style.cursor = isSpacePressed.value ? 'grab' : 'default'
     isPanning.value = false
+    updateCursor()
   }
 }
 const handleMouseWheel = (event) => {
