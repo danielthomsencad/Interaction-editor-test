@@ -182,8 +182,8 @@ const drawPolygon = (shape, isLayerSelected = false, isIndividualSelected = fals
     }
   })
 
-  // Only draw anchors when shape is selected (performance optimization)
-  if ((isLayerSelected || isIndividualSelected) && Array.isArray(shape.anchors)) {
+  // Draw anchors for all shapes
+  if (Array.isArray(shape.anchors)) {
     shape.anchors.forEach((anchor) => {
       drawAnchorPoint(ctx, anchor.x, anchor.y, isIndividualSelected)
     })
