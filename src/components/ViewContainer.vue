@@ -7,7 +7,7 @@ const transformStore = useTransformStore()
 
 const ZOOM_STEP = 0.1 // 10% increments
 const MIN_ZOOM = 0.15 // 15% minimum
-const MAX_ZOOM = 3.0 // 300 % maximum
+const MAX_ZOOM = 2.5 // 250  % maximum
 const DEFAULT_ZOOM = 1.0
 
 const isSpacePressed = ref(false)
@@ -36,31 +36,35 @@ const clampPanToBounds = (panX, panY) => {
     }
   }
 
-  // Boundary calculation that gives more freedom at higher zoom levels
+  // Boundary calculation: ensure at least some % of image remains visible
+  // More zoom = more freedom (smaller visible percentage required)
   const zoomFactor = transformStore.zoomLevel
   const scaledImageWidth = transformStore.contentWidth * zoomFactor
   const scaledImageHeight = transformStore.contentHeight * zoomFactor
 
-  // Progressive offscreen allowance: more zoom = more freedom
-  // At 1x zoom: 75% can go offscreen
-  // At 2x zoom: 87.5% can go offscreen
-  // At 3x zoom: 91.7% can go offscreen
-  // At 5x zoom: 95% can go offscreen
-  const baseAllowance = 0.75
-  const zoomBonus = Math.min(0.2, (zoomFactor - 1) * 0.1) // Cap bonus at 20%
-  const offscreenRatio = baseAllowance + zoomBonus
+  // Progressive visible requirement: more zoom = less needs to stay visible
+  // At 1x zoom: 10% must stay visible
+  // At 2x zoom: 5% must stay visible
+  // At 3x zoom: 2.5% must stay visible (97.5% can go offscreen!)
+  const baseVisibleRatio = 0.1
+  const zoomBonus = Math.min(0.075, (zoomFactor - 1) * 0.05) // Max 7.5% bonus
+  const minVisibleRatio = baseVisibleRatio - zoomBonus
 
-  const allowedOffscreenX = scaledImageWidth * offscreenRatio
-  const allowedOffscreenY = scaledImageHeight * offscreenRatio
+  const minVisibleWidth = scaledImageWidth * minVisibleRatio
+  const minVisibleHeight = scaledImageHeight * minVisibleRatio
 
-  // Calculate boundaries
-  // Minimum pan: image can move left/up with progressive offscreen allowance
-  const minX = -allowedOffscreenX
-  const minY = -allowedOffscreenY
+  // Calculate boundaries based on keeping minimum visible
+  // Can pan right until only minimum % is visible on the left side
+  const minX = -scaledImageWidth + minVisibleWidth
 
-  // Maximum pan: image can move right/down with progressive offscreen allowance
-  const maxX = containerWidth - scaledImageWidth + allowedOffscreenX
-  const maxY = containerHeight - scaledImageHeight + allowedOffscreenY
+  // Can pan left until only minimum % is visible on the right side
+  const maxX = containerWidth - minVisibleWidth
+
+  // Can pan up (negative direction) until only minimum % is visible at the bottom
+  const minY = -scaledImageHeight + minVisibleHeight
+
+  // Can pan down (positive direction) until only minimum % is visible at the top
+  const maxY = containerHeight - minVisibleHeight
 
   // Apply boundaries with soft resistance instead of hard snapping
   let clampedX = panX
@@ -71,7 +75,6 @@ const clampPanToBounds = (panX, panY) => {
   if (panX > maxX) clampedX = maxX
   if (panY < minY) clampedY = minY
   if (panY > maxY) clampedY = maxY
-
   return {
     x: clampedX,
     y: clampedY,
@@ -100,7 +103,7 @@ const handleKeyDown = (event) => {
     isCtrlPressed.value = true
     updateCursor()
   }
-  
+
   if (event.ctrlKey) {
     switch (event.key) {
       case '+':
@@ -150,7 +153,7 @@ const handleKeyUp = (event) => {
 
 const updateCursor = () => {
   if (!viewContainer.value) return
-  
+
   if (isPanning.value) {
     viewContainer.value.style.cursor = 'grabbing'
   } else if (isCtrlPressed.value) {
