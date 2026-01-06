@@ -3,6 +3,7 @@
 ## 📊 Phase 1: Data (COMPLETED) ✅
 
 You successfully implemented:
+
 - Store management for JSON data, states, and selections
 - Canvas rendering with shapes, interactions, and infolayers
 - Shape selection (single, double-click for elements, drag selection)
@@ -20,12 +21,14 @@ Now you'll learn how to **modify** the visual and data properties of your canvas
 ### **✅ Step 1: Color Picker for Shapes** (COMPLETED)
 
 Implemented a color picker to change polygon fill and stroke colors:
+
 - Added HTML5 `<input type="color">` to sidebar
 - Created `updateShapeColor` store action to update both `interactionShapes` and `interactions.meta`
 - Automatic canvas re-render through reactive watchers
 - Two-way data binding between UI and canvas
 
 #### Key Concepts Learned
+
 - Reactive color updates with Pinia store mutations
 - Canvas fill/stroke style management
 - Event handling with `@change` on input elements
@@ -36,6 +39,7 @@ Implemented a color picker to change polygon fill and stroke colors:
 ### **✅ Step 2: Drag-and-Drop Layer Ordering** (COMPLETED)
 
 Implemented HTML5 Drag-and-Drop API to reorder interaction layers in the sidebar:
+
 - Made all sidebar list items draggable with `draggable="true"`
 - Implemented drag event handlers: `dragstart`, `dragover`, `dragleave`, `drop`
 - Track dragged item by ID (not index) for flexibility
@@ -45,6 +49,7 @@ Implemented HTML5 Drag-and-Drop API to reorder interaction layers in the sidebar
 - Canvas automatically re-renders with new z-order
 
 #### Key Concepts Learned
+
 - **HTML5 Drag-and-Drop API**: `dragstart`, `dragover`, `drop` events
 - **DataTransfer object**: Passing interaction ID between events
 - **Array manipulation**: Using `splice()` with index adjustment for reordering
@@ -56,6 +61,7 @@ Implemented HTML5 Drag-and-Drop API to reorder interaction layers in the sidebar
 - **Edge case handling**: Works with interactions that don't have shapes
 
 #### What Was Implemented
+
 1. Local `sidebarOrder` ref to track sidebar display order independently
 2. Watcher on `currentInteractionShapes` to initialize order from shapes array
 3. Smart drag handlers that calculate adjusted insert index after removal
@@ -66,32 +72,49 @@ Implemented HTML5 Drag-and-Drop API to reorder interaction layers in the sidebar
 
 ---
 
-### **➡️ Step 3: Shape Manipulation (Move, Resize, Rotate)** (Current)
+### **➡️ Step 3: Keyboard-Based Shape Movement & Layer Management** (Current)
 
-Transform shapes by dragging vertices and handles:
-- Drag to move entire shapes
-- Drag vertices to reshape polygons
-- Add rotation and scale handles
-- Update vertex coordinates in real-time
+Move selected shapes using keyboard shortcuts with incremental precision:
+
+- **Arrow keys**: Move shape by 1px in the arrow direction
+- **Ctrl + Arrow keys**: Move shape by 10px in the arrow direction
+- **Shift + Arrow keys**: Move shape by 100px in the arrow direction
+- Update vertex coordinates in the JSON data structure
+- Automatic canvas re-render after movement
+
+Manage layers/shapes from the sidebar:
+
+- **Delete layer/shape**: Remove selected interaction from sidebar list
+- **Add layer/shape**: Add new empty interaction to sidebar (sidebar-only for now)
+- **Rename layer**: Double-click layer name to enable inline editing
 
 #### Key Concepts to Learn
-- Mouse event coordinate transformations (screen → canvas space)
-- Polygon vertex manipulation algorithms
-- Transform matrices for rotation/scaling
-- Debouncing vs throttling for performance during drag
-- Collision detection while dragging
+
+- Keyboard event handling (`keydown`, `keyup`)
+- Event modifier detection (`event.ctrlKey`, `event.shiftKey`)
+- Arrow key codes (`ArrowUp`, `ArrowDown`, `ArrowLeft`, `ArrowRight`)
+- Vector-based coordinate transformation (adding offsets to all vertices)
+- Real-time data mutation with canvas synchronization
+- Preventing default browser scroll behavior during arrow key presses
+- Array mutations: `splice()` for deletion, `push()` for addition
+- Double-click event handling (`@dblclick`) for inline editing
+- Conditional rendering: showing input field vs display text
+- Managing focus state for edit mode
+- Validating and updating layer names in the store
 
 ---
 
 ### Step 4: Text Editing in Infolayers
 
 Enable editing of text elements in infolayers:
+
 - Click text to enter edit mode
 - Show text input field with current content
 - Update text in store and re-render with bitmap font
 - Handle multi-line text and line breaks
 
 #### Key Concepts to Learn
+
 - Inline editing patterns (contenteditable, input overlays)
 - Text cursor positioning on canvas
 - String manipulation and validation
@@ -103,12 +126,14 @@ Enable editing of text elements in infolayers:
 ### Step 5: Add/Remove Images
 
 Add new images to infolayers and manage image elements:
+
 - File picker to select images from filesystem
 - Upload and cache images in the application
 - Position new images on canvas with drag-and-drop
 - Delete selected images
 
 #### Key Concepts to Learn
+
 - File API for image uploads
 - Image validation (format, size, dimensions)
 - Drag-and-drop file handling
@@ -120,12 +145,14 @@ Add new images to infolayers and manage image elements:
 ### Step 6: Code Editor Integration for Actions
 
 Edit action code in the CodeMirror editor:
+
 - Parse action arrays from JSON
 - Allow editing individual action objects
 - Validate JSON structure on change
 - Save edited actions back to the interaction object
 
 #### Key Concepts to Learn
+
 - CodeMirror change event handling
 - JSON validation and error display
 - Bi-directional data sync (editor ↔ store)
@@ -137,12 +164,14 @@ Edit action code in the CodeMirror editor:
 ### Step 7: Shape Creation Tools
 
 Add new shapes to the canvas:
+
 - Click to add polygon vertices
 - Close polygon on double-click or Enter key
 - Preview shape while drawing
 - Add new shape to interactionShapes array
 
 #### Key Concepts to Learn
+
 - Interactive drawing state machines (idle → drawing → complete)
 - Path preview rendering (dashed lines, temporary shapes)
 - Coordinate capture and storage
@@ -154,6 +183,3 @@ Add new shapes to the canvas:
 ## 📝 Phase 3: Saving Data (UPCOMING)
 
 Future focus: Persisting all changes back to the correct JSON structure and file system.
-
-
-
