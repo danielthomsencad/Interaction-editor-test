@@ -1,4 +1,4 @@
-import { ipcMain, dialog } from 'electron'
+import { ipcMain, dialog, BrowserWindow } from 'electron'
 import { readFileSync, writeFileSync } from 'fs'
 
 export function registerIpcHandlers() {
@@ -19,7 +19,9 @@ export function registerIpcHandlers() {
   })
 
   ipcMain.handle('show-confirm-dialog', async (event, options) => {
-    const result = await dialog.showMessageBox({
+    const parentWindow = BrowserWindow.fromWebContents(event.sender)  // Get parent window
+  
+    const result = await dialog.showMessageBox(parentWindow, {
       type: 'warning',
       buttons: ['Cancel', 'Delete'],
       defaultId: 0,

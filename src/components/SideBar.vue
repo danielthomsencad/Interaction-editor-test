@@ -12,15 +12,37 @@ const dropPosition = ref(null) // 'before' or 'after'
 const isDragging = ref(false)
 const showHistory = ref(false)
 const autoCloseTimeout = ref(null)
+const editingId = ref(null)
+const editingName = ref('')
+const editingStateIndex = ref(null)
+const editingStateName = ref('')
+const editingInfoLayerId = ref(null)
+const editingInfoLayerName = ref('')
 
 // Local state to maintain sidebar display order
 const sidebarOrder = ref([])
 
+// Auto-focus the input field when editing starts
+watch(editingId, (newId) => {
+  if (newId !== null) {
+    // Use nextTick to ensure the input is rendered
+    import('vue').then(({ nextTick }) => {
+      nextTick(() => {
+        const input = document.querySelector('.rename-input')
+        if (input) {
+          input.focus()
+          input.select()
+        }
+      })
+    })
+  }
+})
+
 // Watch for changes in interactions and initialize/update order
 watch(
-  () => jsonStore.currentInteractionShapes,
-  (shapes) => {
-    if (!shapes || shapes.length === 0) return
+   () => [jsonStore.currentInteractionShapes, jsonStore.currentInteractions],
+  ([shapes, interactions]) => {
+   if ((!shapes || shapes.length === 0) && (!interactions || Object.keys(interactions).length === 0)) return
 
     // Initialize from shapes array to keep order in sync
     const shapeIds = shapes.map((s) => s.id)
@@ -44,7 +66,7 @@ watch(
       sidebarOrder.value = sidebarOrder.value.filter((id) => allCurrentIds.includes(id))
     }
   },
-  { immediate: true },
+  { immediate: true, deep: true },
 )
 
 const allInteractions = computed(() => {
@@ -119,6 +141,61 @@ const toggleHistory = () => {
 const handleColorChange = (shapeId, event) => {
   const newColor = event.target.value
   jsonStore.updateShapeColor(shapeId, newColor)
+}
+
+const startEditing = (interactionId, currentName) => {
+  editingId.value = interactionId
+  editingName.value = currentName
+}
+
+const finishEditing = (interactionId) => {
+  if (editingName.value.trim() && editingName.value !== '') {
+    // Update the interaction name in the store
+    jsonStore.updateInteractionName(interactionId, editingName.value.trim())
+  }
+  editingId.value = null
+  editingName.value = ''
+}
+
+const cancelEditing = () => {
+  editingId.value = null
+  editingName.value = ''
+}
+
+const startEditingState = (stateIndex, currentName) => {
+  editingStateIndex.value = stateIndex
+  editingStateName.value = currentName
+}
+
+const finishEditingState = (stateIndex) => {
+  if (editingStateName.value.trim() && editingStateName.value !== '') {
+    jsonStore.updateStateName(stateIndex, editingStateName.value.trim())
+  }
+  editingStateIndex.value = null
+  editingStateName.value = ''
+}
+
+const cancelEditingState = () => {
+  editingStateIndex.value = null
+  editingStateName.value = ''
+}
+
+const startEditingInfoLayer = (infoLayerId, currentName) => {
+  editingInfoLayerId.value = infoLayerId
+  editingInfoLayerName.value = currentName
+}
+
+const finishEditingInfoLayer = (infoLayerId) => {
+  if (editingInfoLayerName.value.trim() && editingInfoLayerName.value !== '') {
+    jsonStore.updateInfoLayerName(infoLayerId, editingInfoLayerName.value.trim())
+  }
+  editingInfoLayerId.value = null
+  editingInfoLayerName.value = ''
+}
+
+const cancelEditingInfoLayer = () => {
+  editingInfoLayerId.value = null
+  editingInfoLayerName.value = ''
 }
 
 const handleDragStart = (interactionId, event) => {
@@ -228,12 +305,25 @@ const handleDrop = (targetId, event) => {
         <li
           v-for="(state, index) in jsonStore.states"
           :key="state.name"
-          :class="{ active: index === jsonStore.currentStateIndex }"
-          @click="jsonStore.setCurrentState(index)"
+          :class="{ active: index === jsonStore.currentStateIndex, editing: editingStateIndex === index }"
+          @click="editingStateIndex !== index && jsonStore.setCurrentState(index)"
+          @dblclick="editingStateIndex !== index && startEditingState(index, state.name)"
         >
-          {{ state.name }}
+          <input
+            v-if="editingStateIndex === index"
+            v-model="editingStateName"
+            type="text"
+            class="rename-input"
+            @blur="finishEditingState(index)"
+            @keydown.enter="finishEditingState(index)"
+            @keydown.esc="cancelEditingState"
+            @click.stop
+            @dblclick.stop
+          />
+          <span v-else class="interaction-name" :title="state.name">{{ state.name }}</span>
         </li>
       </ul>
+      <button class="add-layer-btn" v-if="jsonStore.jsonData" @click="jsonStore.addNewState()">+ Add State</button>
     </section>
     <section class="interactions" @dragover="handleContainerDragOver">
       <div class="header">
@@ -257,15 +347,29 @@ const handleDrop = (targetId, event) => {
             'no-shape': !interaction.shape,
             'drop-before': dropTargetId === interaction.id && dropPosition === 'before',
             'drop-after': dropTargetId === interaction.id && dropPosition === 'after',
+            editing: editingId === interaction.id,
           }"
-          @click="jsonStore.setInteractionShapeById(interaction.id)"
-          draggable="true"
+          @click="editingId !== interaction.id && jsonStore.setInteractionShapeById(interaction.id)"
+          @dblclick="editingId !== interaction.id && startEditing(interaction.id, interaction.name)"
+          :draggable="editingId !== interaction.id"
           @dragstart="handleDragStart(interaction.id, $event)"
           @dragover="handleDragOver(interaction.id, $event)"
           @dragend="handleDragEnd"
           @drop="handleDrop(interaction.id, $event)"
         >
-          {{ interaction.name }}
+          <input
+            v-if="editingId === interaction.id"
+            v-model="editingName"
+            type="text"
+            class="rename-input"
+            @blur="finishEditing(interaction.id)"
+            @keydown.enter="finishEditing(interaction.id)"
+            @keydown.esc="cancelEditing"
+            @click.stop
+            @dblclick.stop
+            ref="renameInput"
+          />
+          <span v-else class="interaction-name" :title="interaction.name">{{ interaction.name }}</span>
           <div class="interaction-actions">
             <svg
               width="34px"
@@ -311,6 +415,7 @@ const handleDrop = (targetId, event) => {
           </div>
         </li>
       </ul>
+      <button class="add-layer-btn" v-if="jsonStore.jsonData" @click="jsonStore.addNewInteractionLayer()">+ Add Interaction</button>
       <div class="delete-history" v-if="showHistory">
         <div class="header">
           <p>
@@ -360,13 +465,26 @@ const handleDrop = (targetId, event) => {
           <li
             v-for="(infoItem, index) in jsonStore.currentInfolayer"
             :key="index"
-            :class="{ active: infoItem.name === jsonStore.selectedInfolayerId }"
-            @click="jsonStore.setCurrentInfolayer(infoItem.name)"
+            :class="{ active: infoItem.name === jsonStore.selectedInfolayerId, editing: editingInfoLayerId === infoItem.id }"
+            @click="editingInfoLayerId !== infoItem.id && jsonStore.setCurrentInfolayer(infoItem.name)"
+            @dblclick="editingInfoLayerId !== infoItem.id && startEditingInfoLayer(infoItem.id, infoItem.name)"
           >
-            {{ infoItem.name }}
+            <input
+              v-if="editingInfoLayerId === infoItem.id"
+              v-model="editingInfoLayerName"
+              type="text"
+              class="rename-input"
+              @blur="finishEditingInfoLayer(infoItem.id)"
+              @keydown.enter="finishEditingInfoLayer(infoItem.id)"
+              @keydown.esc="cancelEditingInfoLayer"
+              @click.stop
+              @dblclick.stop
+            />
+            <span v-else class="interaction-name" :title="infoItem.name">{{ infoItem.name }}</span>
           </li>
         </ul>
       </div>
+      <button class="add-layer-btn" v-if="jsonStore.jsonData" @click="jsonStore.addNewInfoLayer()">+ Add Info Layer</button>
     </section>
   </aside>
 </template>
@@ -463,6 +581,29 @@ li {
   align-items: center;
 }
 
+.interaction-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  margin-right: 8px;
+}
+.add-layer-btn {
+  width: 100%;
+  padding: 8px;
+  margin-top: 8px;
+  background-color: #007acc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+.add-layer-btn:hover {
+  background-color: #005999;
+}
 /* Disable pointer events on children only during active drag */
 .interactions ul.dragging li * {
   pointer-events: none;
@@ -475,6 +616,20 @@ li {
 }
 .interactions {
   position: relative;
+}
+
+.rename-input {
+  width: 70%;
+  padding: 2px 4px;
+  border: 1px solid #007acc;
+  border-radius: 2px;
+  background-color: white;
+  font-size: inherit;
+  outline: none;
+}
+
+li.editing {
+  padding: 2px 4px;
 }
 .delete-history {
   background-color: #e0e0e0;

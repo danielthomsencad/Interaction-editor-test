@@ -123,6 +123,23 @@ const useJsonStore = defineStore('jsonStore', {
         this.currentInteractions[shapeId].meta.color = newColor
       }
     },
+    updateInteractionName(shapeId, newName) {
+      // Update name in interactions meta
+      if (this.currentInteractions[shapeId]?.meta) {
+        this.currentInteractions[shapeId].meta.name = newName
+      }
+    },
+    updateStateName(stateIndex, newName) {
+      if (this.states[stateIndex]) {
+        this.states[stateIndex].name = newName
+      }
+    },
+    updateInfoLayerName(infoLayerId, newName) {
+      const infoLayer = this.currentInfolayer.find((info) => info.id === infoLayerId)
+      if (infoLayer) {
+        infoLayer.name = newName
+      }
+    },
     clearCurrentInteraction() {
       this.currentInteractionIndex = null
       this.selectedShapeId = null
@@ -130,6 +147,74 @@ const useJsonStore = defineStore('jsonStore', {
       this.selectedElementCoords = null
       this.selectedElementCoordsArray = []
     },
+addNewInteractionLayer() {
+  const newId = crypto.randomUUID()
+  
+  // Get first interaction as template
+  const interactionIds = Object.keys(this.currentInteractions)
+  if (interactionIds.length === 0) {
+    console.error('No existing interactions to use as template')
+    return
+  }
+  
+  const templateInteraction = this.currentInteractions[interactionIds[0]]
+  
+  // Build new interaction with same structure
+  const newInteraction = {}
+  
+  for (const key in templateInteraction) {
+    if (key === 'meta') {
+      // Create unique meta
+      newInteraction.meta = {
+        color: '#121212',
+        name: 'New Interaction',
+        ref: newId
+      }
+    } else {
+      // Copy array structure with empty object
+      newInteraction[key] = [{}]
+    }
+  }
+  
+  this.currentInteractions[newId] = newInteraction
+},
+addNewState() {
+  if (this.states.length === 0) {
+    console.error('No existing states to use as template')
+    return
+  }
+  
+  const templateState = this.states[0]
+  const newState = {
+    name: `New State ${this.states.length + 1}`,
+    img: templateState.img || '',
+    interactionShapes: [],
+    interactions: {},
+    infolayer: []
+  }
+  
+  this.states.push(newState)
+  // Optionally switch to the new state
+  this.setCurrentState(this.states.length - 1)
+},
+addNewInfoLayer() {
+  if (!this.currentInfolayer) {
+    this.currentInfolayer = []
+  }
+  
+  const newInfoLayer = {
+    id: crypto.randomUUID(),
+    name: `Info Layer ${this.currentInfolayer.length + 1}`,
+    elements: []
+  }
+  
+  this.currentInfolayer.push(newInfoLayer)
+  
+  // Update the current state's infolayer
+  if (this.states[this.currentStateIndex]) {
+    this.states[this.currentStateIndex].infolayer = this.currentInfolayer
+  }
+}
   },
 })
 

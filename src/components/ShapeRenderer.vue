@@ -78,7 +78,12 @@ const handleGlobalMouseUp = () => {
 }
 
 const handleKeyDown = (event) => {
+  // Don't intercept space if user is typing in an input or textarea
   if (event.code === 'Space' && !event.repeat) {
+    const activeElement = document.activeElement
+    if (activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA')) {
+      return // Let the input handle the space key
+    }
     event.preventDefault() // Prevent page scroll
     isSpacePressed.value = true
     updateCursor()
