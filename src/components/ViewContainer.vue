@@ -7,7 +7,7 @@ const transformStore = useTransformStore()
 
 const ZOOM_STEP = 0.1 // 10% increments
 const MIN_ZOOM = 0.15 // 15% minimum
-const MAX_ZOOM = 2.5 // 250  % maximum
+const MAX_ZOOM = 2.5 // 250% maximum
 const DEFAULT_ZOOM = 1.0
 
 const isSpacePressed = ref(false)

@@ -22,8 +22,8 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
-  createWindow()
   registerIpcHandlers()
+  createWindow()
 })
 
 app.on('window-all-closed', () => {

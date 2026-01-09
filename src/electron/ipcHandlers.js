@@ -10,13 +10,24 @@ export function registerIpcHandlers() {
     writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8')
     return true
   })
- 
+
   ipcMain.handle('show-open-dialog', async () => {
     const { canceled, filePaths } = await dialog.showOpenDialog({})
-    if (!canceled){
+    if (!canceled) {
       return JSON.parse(readFileSync(filePaths[0], 'utf-8'))
     }
   })
- 
- 
+
+  ipcMain.handle('show-confirm-dialog', async (event, options) => {
+    const result = await dialog.showMessageBox({
+      type: 'warning',
+      buttons: ['Cancel', 'Delete'],
+      defaultId: 0,
+      cancelId: 0,
+      title: 'Confirm Delete',
+      message: options.message,
+      detail: options.detail,
+    })
+    return result.response === 1 // Returns true if "Delete" clicked
+  })
 }

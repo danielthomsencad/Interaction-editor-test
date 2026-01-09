@@ -69,10 +69,92 @@ Implemented HTML5 Drag-and-Drop API to reorder interaction layers in the sidebar
 5. Blue line indicator showing precise drop location
 6. Store action `reorderInteractionShapes` with index-shift correction
 7. Dual reordering: sidebar list AND shapes array when both items have shapes
+8. Container drop handler to catch drops in gaps between items
+9. `dragend` event (instead of `dragleave`) to maintain stable drop indicators
+10. Multi-level dragover handlers on `<aside>`, `<section>`, `<ul>`, and `<li>` elements
+11. Flexbox `gap` instead of `margin-bottom` to prevent dead zones
+
+#### Known Issues to Fix Later
+
+**⚠️ Cursor Inconsistency During Drag**: When dragging over gaps between list items or certain edge positions, the browser sometimes shows the "no drop" cursor (🚫) even though dropping works correctly. The visual feedback is misleading but the functionality is intact. This appears to be a browser-level cursor rendering issue that persists despite:
+
+- Setting `dropEffect = 'move'` in all dragover handlers
+- CSS `cursor: move !important` rules
+- Multiple layers of dragover event handlers (aside, section, ul, li)
+- Using flexbox `gap` instead of margins to eliminate dead zones
+
+Potential solutions to explore:
+
+- Custom drag image with `dataTransfer.setDragImage()`
+- CSS `cursor` on body during drag using a global class
+- Platform-specific cursor handling differences (Electron vs browser)
 
 ---
 
-### **➡️ Step 3: Keyboard-Based Shape Movement & Layer Management** (Current)
+### **➡️ Step 3: Delete Layer/Shape with Soft Delete & Undo** (Current)
+
+Implement a professional deletion system with undo capability before permanent save:
+
+**Phase A: UI Implementation** (Current)
+
+- Wire up delete icon click handler in sidebar
+- Add visual feedback on delete action
+- Plan trash/history icon placement in UI
+- Design deleted items panel component structure
+
+**Phase B: Soft Delete Logic** (Next)
+
+- Implement "soft delete" pattern - mark for deletion without removing data
+- Track deleted items in store with metadata (timestamp, original data)
+- Filter deleted items from sidebar display
+- Filter deleted shapes from canvas rendering
+- Clear selection if deleted item was selected
+
+**Phase C: Trash Panel & Restore** (After)
+
+- Create DeletedItemsPanel component
+- Display list of soft-deleted items with timestamps
+- Implement restore/undo functionality
+- Add "empty trash" option (future - happens on save in Phase 3)
+
+#### Key Concepts to Learn
+
+**Soft Delete Pattern:**
+
+- Marking items as deleted vs hard deletion
+- Maintaining deleted items in separate array with metadata
+- Filtering deleted IDs from active display using computed properties
+- Preserving original data for undo functionality
+
+**Event Handling:**
+
+- Event bubbling and `.stop` modifier (prevent selecting item when clicking delete)
+- Click handlers on icons within list items
+- Conditional rendering based on deletion state
+
+**State Management:**
+
+- Session-level state (deleted items) vs persistent state (JSON data)
+- Computed property filtering patterns
+- Store actions for delete, restore, and cleanup operations
+
+**UI/UX Patterns:**
+
+- Trash/recycle bin metaphor for deleted items
+- Timestamp display and formatting (`Date` object, `toISOString()`)
+- Badge/counter for deleted items count
+- Confirmation patterns (optional: "Are you sure?")
+
+#### Implementation Approach
+
+1. **UI First** - Add click handlers and visual structure
+2. **Store Logic** - Implement soft delete in Pinia store
+3. **Filtering** - Update computed properties to hide deleted items
+4. **Trash Panel** - Create component for viewing/restoring deleted items
+
+---
+
+### Step 4: Keyboard-Based Shape Movement
 
 Move selected shapes using keyboard shortcuts with incremental precision:
 
@@ -82,12 +164,6 @@ Move selected shapes using keyboard shortcuts with incremental precision:
 - Update vertex coordinates in the JSON data structure
 - Automatic canvas re-render after movement
 
-Manage layers/shapes from the sidebar:
-
-- **Delete layer/shape**: Remove selected interaction from sidebar list
-- **Add layer/shape**: Add new empty interaction to sidebar (sidebar-only for now)
-- **Rename layer**: Double-click layer name to enable inline editing
-
 #### Key Concepts to Learn
 
 - Keyboard event handling (`keydown`, `keyup`)
@@ -96,19 +172,13 @@ Manage layers/shapes from the sidebar:
 - Vector-based coordinate transformation (adding offsets to all vertices)
 - Real-time data mutation with canvas synchronization
 - Preventing default browser scroll behavior during arrow key presses
-- Array mutations: `splice()` for deletion, `push()` for addition
-- Double-click event handling (`@dblclick`) for inline editing
-- Conditional rendering: showing input field vs display text
-- Managing focus state for edit mode
-- Validating and updating layer names in the store
 
 ---
 
-### Step 4: Text Editing in Infolayers
+### Step 5: Text Editing in Infolayers
 
 Enable editing of text elements in infolayers:
 
-- Click text to enter edit mode
 - Show text input field with current content
 - Update text in store and re-render with bitmap font
 - Handle multi-line text and line breaks

@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 
-
 // Store for managing JSON data and related state
 const useJsonStore = defineStore('jsonStore', {
   state: () => ({
@@ -33,7 +32,9 @@ const useJsonStore = defineStore('jsonStore', {
     },
     selectedIndividualShape: (state) => {
       if (state.currentInteractionShapes && state.selectedIndividualShapeId !== null) {
-        return state.currentInteractionShapes.find((shape) => shape.id === state.selectedIndividualShapeId)
+        return state.currentInteractionShapes.find(
+          (shape) => shape.id === state.selectedIndividualShapeId,
+        )
       }
       return null
     },
@@ -41,33 +42,32 @@ const useJsonStore = defineStore('jsonStore', {
       if (state.currentInfolayer && state.selectedInfolayerId !== null) {
         return state.currentInfolayer.find((info) => info.name === state.selectedInfolayerId)
       }
-    }
+    },
   },
   actions: {
     setCurrentState(index) {
       if (this.states && index >= 0 && index < this.states.length) {
-        
         this.currentStateIndex = index
         this.currentImg = `data/${this.states[index].img}`
         this.currentInteractionShapes = this.states[index].interactionShapes || []
         this.currentInteractions = this.states[index].interactions || {}
-        this.currentInfolayer = this.states[index].infolayer || []; 
-        this.selectedInfolayerId = null; // Clear info layer selection when changing states
+        this.currentInfolayer = this.states[index].infolayer || []
+        this.selectedInfolayerId = null // Clear info layer selection when changing states
         this.selectedShapeId = null
         this.selectedIndividualShapeId = null // Clear individual selection when changing states
         this.selectedElementCoords = null // Clear element selection when changing states
         this.selectedElementCoordsArray = [] // Clear multiple selection when changing states
         this.currentInteractionIndex = null // Clear interaction selection when changing states
-        console.log('setting info layer to:', this.currentInfolayer);
+        console.log('setting info layer to:', this.currentInfolayer)
       }
     },
     reorderInteractionShapes(fromIndex, toIndex) {
       // Remove from old position
       const [movedItem] = this.currentInteractionShapes.splice(fromIndex, 1)
-      
+
       // Calculate new insert position (account for the removed item)
       const adjustedToIndex = fromIndex < toIndex ? toIndex - 1 : toIndex
-      
+
       // Insert at new position
       this.currentInteractionShapes.splice(adjustedToIndex, 0, movedItem)
     },
@@ -97,27 +97,27 @@ const useJsonStore = defineStore('jsonStore', {
       // Keep layer selection but add multiple element selection
     },
     setCurrentInfolayer(name) {
-      console.log('Selecting infolayer:', name);
-      this.selectedInfolayerId = name;
-      this.selectedShapeId = null;
-      this.selectedIndividualShapeId = null; 
-      this.selectedElementCoords = null; 
-      this.selectedElementCoordsArray = [];
-    }, 
+      console.log('Selecting infolayer:', name)
+      this.selectedInfolayerId = name
+      this.selectedShapeId = null
+      this.selectedIndividualShapeId = null
+      this.selectedElementCoords = null
+      this.selectedElementCoordsArray = []
+    },
     setInteractionShapeById(shapeId) {
-    this.selectedShapeId = shapeId;
-    this.selectedInfolayerId = null;
-    this.selectedIndividualShapeId = null; 
-    this.selectedElementCoords = null; 
-    this.selectedElementCoordsArray = [];
+      this.selectedShapeId = shapeId
+      this.selectedInfolayerId = null
+      this.selectedIndividualShapeId = null
+      this.selectedElementCoords = null
+      this.selectedElementCoordsArray = []
     },
     updateShapeColor(shapeId, newColor) {
       // Update color in interactionShapes array (what gets rendered)
-      const shape = this.currentInteractionShapes.find(s => s.id === shapeId)
+      const shape = this.currentInteractionShapes.find((s) => s.id === shapeId)
       if (shape) {
         shape.color = newColor
       }
-      
+
       // Also update color in interactions meta (for consistency)
       if (this.currentInteractions[shapeId]?.meta) {
         this.currentInteractions[shapeId].meta.color = newColor
@@ -133,7 +133,6 @@ const useJsonStore = defineStore('jsonStore', {
   },
 })
 
-
 const useActionStore = defineStore('actionStore', {
   state: () => ({
     toggleActionContainer: false,
@@ -141,12 +140,12 @@ const useActionStore = defineStore('actionStore', {
   }),
   actions: {
     toggleActionContainerVisibility(id) {
-      this.toggleActionContainer = !this.toggleActionContainer;
-      this.currentInteractionId = id;
-    }
-  }
+      this.toggleActionContainer = !this.toggleActionContainer
+      this.currentInteractionId = id
+    },
+  },
 })
-    
+
 // Store for managing pan and zoom transformations
 const useTransformStore = defineStore('transformStore', {
   state: () => ({
@@ -165,8 +164,69 @@ const useTransformStore = defineStore('transformStore', {
     },
     clearGrayscale() {
       this.grayscale = false
-    }
-  }
+    },
+  },
 })
 
-export { useJsonStore, useTransformStore, useActionStore }
+const useHistoryStore = defineStore('historyStore', {
+  state: () => ({
+    deleteShapeHistory: [],
+  }),
+  actions: {
+    deleteShape(shapeId) {
+      const jsonStore = useJsonStore()
+
+      // Try to find shape (might not exist for template items)
+      const shapeIndex = jsonStore.currentInteractionShapes.findIndex((s) => s.id === shapeId)
+      const shapeData = shapeIndex !== -1 ? jsonStore.currentInteractionShapes[shapeIndex] : null
+
+      // Get interaction data (should always exist)
+      const interactionData = jsonStore.currentInteractions[shapeId]
+
+      // Remove shape only if it exists
+      if (shapeIndex !== -1) {
+        jsonStore.currentInteractionShapes.splice(shapeIndex, 1)
+      }
+
+      // Always remove from interactions
+      delete jsonStore.currentInteractions[shapeId]
+
+      // Clear selection if the deleted shape was selected
+      if (jsonStore.selectedShapeId === shapeId) {
+        jsonStore.clearCurrentInteraction()
+      }
+
+      // Add to delete history for undo functionality (shapeData can be null)
+      this.deleteShapeHistory.push({
+        id: shapeId,
+        shapeData: shapeData,
+        interactionData: interactionData,
+        deletedAt: Date.now(),
+      })
+    },
+    restoreShape(shapeId) {
+      const jsonStore = useJsonStore()
+      if (this.deleteShapeHistory.length === 0) {
+        return // Nothing to restore
+      }
+      // Find the deleted shape in history
+      const historyIndex = this.deleteShapeHistory.findIndex((item) => item.id === shapeId)
+      if (historyIndex === -1) {
+        return // Shape not found in history
+      }
+      const deletedItem = this.deleteShapeHistory[historyIndex]
+
+      // Restore shape data if it exists
+      if (deletedItem.shapeData) {
+        jsonStore.currentInteractionShapes.push(deletedItem.shapeData)
+      }
+
+      // Restore interaction data
+      jsonStore.currentInteractions[shapeId] = deletedItem.interactionData
+
+      // Remove from delete history
+      this.deleteShapeHistory.splice(historyIndex, 1)
+    },
+  },
+})
+export { useJsonStore, useTransformStore, useActionStore, useHistoryStore }
