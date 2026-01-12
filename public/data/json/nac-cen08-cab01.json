@@ -133,7 +133,7 @@
         "4e8076b2-62a3-442f-8d1c-ac7c8d238cb3": {
           "meta": {
             "name": "Power Dead",
-									"output": "output0",
+            "output": "output0",
             "color": "#f26500",
             "ref": "4e8076b2-62a3-442f-8d1c-ac7c8d238cb3"
           },
@@ -10975,7 +10975,7 @@
         {
           "id": "4e8076b2-62a3-442f-8d1c-ac7c8d238cb3",
           "name": "Power Dead",
-									"output": "output0",
+          "output": "output0",
           "color": "#f26500",
           "elements": [
             {
@@ -17157,7 +17157,7 @@
         "4e8076b2-62a3-442f-8d1c-ac7c8d238cb3": {
           "meta": {
             "name": "Power Dead",
-									"output": "output0",
+            "output": "output0",
             "color": "#f26500",
             "ref": "4e8076b2-62a3-442f-8d1c-ac7c8d238cb3"
           },
@@ -19499,9 +19499,7 @@
           "index": 0
         }
       ],
-      "infolayer": 
-  	{}
-      ,
+
       "components": [
         {
           "id": "nac-cen08-estop01"

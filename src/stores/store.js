@@ -51,13 +51,31 @@ const useJsonStore = defineStore('jsonStore', {
         this.currentImg = `data/${this.states[index].img}`
         this.currentInteractionShapes = this.states[index].interactionShapes || []
         this.currentInteractions = this.states[index].interactions || {}
-        this.currentInfolayer = this.states[index].infolayer || []
         this.selectedInfolayerId = null // Clear info layer selection when changing states
         this.selectedShapeId = null
         this.selectedIndividualShapeId = null // Clear individual selection when changing states
         this.selectedElementCoords = null // Clear element selection when changing states
         this.selectedElementCoordsArray = [] // Clear multiple selection when changing states
         this.currentInteractionIndex = null // Clear interaction selection when changing states
+
+        if (!this.states[index].infolayer) {
+          this.states[index].infolayer = []
+        } else if (
+          typeof this.states[index].infolayer === 'object' &&
+          !Array.isArray(this.states[index].infolayer)
+        ) {
+          if (Object.keys(this.states[index].infolayer).length === 0) {
+            this.states[index].infolayer = []
+          } else {
+            this.states[index].infolayer = [this.states[index].infolayer]
+          }
+        }
+        if (this.states[index].infolayer.length === 0) {
+          this.currentInfolayer = this.states[index].infolayer
+          this.addNewInfoLayer()
+        } else {
+          this.currentInfolayer = this.states[index].infolayer
+        }
         console.log('setting info layer to:', this.currentInfolayer)
       }
     },
@@ -147,74 +165,24 @@ const useJsonStore = defineStore('jsonStore', {
       this.selectedElementCoords = null
       this.selectedElementCoordsArray = []
     },
-addNewInteractionLayer() {
-  const newId = crypto.randomUUID()
-  
-  // Get first interaction as template
-  const interactionIds = Object.keys(this.currentInteractions)
-  if (interactionIds.length === 0) {
-    console.error('No existing interactions to use as template')
-    return
-  }
-  
-  const templateInteraction = this.currentInteractions[interactionIds[0]]
-  
-  // Build new interaction with same structure
-  const newInteraction = {}
-  
-  for (const key in templateInteraction) {
-    if (key === 'meta') {
-      // Create unique meta
-      newInteraction.meta = {
-        color: '#121212',
-        name: 'New Interaction',
-        ref: newId
+
+    addNewInfoLayer() {
+      if (!this.currentInfolayer) {
+        this.currentInfolayer = []
       }
-    } else {
-      // Copy array structure with empty object
-      newInteraction[key] = [{}]
-    }
-  }
-  
-  this.currentInteractions[newId] = newInteraction
-},
-addNewState() {
-  if (this.states.length === 0) {
-    console.error('No existing states to use as template')
-    return
-  }
-  
-  const templateState = this.states[0]
-  const newState = {
-    name: `New State ${this.states.length + 1}`,
-    img: templateState.img || '',
-    interactionShapes: [],
-    interactions: {},
-    infolayer: []
-  }
-  
-  this.states.push(newState)
-  // Optionally switch to the new state
-  this.setCurrentState(this.states.length - 1)
-},
-addNewInfoLayer() {
-  if (!this.currentInfolayer) {
-    this.currentInfolayer = []
-  }
-  
-  const newInfoLayer = {
-    id: crypto.randomUUID(),
-    name: `Info Layer ${this.currentInfolayer.length + 1}`,
-    elements: []
-  }
-  
-  this.currentInfolayer.push(newInfoLayer)
-  
-  // Update the current state's infolayer
-  if (this.states[this.currentStateIndex]) {
-    this.states[this.currentStateIndex].infolayer = this.currentInfolayer
-  }
-}
+      const newInfoLayer = {
+        id: crypto.randomUUID(),
+        name: `Info Layer ${this.currentInfolayer.length + 1}`,
+        elements: [],
+      }
+
+      this.currentInfolayer.push(newInfoLayer)
+
+      // Update the current state's infolayer
+      if (this.states[this.currentStateIndex]) {
+        this.states[this.currentStateIndex].infolayer = this.currentInfolayer
+      }
+    },
   },
 })
 

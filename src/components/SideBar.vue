@@ -40,9 +40,13 @@ watch(editingId, (newId) => {
 
 // Watch for changes in interactions and initialize/update order
 watch(
-   () => [jsonStore.currentInteractionShapes, jsonStore.currentInteractions],
+  () => [jsonStore.currentInteractionShapes, jsonStore.currentInteractions],
   ([shapes, interactions]) => {
-   if ((!shapes || shapes.length === 0) && (!interactions || Object.keys(interactions).length === 0)) return
+    if (
+      (!shapes || shapes.length === 0) &&
+      (!interactions || Object.keys(interactions).length === 0)
+    )
+      return
 
     // Initialize from shapes array to keep order in sync
     const shapeIds = shapes.map((s) => s.id)
@@ -305,7 +309,10 @@ const handleDrop = (targetId, event) => {
         <li
           v-for="(state, index) in jsonStore.states"
           :key="state.name"
-          :class="{ active: index === jsonStore.currentStateIndex, editing: editingStateIndex === index }"
+          :class="{
+            active: index === jsonStore.currentStateIndex,
+            editing: editingStateIndex === index,
+          }"
           @click="editingStateIndex !== index && jsonStore.setCurrentState(index)"
           @dblclick="editingStateIndex !== index && startEditingState(index, state.name)"
         >
@@ -323,7 +330,6 @@ const handleDrop = (targetId, event) => {
           <span v-else class="interaction-name" :title="state.name">{{ state.name }}</span>
         </li>
       </ul>
-      <button class="add-layer-btn" v-if="jsonStore.jsonData" @click="jsonStore.addNewState()">+ Add State</button>
     </section>
     <section class="interactions" @dragover="handleContainerDragOver">
       <div class="header">
@@ -369,7 +375,9 @@ const handleDrop = (targetId, event) => {
             @dblclick.stop
             ref="renameInput"
           />
-          <span v-else class="interaction-name" :title="interaction.name">{{ interaction.name }}</span>
+          <span v-else class="interaction-name" :title="interaction.name">{{
+            interaction.name
+          }}</span>
           <div class="interaction-actions">
             <svg
               width="34px"
@@ -415,7 +423,13 @@ const handleDrop = (targetId, event) => {
           </div>
         </li>
       </ul>
-      <button class="add-layer-btn" v-if="jsonStore.jsonData" @click="jsonStore.addNewInteractionLayer()">+ Add Interaction</button>
+      <button
+        class="add-layer-btn"
+        v-if="jsonStore.jsonData"
+        @click="jsonStore.addNewInteractionLayer()"
+      >
+        + Add Interaction
+      </button>
       <div class="delete-history" v-if="showHistory">
         <div class="header">
           <p>
@@ -465,9 +479,17 @@ const handleDrop = (targetId, event) => {
           <li
             v-for="(infoItem, index) in jsonStore.currentInfolayer"
             :key="index"
-            :class="{ active: infoItem.name === jsonStore.selectedInfolayerId, editing: editingInfoLayerId === infoItem.id }"
-            @click="editingInfoLayerId !== infoItem.id && jsonStore.setCurrentInfolayer(infoItem.name)"
-            @dblclick="editingInfoLayerId !== infoItem.id && startEditingInfoLayer(infoItem.id, infoItem.name)"
+            :class="{
+              active: infoItem.name === jsonStore.selectedInfolayerId,
+              editing: editingInfoLayerId === infoItem.id,
+            }"
+            @click="
+              editingInfoLayerId !== infoItem.id && jsonStore.setCurrentInfolayer(infoItem.name)
+            "
+            @dblclick="
+              editingInfoLayerId !== infoItem.id &&
+              startEditingInfoLayer(infoItem.id, infoItem.name)
+            "
           >
             <input
               v-if="editingInfoLayerId === infoItem.id"
@@ -484,7 +506,6 @@ const handleDrop = (targetId, event) => {
           </li>
         </ul>
       </div>
-      <button class="add-layer-btn" v-if="jsonStore.jsonData" @click="jsonStore.addNewInfoLayer()">+ Add Info Layer</button>
     </section>
   </aside>
 </template>
