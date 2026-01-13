@@ -46,6 +46,11 @@ const useJsonStore = defineStore('jsonStore', {
   },
   actions: {
     setCurrentState(index) {
+      if (Object.keys(this.currentInteractions).length !== 0) {
+        console.log('Saving current state edits before switching states')
+        this.saveCurrentStateEdits()
+      }
+
       if (this.states && index >= 0 && index < this.states.length) {
         this.currentStateIndex = index
         this.currentImg = `data/${this.states[index].img}`
@@ -77,6 +82,21 @@ const useJsonStore = defineStore('jsonStore', {
           this.currentInfolayer = this.states[index].infolayer
         }
         console.log('setting info layer to:', this.currentInfolayer)
+      }
+    },
+    saveCurrentStateEdits() {
+      if (this.states[this.currentStateIndex]) {
+        // Deep copy to avoid reference issues
+        this.states[this.currentStateIndex].interactions = JSON.parse(
+          JSON.stringify(this.currentInteractions),
+        )
+        this.states[this.currentStateIndex].interactionShapes = JSON.parse(
+          JSON.stringify(this.currentInteractionShapes),
+        )
+        this.states[this.currentStateIndex].infolayer = JSON.parse(
+          JSON.stringify(this.currentInfolayer),
+        )
+        // Add more fields if you have other per-state data (e.g., infolayer)
       }
     },
     reorderInteractionShapes(fromIndex, toIndex) {
@@ -147,6 +167,23 @@ const useJsonStore = defineStore('jsonStore', {
         this.currentInteractions[shapeId].meta.name = newName
       }
     },
+
+    updateInteractionToolName(oldToolName, newToolName) {
+      for (const interactionId in this.currentInteractions) {
+        const interaction = this.currentInteractions[interactionId]
+        if (interaction[oldToolName]) {
+          const newInteraction = {}
+          for (const key of Object.keys(interaction)) {
+            if (key === oldToolName) {
+              newInteraction[newToolName] = interaction[oldToolName]
+            } else {
+              newInteraction[key] = interaction[key]
+            }
+          }
+          this.currentInteractions[interactionId] = newInteraction
+        }
+      }
+    },
     updateStateName(stateIndex, newName) {
       if (this.states[stateIndex]) {
         this.states[stateIndex].name = newName
@@ -158,6 +195,21 @@ const useJsonStore = defineStore('jsonStore', {
         infoLayer.name = newName
       }
     },
+    updateInteractionData(interactionId, tool, action) {
+      try {
+        const parsed = JSON.parse(action)
+        // Assuming the value is an array, update the first element
+        if (Array.isArray(this.currentInteractions[interactionId][tool])) {
+          this.currentInteractions[interactionId][tool][0] = parsed
+        } else {
+          // fallback if not array
+          this.currentInteractions[interactionId][tool] = [parsed]
+        }
+      } catch (e) {
+        // Handle parse error (show message, etc.)
+        console.error('Invalid JSON:', e)
+      }
+    },
     clearCurrentInteraction() {
       this.currentInteractionIndex = null
       this.selectedShapeId = null
@@ -165,7 +217,48 @@ const useJsonStore = defineStore('jsonStore', {
       this.selectedElementCoords = null
       this.selectedElementCoordsArray = []
     },
+    addInterActionTool() {
+      for (const interactionId in this.currentInteractions) {
+        let toolName = 'newtool'
+        let counter = 1
+        while (this.currentInteractions[interactionId][toolName]) {
+          toolName = `newtool ${counter}`
+          counter++
+        }
+        this.currentInteractions[interactionId][toolName] = [{}]
+      }
+    },
+    addNewInteractionLayer() {
+      const newId = crypto.randomUUID()
 
+      // Get first interaction as template
+      const interactionIds = Object.keys(this.currentInteractions)
+      if (interactionIds.length === 0) {
+        console.error('No existing interactions to use as template')
+        return
+      }
+
+      const templateInteraction = this.currentInteractions[interactionIds[0]]
+
+      // Build new interaction with same structure
+      const newInteraction = {}
+
+      for (const key in templateInteraction) {
+        if (key === 'meta') {
+          // Create unique meta
+          newInteraction.meta = {
+            color: '#121212',
+            name: 'New Interaction',
+            ref: newId,
+          }
+        } else {
+          // Copy array structure with empty object
+          newInteraction[key] = [{}]
+        }
+      }
+
+      this.currentInteractions[newId] = newInteraction
+    },
     addNewInfoLayer() {
       if (!this.currentInfolayer) {
         this.currentInfolayer = []
@@ -224,6 +317,7 @@ const useTransformStore = defineStore('transformStore', {
 const useHistoryStore = defineStore('historyStore', {
   state: () => ({
     deleteShapeHistory: [],
+    deleteInteractionToolHistory: [],
   }),
   actions: {
     deleteShape(shapeId) {
@@ -279,6 +373,55 @@ const useHistoryStore = defineStore('historyStore', {
 
       // Remove from delete history
       this.deleteShapeHistory.splice(historyIndex, 1)
+    },
+    deleteInteractionTool(toolName) {
+      const jsonStore = useJsonStore()
+      const affectedInteractions = []
+
+      for (const interactionId in jsonStore.currentInteractions) {
+        const interaction = jsonStore.currentInteractions[interactionId]
+        if (interaction[toolName]) {
+          // Store the interaction data for undo
+          affectedInteractions.push({
+            interactionId: interactionId,
+            toolData: interaction[toolName],
+          })
+          // Delete the tool from the interaction
+          delete interaction[toolName]
+        }
+      }
+
+      // Add to delete history for undo functionality
+      this.deleteInteractionToolHistory.push({
+        toolName: toolName,
+        affectedInteractions: affectedInteractions,
+        deletedAt: Date.now(),
+      })
+    },
+    restoreInteractionTool(toolName) {
+      const jsonStore = useJsonStore()
+      if (this.deleteInteractionToolHistory.length === 0) {
+        return // Nothing to restore
+      }
+      // Find the deleted tool in history
+      const historyIndex = this.deleteInteractionToolHistory.findIndex(
+        (item) => item.toolName === toolName,
+      )
+      if (historyIndex === -1) {
+        return // Tool not found in history
+      }
+      const deletedItem = this.deleteInteractionToolHistory[historyIndex]
+
+      // Restore tool data to affected interactions
+      for (const entry of deletedItem.affectedInteractions) {
+        const interaction = jsonStore.currentInteractions[entry.interactionId]
+        if (interaction) {
+          interaction[toolName] = entry.toolData
+        }
+      }
+
+      // Remove from delete history
+      this.deleteInteractionToolHistory.splice(historyIndex, 1)
     },
   },
 })
