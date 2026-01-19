@@ -59,6 +59,8 @@ const handleEditorSave = (key, newValue) => {
 }
 const deleteAction = (toolName) => {
   historyStore.deleteInteractionTool(toolName)
+  editorValue.value = ''
+  openEditorId.value = null
 }
 const handleEditorOpen = (key, value) => {
   console.log(jsonStore.currentInteractions[actionStore.currentInteractionId][key])
@@ -250,8 +252,8 @@ const restoreInteractionTool = (toolName) => {
   height: 400px;
   position: relative;
   top: 50%;
-  left: 25%;
-  transform: translate(-25%, -50%);
+  left: 40%;
+  transform: translate(-40%, -50%);
   padding: 40px 5px;
   background-color: darkgray;
 }

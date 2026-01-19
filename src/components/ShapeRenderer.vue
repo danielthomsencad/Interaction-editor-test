@@ -1,6 +1,11 @@
 <script setup>
 import { ref, onMounted, onUnmounted, watchEffect, watch, computed } from 'vue'
 import { useJsonStore, useTransformStore } from '@/stores/store'
+import {
+  isPointInPolygon,
+  isPointInBoundingBox,
+  isPolygonIntersectingRectangle,
+} from '@/composables/useGeometry'
 import bitmapFontConfig from '@/styles/bitmapfonts/vestas/config.json'
 import fontImageUrl from '@/styles/bitmapfonts/vestas/font.gif'
 
@@ -88,6 +93,7 @@ const handleKeyDown = (event) => {
     isSpacePressed.value = true
     updateCursor()
   } else if (event.ctrlKey && !isCtrlPressed.value) {
+    console.log('Ctrl key pressed')
     isCtrlPressed.value = true
     updateCursor()
   }
@@ -518,92 +524,6 @@ const handleMouseMove = (event) => {
   canvas.value.style.cursor = overShape ? 'pointer' : 'default'
 }
 
-// collision detection for drag selection
-const isPolygonIntersectingRectangle = (element, minX, minY, maxX, maxY) => {
-  // Convert element vertices to absolute coordinates
-  const vertices = element.vertices.map((v) => ({
-    x: element.x + v.x,
-    y: element.y + v.y,
-  }))
-
-  // 1. Check if any vertex is inside the selection rectangle
-  const hasVertexInside = vertices.some(
-    (vertex) => vertex.x >= minX && vertex.x <= maxX && vertex.y >= minY && vertex.y <= maxY,
-  )
-
-  if (hasVertexInside) return true
-
-  // 2. Check if any rectangle corner is inside the polygon
-  const rectCorners = [
-    { x: minX, y: minY },
-    { x: maxX, y: minY },
-    { x: maxX, y: maxY },
-    { x: minX, y: maxY },
-  ]
-
-  const hasCornerInside = rectCorners.some((corner) => {
-    return isPointInPolygonVertices(corner.x, corner.y, vertices)
-  })
-
-  if (hasCornerInside) return true
-
-  // 3. Check if any polygon edge intersects with rectangle edges
-  const rectEdges = [
-    { x1: minX, y1: minY, x2: maxX, y2: minY }, // top
-    { x1: maxX, y1: minY, x2: maxX, y2: maxY }, // right
-    { x1: maxX, y1: maxY, x2: minX, y2: maxY }, // bottom
-    { x1: minX, y1: maxY, x2: minX, y2: minY }, // left
-  ]
-
-  for (let i = 0; i < vertices.length; i++) {
-    const j = (i + 1) % vertices.length
-    const polygonEdge = {
-      x1: vertices[i].x,
-      y1: vertices[i].y,
-      x2: vertices[j].x,
-      y2: vertices[j].y,
-    }
-
-    for (const rectEdge of rectEdges) {
-      if (doLinesIntersect(polygonEdge, rectEdge)) {
-        return true
-      }
-    }
-  }
-
-  return false
-}
-
-// Helper function for point-in-polygon test with vertices array
-const isPointInPolygonVertices = (x, y, vertices) => {
-  let inside = false
-  for (let i = 0, j = vertices.length - 1; i < vertices.length; j = i++) {
-    if (
-      vertices[i].y > y !== vertices[j].y > y &&
-      x <
-        ((vertices[j].x - vertices[i].x) * (y - vertices[i].y)) / (vertices[j].y - vertices[i].y) +
-          vertices[i].x
-    ) {
-      inside = !inside
-    }
-  }
-  return inside
-}
-
-// Helper function to check if two line segments intersect
-const doLinesIntersect = (line1, line2) => {
-  const { x1: x1, y1: y1, x2: x2, y2: y2 } = line1
-  const { x1: x3, y1: y3, x2: x4, y2: y4 } = line2
-
-  const denominator = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4)
-  if (denominator === 0) return false // Lines are parallel
-
-  const t = ((x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)) / denominator
-  const u = -((x1 - x2) * (y1 - y3) - (y1 - y2) * (x1 - x3)) / denominator
-
-  return t >= 0 && t <= 1 && u >= 0 && u <= 1
-}
-
 const handleMouseDown = (event) => {
   if (!ctx || !jsonStore.currentInteractionShapes) return
 
@@ -697,33 +617,6 @@ const isPointInShape = (x, y, shape) => {
     }
     return false
   })
-}
-
-const isPointInBoundingBox = (x, y, element) => {
-  // Use precomputed bounding box (must exist, precomputed in watchEffect)
-  if (!element.boundingBox) return false
-  const { minX, maxX, minY, maxY } = element.boundingBox
-  return x >= minX && x <= maxX && y >= minY && y <= maxY
-}
-
-const isPointInPolygon = (x, y, element) => {
-  const vertices = element.vertices.map((v) => ({
-    x: element.x + v.x,
-    y: element.y + v.y,
-  }))
-
-  let inside = false
-  for (let i = 0, j = vertices.length - 1; i < vertices.length; j = i++) {
-    if (
-      vertices[i].y > y !== vertices[j].y > y &&
-      x <
-        ((vertices[j].x - vertices[i].x) * (y - vertices[i].y)) / (vertices[j].y - vertices[i].y) +
-          vertices[i].x
-    ) {
-      inside = !inside
-    }
-  }
-  return inside
 }
 
 onUnmounted(() => {

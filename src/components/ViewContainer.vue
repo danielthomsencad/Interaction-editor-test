@@ -1,10 +1,11 @@
 <script setup>
 import { ref } from 'vue'
-import { useTransformStore } from '@/stores/store'
+import { useTransformStore, useJsonStore, useHistoryStore } from '@/stores/store'
 
 const viewContainer = ref(null)
 const transformStore = useTransformStore()
-
+const jsonStore = useJsonStore()
+const historyStore = useHistoryStore()
 const ZOOM_STEP = 0.1 // 10% increments
 const MIN_ZOOM = 0.15 // 15% minimum
 const MAX_ZOOM = 2.5 // 250% maximum
@@ -17,6 +18,7 @@ const dragStartX = ref(0) // Mouse position when drag started
 const dragStartY = ref(0)
 const initialPanX = ref(0) // Pan position when drag started
 const initialPanY = ref(0)
+const activeMovementModifier = ref(null) // Track first-pressed modifier: 'ctrl' | 'shift' | null
 
 const clampPanToBounds = (panX, panY) => {
   // Get ViewContainer dimensions
@@ -99,9 +101,19 @@ const deactivateListener = () => {
   viewContainer.value?.removeEventListener('mousemove', handleMouseMove)
 }
 const handleKeyDown = (event) => {
+  // Track Ctrl key for movement modifier priority
   if (event.ctrlKey && !isCtrlPressed.value) {
     isCtrlPressed.value = true
+    // Set as active movement modifier if none is set
+    if (activeMovementModifier.value === null) {
+      activeMovementModifier.value = 'ctrl'
+    }
     updateCursor()
+  }
+
+  // Track Shift key for movement modifier priority
+  if (event.shiftKey && activeMovementModifier.value === null) {
+    activeMovementModifier.value = 'shift'
   }
 
   if (event.ctrlKey) {
@@ -119,11 +131,55 @@ const handleKeyDown = (event) => {
         transformStore.zoomLevel = DEFAULT_ZOOM
         event.preventDefault()
         break
+      case 'z':
+        historyStore.restoreShape() 
+        event.preventDefault()
+        break
     }
+
   } else if (event.key === ' ') {
     isSpacePressed.value = true
     updateCursor()
     event.preventDefault() // Prevent page scroll
+  }
+  
+  if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+    if (event.repeat) return
+    console.log('Arrow key pressed in ViewContainer:', event.key)
+
+    // Determine move amount based on first-pressed modifier
+    let moveAmount = 1 // Default
+    if (activeMovementModifier.value === 'ctrl') {
+      moveAmount = 10
+    } else if (activeMovementModifier.value === 'shift') {
+      moveAmount = 100
+    }
+
+    let dy = 0
+    let dx = 0
+
+    switch (event.key) {
+      case 'ArrowUp':
+        dy = -moveAmount
+        break
+      case 'ArrowDown':
+        dy = moveAmount
+        break
+      case 'ArrowLeft':
+        dx = -moveAmount
+        break
+      case 'ArrowRight':
+        dx = moveAmount
+        break
+    }
+    jsonStore.moveSelectedElements(dy, dx)
+    event.preventDefault() // Prevent page scroll
+  }
+  if (event.key === 'Delete') {
+    // Clear active movement modifier on Escape
+    console.log('Delete key pressed in ViewContainer')
+    historyStore.deleteShape()
+
   }
 }
 const handleMouseMove = (event) => {
@@ -147,7 +203,16 @@ const handleKeyUp = (event) => {
     updateCursor()
   } else if (event.key === 'Control') {
     isCtrlPressed.value = false
+    // Clear active movement modifier if Ctrl was the active one
+    if (activeMovementModifier.value === 'ctrl') {
+      activeMovementModifier.value = null
+    }
     updateCursor()
+  } else if (event.key === 'Shift') {
+    // Clear active movement modifier if Shift was the active one
+    if (activeMovementModifier.value === 'shift') {
+      activeMovementModifier.value = null
+    }
   }
 }
 

@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { isPointInPolygon } from '@/composables/useGeometry'
 
 // Store for managing JSON data and related state
 const useJsonStore = defineStore('jsonStore', {
@@ -84,6 +85,79 @@ const useJsonStore = defineStore('jsonStore', {
         console.log('setting info layer to:', this.currentInfolayer)
       }
     },
+    moveSelectedElements(dy, dx) {
+      console.log('Move called with dx:', dx, 'dy:', dy)
+      console.log('Selection state:', {
+        multipleSelected: this.selectedElementCoordsArray?.length,
+        individualSelected: !!this.selectedElementCoords,
+        layerSelected: this.selectedShapeId,
+      })
+      // Priority 1: Multiple elements
+      if (this.selectedElementCoordsArray && this.selectedElementCoordsArray.length > 0) {
+        // Step 1: Find the shape
+        const shape = this.currentInteractionShapes.find((s) => s.id === this.selectedShapeId)
+        if (!shape || !shape.elements) return
+
+        // Step 2: Loop through selected coordinates
+        for (const coords of this.selectedElementCoordsArray) {
+          // Step 3: Find the matching element
+          const element = shape.elements.find((e) => e.x === coords.x && e.y === coords.y)
+
+          if (element) {
+            // Step 4: Move the element
+            element.x += dx
+            element.y += dy
+
+            // Step 5: Update the selection coords to match
+            coords.x += dx
+            coords.y += dy
+          }
+        }
+        return
+      }
+      // Priority 2: Single element
+      if (this.selectedIndividualShapeId && this.selectedElementCoords) {
+        // Find the shape
+        const shape = this.currentInteractionShapes.find(
+          (s) => s.id === this.selectedIndividualShapeId,
+        )
+        if (!shape || !shape.elements) return
+
+        // Find the element
+        const element = shape.elements.find(
+          (e) => e.x === this.selectedElementCoords.x && e.y === this.selectedElementCoords.y,
+        )
+
+        if (element) {
+          // Move it
+          element.x += dx
+          element.y += dy
+
+          // Update selection
+          this.selectedElementCoords.x += dx
+          this.selectedElementCoords.y += dy
+        }
+        return
+      }
+
+      // Priority 3: Entire layer
+      if (this.selectedShapeId) {
+        // Find the shape
+        const shape = this.currentInteractionShapes.find((s) => s.id === this.selectedShapeId)
+        if (!shape || !shape.elements) return
+
+        // Move ALL elements in the layer
+        for (const element of shape.elements) {
+          element.x += dx
+          element.y += dy
+        }
+        this.currentInteractionShapes = [...this.currentInteractionShapes]
+        return
+      }
+
+      // Nothing selected - do nothing
+    },
+
     saveCurrentStateEdits() {
       if (this.states[this.currentStateIndex]) {
         // Deep copy to avoid reference issues
@@ -318,75 +392,248 @@ const useHistoryStore = defineStore('historyStore', {
   state: () => ({
     deleteShapeHistory: [],
     deleteInteractionToolHistory: [],
+    deleteInteractionLayerHistory: [],
   }),
   actions: {
-    deleteShape(shapeId) {
+    deleteShape() {
+      const jsonStore = useJsonStore()
+      //lazy init delete history for current state
+      if (!this.deleteShapeHistory[jsonStore.currentStateIndex]) {
+        this.deleteShapeHistory[jsonStore.currentStateIndex] = []
+      }
+      //priority 1: multiple elements
+      if (jsonStore.selectedElementCoordsArray && jsonStore.selectedElementCoordsArray.length > 0) {
+        const shape = jsonStore.currentInteractionShapes.find(
+          (s) => s.id === jsonStore.selectedShapeId,
+        )
+        if (!shape || !shape.elements) return
+
+        const remainingElements = shape.elements.filter(
+          (e) =>
+            !jsonStore.selectedElementCoordsArray.some(
+              (coords) => coords.x === e.x && coords.y === e.y,
+            ),
+        )
+
+        const deletedShapes = shape.elements.filter((e) =>
+          jsonStore.selectedElementCoordsArray.some(
+            (coords) => coords.x === e.x && coords.y === e.y,
+          ),
+        )
+
+        const deletedAnchors = shape.anchors.filter((anchor) =>
+          deletedShapes.some((element) => isPointInPolygon(anchor.x, anchor.y, element)),
+        )
+
+        const remainingAnchors = shape.anchors.filter(
+          (anchor) =>
+            !deletedShapes.some((element) => isPointInPolygon(anchor.x, anchor.y, element)),
+        )
+
+        // Update shape elements and anchors
+        shape.elements = remainingElements
+        shape.anchors = remainingAnchors
+        // Add to delete history
+        this.deleteShapeHistory[jsonStore.currentStateIndex].push({
+          type: 'elements',
+          id: jsonStore.selectedShapeId,
+          deletedElements: { deletedShapes, deletedAnchors },
+          deletedAt: Date.now(),
+          stateIndex: jsonStore.currentStateIndex,
+        })
+      }
+      //priority 2: single element
+      else if (jsonStore.selectedIndividualShapeId && jsonStore.selectedElementCoords) {
+        const shape = jsonStore.currentInteractionShapes.find(
+          (s) => s.id === jsonStore.selectedIndividualShapeId,
+        )
+        if (!shape || !shape.elements) return
+
+        const remainingElements = shape.elements.filter(
+          (e) =>
+            !(
+              e.x === jsonStore.selectedElementCoords.x && e.y === jsonStore.selectedElementCoords.y
+            ),
+        )
+
+        const deletedShapes = shape.elements.filter(
+          (e) =>
+            e.x === jsonStore.selectedElementCoords.x && e.y === jsonStore.selectedElementCoords.y,
+        )
+        
+
+        const deletedAnchors = shape.anchors.filter((anchor) =>
+          deletedShapes.some((element) => isPointInPolygon(anchor.x, anchor.y, element)),
+        )
+        const remainingAnchors = shape.anchors.filter(
+          (anchor) =>
+            !deletedShapes.some((element) => isPointInPolygon(anchor.x, anchor.y, element)),
+        )
+        // Update shape elements and anchors
+        shape.elements = remainingElements
+        shape.anchors = remainingAnchors
+
+        // Add to delete history
+        this.deleteShapeHistory[jsonStore.currentStateIndex].push({
+          type: 'elements',
+          id: jsonStore.selectedIndividualShapeId,
+          deletedElements: { deletedShapes, deletedAnchors },
+          deletedAt: Date.now(),
+          stateIndex: jsonStore.currentStateIndex,
+        })
+      }
+      //priority 3: entire layer
+      else if (jsonStore.selectedShapeId) {
+        const shapeIndex = jsonStore.currentInteractionShapes.findIndex(
+          (s) => s.id === jsonStore.selectedShapeId,
+        )
+        if (shapeIndex === -1) return
+
+        const shape = jsonStore.currentInteractionShapes[shapeIndex]
+
+        // Remove shape from current interaction shapes
+        jsonStore.currentInteractionShapes.splice(shapeIndex, 1)
+
+        // Add all elements to delete history
+        this.deleteShapeHistory[jsonStore.currentStateIndex].push({
+          type: 'shape',
+          id: jsonStore.selectedShapeId,
+          deletedElements: {
+            id: shape.id,
+            color: shape.color,
+            elements: shape.elements,
+            anchors: shape.anchors,
+          },
+          deletedAt: Date.now(),
+          stateIndex: jsonStore.currentStateIndex,
+        })
+      }
+
+      // Clear selections after deletion
+      jsonStore.selectedElementCoords = null
+      jsonStore.selectedIndividualShapeId = null
+      jsonStore.selectedElementCoordsArray = []
+    },
+    restoreShape() {
+      const jsonStore = useJsonStore()
+      //find the array matching current state index
+      const stateHistory = this.deleteShapeHistory[jsonStore.currentStateIndex]
+      if (!stateHistory || stateHistory.length === 0) {
+        return //nothing to restore for this state
+      }
+      //get the last deleted shape entry
+      const deletedItem = stateHistory.pop()
+
+      if (!jsonStore.currentInteractions[deletedItem.id]) {
+        // Restore interaction
+        this.restoreInteractionLayer(deletedItem.id)
+        this.deleteShapeHistory[jsonStore.currentStateIndex].push(deletedItem)
+        return
+      }
+      if (deletedItem.type === 'elements') {
+        // Find existing shape and add elements back
+        const shape = jsonStore.currentInteractionShapes.find((s) => s.id === deletedItem.id)
+        shape.elements.push(...deletedItem.deletedElements.deletedShapes)
+        shape.anchors.push(...deletedItem.deletedElements.deletedAnchors)
+      } else if (deletedItem.type === 'shape') {
+        // Recreate the entire shape
+        jsonStore.currentInteractionShapes.push(deletedItem.deletedElements)
+      }
+    },
+    deleteInteractionLayer(InteractionLayerId) {
       const jsonStore = useJsonStore()
 
       // Try to find shape (might not exist for template items)
-      const shapeIndex = jsonStore.currentInteractionShapes.findIndex((s) => s.id === shapeId)
+      const shapeIndex = jsonStore.currentInteractionShapes.findIndex(
+        (s) => s.id === InteractionLayerId,
+      )
       const shapeData = shapeIndex !== -1 ? jsonStore.currentInteractionShapes[shapeIndex] : null
 
       // Get interaction data (should always exist)
-      const interactionData = jsonStore.currentInteractions[shapeId]
-
+      const interactionData = jsonStore.currentInteractions[InteractionLayerId]
       // Remove shape only if it exists
       if (shapeIndex !== -1) {
         jsonStore.currentInteractionShapes.splice(shapeIndex, 1)
       }
 
       // Always remove from interactions
-      delete jsonStore.currentInteractions[shapeId]
+      delete jsonStore.currentInteractions[InteractionLayerId]
 
       // Clear selection if the deleted shape was selected
-      if (jsonStore.selectedShapeId === shapeId) {
+      if (jsonStore.selectedShapeId === InteractionLayerId) {
         jsonStore.clearCurrentInteraction()
       }
 
       // Add to delete history for undo functionality (shapeData can be null)
-      this.deleteShapeHistory.push({
-        id: shapeId,
+      this.deleteInteractionLayerHistory.push({
+        id: InteractionLayerId,
         shapeData: shapeData,
         interactionData: interactionData,
         deletedAt: Date.now(),
+        stateIndex: jsonStore.currentStateIndex,
       })
     },
-    restoreShape(shapeId) {
+    restoreInteractionLayer(InteractionLayerId) {
       const jsonStore = useJsonStore()
-      if (this.deleteShapeHistory.length === 0) {
+      if (this.deleteInteractionLayerHistory.length === 0) {
         return // Nothing to restore
       }
-      // Find the deleted shape in history
-      const historyIndex = this.deleteShapeHistory.findIndex((item) => item.id === shapeId)
+      // Find the deleted interactionlayer in history
+      const historyIndex = this.deleteInteractionLayerHistory.findIndex(
+        (item) => item.id === InteractionLayerId && item.stateIndex === jsonStore.currentStateIndex,
+      )
       if (historyIndex === -1) {
-        return // Shape not found in history
+        return // interactionlayer not found in history
       }
-      const deletedItem = this.deleteShapeHistory[historyIndex]
+      const deletedItem = this.deleteInteractionLayerHistory[historyIndex]
 
-      // Restore shape data if it exists
+      // Restore interactionlayer data if it exists
       if (deletedItem.shapeData) {
         jsonStore.currentInteractionShapes.push(deletedItem.shapeData)
       }
 
       // Restore interaction data
-      jsonStore.currentInteractions[shapeId] = deletedItem.interactionData
+      jsonStore.currentInteractions[InteractionLayerId] = deletedItem.interactionData
 
       // Remove from delete history
-      this.deleteShapeHistory.splice(historyIndex, 1)
+      this.deleteInteractionLayerHistory.splice(historyIndex, 1)
     },
     deleteInteractionTool(toolName) {
       const jsonStore = useJsonStore()
-      const affectedInteractions = []
+      const affectedStates = []
 
+      // Loop through all states
+      for (let stateIndex = 0; stateIndex < jsonStore.states.length; stateIndex++) {
+        const state = jsonStore.states[stateIndex]
+        const affectedInteractions = []
+
+        // Delete tool from each interaction in this state
+        for (const interactionId in state.interactions) {
+          const interaction = state.interactions[interactionId]
+          if (interaction[toolName]) {
+            // Store the interaction data for undo
+            affectedInteractions.push({
+              interactionId: interactionId,
+              toolData: interaction[toolName],
+            })
+            // Delete the tool from the interaction
+            delete interaction[toolName]
+          }
+        }
+
+        // Store affected interactions for this state
+        if (affectedInteractions.length > 0) {
+          affectedStates.push({
+            stateIndex: stateIndex,
+            affectedInteractions: affectedInteractions,
+          })
+        }
+      }
+
+      // Also update current state in memory
       for (const interactionId in jsonStore.currentInteractions) {
         const interaction = jsonStore.currentInteractions[interactionId]
         if (interaction[toolName]) {
-          // Store the interaction data for undo
-          affectedInteractions.push({
-            interactionId: interactionId,
-            toolData: interaction[toolName],
-          })
-          // Delete the tool from the interaction
           delete interaction[toolName]
         }
       }
@@ -394,7 +641,7 @@ const useHistoryStore = defineStore('historyStore', {
       // Add to delete history for undo functionality
       this.deleteInteractionToolHistory.push({
         toolName: toolName,
-        affectedInteractions: affectedInteractions,
+        affectedStates: affectedStates,
         deletedAt: Date.now(),
       })
     },
@@ -412,11 +659,26 @@ const useHistoryStore = defineStore('historyStore', {
       }
       const deletedItem = this.deleteInteractionToolHistory[historyIndex]
 
-      // Restore tool data to affected interactions
-      for (const entry of deletedItem.affectedInteractions) {
-        const interaction = jsonStore.currentInteractions[entry.interactionId]
-        if (interaction) {
-          interaction[toolName] = entry.toolData
+      // Restore tool data to affected interactions in all states
+      for (const stateData of deletedItem.affectedStates) {
+        const state = jsonStore.states[stateData.stateIndex]
+        for (const entry of stateData.affectedInteractions) {
+          const interaction = state.interactions[entry.interactionId]
+          if (interaction) {
+            interaction[toolName] = entry.toolData
+          }
+        }
+      }
+
+      // Also restore in current state in memory
+      for (const stateData of deletedItem.affectedStates) {
+        if (stateData.stateIndex === jsonStore.currentStateIndex) {
+          for (const entry of stateData.affectedInteractions) {
+            const interaction = jsonStore.currentInteractions[entry.interactionId]
+            if (interaction) {
+              interaction[toolName] = entry.toolData
+            }
+          }
         }
       }
 

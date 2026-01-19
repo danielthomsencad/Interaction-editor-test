@@ -89,9 +89,15 @@ const allInteractions = computed(() => {
     .map((id) => interactions.find((i) => i.id === id))
     .filter((i) => i !== undefined)
 })
-const deleteShape = async (shapeId) => {
-  const interaction = allInteractions.value.find((i) => i.id === shapeId)
-  const name = interaction?.name || shapeId
+
+const currentStateDeletedItems = computed(() => {
+  return historyStore.deleteInfoLayerHistory.filter(
+    (item) => item.stateIndex === jsonStore.currentStateIndex
+  )
+})
+const deleteInteractionLayer = async (interactionLayerId) => {
+  const interaction = allInteractions.value.find((i) => i.id === interactionLayerId)
+  const name = interaction?.name || interactionLayerId
 
   const confirmed = await window.api.showConfirmDialog({
     message: `Delete "${name}"?`,
@@ -100,26 +106,26 @@ const deleteShape = async (shapeId) => {
 
   if (!confirmed) return
 
-  historyStore.deleteShape(shapeId)
-  const itemTodeleteIndex = sidebarOrder.value.indexOf(shapeId)
+  historyStore.deleteInteractionLayer(interactionLayerId)
+  const itemTodeleteIndex = sidebarOrder.value.indexOf(interactionLayerId)
   if (itemTodeleteIndex !== -1) {
     sidebarOrder.value.splice(itemTodeleteIndex, 1)
   }
-  console.log('deleted items from sidebar:', historyStore.deleteShapeHistory)
+  console.log('deleted items from sidebar:', historyStore.deleteInteractionLayerHistory)
 }
-const restoreShape = (shapeId) => {
-  console.log('restore shape called', shapeId)
-  historyStore.restoreShape(shapeId)
+const restoreInteractionLayer = (interactionLayerId) => {
+  console.log('restore interaction layer called', interactionLayerId)
+  historyStore.restoreInteractionLayer(interactionLayerId)
   // Re-add to sidebar order at the end
-  if (!sidebarOrder.value.includes(shapeId)) {
-    sidebarOrder.value.push(shapeId)
+  if (!sidebarOrder.value.includes(interactionLayerId)) {
+    sidebarOrder.value.push(interactionLayerId)
   }
   if (!showHistory.value && autoCloseTimeout.value) {
     clearTimeout(autoCloseTimeout.value)
     autoCloseTimeout.value = null
   }
 
-  if (showHistory.value && historyStore.deleteShapeHistory.length === 0) {
+  if (showHistory.value && currentStateDeletedItems.value.length === 0) {
     autoCloseTimeout.value = setTimeout(() => {
       showHistory.value = false
       autoCloseTimeout.value = null
@@ -134,7 +140,7 @@ const toggleHistory = () => {
     autoCloseTimeout.value = null
   }
 
-  if (showHistory.value && historyStore.deleteShapeHistory.length === 0) {
+  if (showHistory.value && currentStateDeletedItems.value.length === 0) {
     autoCloseTimeout.value = setTimeout(() => {
       showHistory.value = false
       autoCloseTimeout.value = null
@@ -383,7 +389,7 @@ const handleDrop = (targetId, event) => {
               width="34px"
               height="34px"
               viewBox="0 0 50 50"
-              @click.stop="deleteShape(interaction.id)"
+              @click.stop="deleteInteractionLayer(interaction.id)"
             >
               <path d="M20 18h2v16h-2z" />
               <path d="M24 18h2v16h-2z" />
@@ -434,7 +440,7 @@ const handleDrop = (targetId, event) => {
         <div class="header">
           <p>
             {{
-              historyStore.deleteShapeHistory.length >= 1 ? 'Deleted Items' : 'No items to restore'
+              currentStateDeletedItems.length >= 1 ? 'Deleted Items' : 'No items to restore'
             }}
           </p>
           <svg
@@ -452,14 +458,14 @@ const handleDrop = (targetId, event) => {
         </div>
 
         <ul>
-          <li v-for="item in historyStore.deleteShapeHistory" :key="item.id">
+          <li v-for="item in currentStateDeletedItems" :key="item.id">
             {{ item.shapeData?.name || item.interactionData?.meta?.name || item.id }}
             <div class="interaction-actions">
               <svg
                 width="30px"
                 height="30px"
                 viewBox="0 0 40 40"
-                @click.stop="restoreShape(item.id)"
+                @click.stop="restoreInteractionLayer(item.id)"
               >
                 <path
                   d="M10 16.682l5.69 5.685 1.408-1.407-3.283-3.28h10.131c1.147 0 2.19.467 2.943 1.222a4.157 4.157 0 011.225 2.946 4.18 4.18 0 01-4.168 4.168h-5.628V28h5.522c3.387 0 6.16-2.77 6.16-6.157a6.117 6.117 0 00-1.81-4.343 6.143 6.143 0 00-4.35-1.805H13.815l3.283-3.285L15.69 11 10 16.682z"
