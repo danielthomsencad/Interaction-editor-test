@@ -91,7 +91,7 @@ const allInteractions = computed(() => {
 })
 
 const currentStateDeletedItems = computed(() => {
-  return historyStore.deleteInfoLayerHistory.filter(
+  return historyStore.deleteInteractionLayerHistory.filter(
     (item) => item.stateIndex === jsonStore.currentStateIndex
   )
 })

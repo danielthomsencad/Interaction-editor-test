@@ -102,7 +102,13 @@ const useJsonStore = defineStore('jsonStore', {
         for (const coords of this.selectedElementCoordsArray) {
           // Step 3: Find the matching element
           const element = shape.elements.find((e) => e.x === coords.x && e.y === coords.y)
-
+          const anchorsInElement = shape.anchors.filter((anchor) =>
+          isPointInPolygon(anchor.x, anchor.y, element),
+        )
+        for (const anchor of anchorsInElement) {
+          anchor.x += dx
+          anchor.y += dy
+        }
           if (element) {
             // Step 4: Move the element
             element.x += dx
@@ -127,6 +133,13 @@ const useJsonStore = defineStore('jsonStore', {
         const element = shape.elements.find(
           (e) => e.x === this.selectedElementCoords.x && e.y === this.selectedElementCoords.y,
         )
+        const anchorsInElement = shape.anchors.filter((anchor) =>
+          isPointInPolygon(anchor.x, anchor.y, element),
+        )
+        for (const anchor of anchorsInElement) {
+          anchor.x += dx
+          anchor.y += dy
+        }
 
         if (element) {
           // Move it
@@ -150,6 +163,10 @@ const useJsonStore = defineStore('jsonStore', {
         for (const element of shape.elements) {
           element.x += dx
           element.y += dy
+        }
+        for (const anchor of shape.anchors) {
+          anchor.x += dx
+          anchor.y += dy
         }
         this.currentInteractionShapes = [...this.currentInteractionShapes]
         return
@@ -460,7 +477,6 @@ const useHistoryStore = defineStore('historyStore', {
           (e) =>
             e.x === jsonStore.selectedElementCoords.x && e.y === jsonStore.selectedElementCoords.y,
         )
-        
 
         const deletedAnchors = shape.anchors.filter((anchor) =>
           deletedShapes.some((element) => isPointInPolygon(anchor.x, anchor.y, element)),

@@ -196,19 +196,19 @@ const drawPolygon = (shape, isLayerSelected = false, isIndividualSelected = fals
   // Draw anchors for all shapes
   if (Array.isArray(shape.anchors)) {
     shape.anchors.forEach((anchor) => {
-      drawAnchorPoint(ctx, anchor.x, anchor.y, isIndividualSelected)
+      drawAnchorPoint(ctx, anchor.x, anchor.y)
     })
   }
 }
 
-const drawAnchorPoint = (ctx, x, y, state = false) => {
+const drawAnchorPoint = (ctx, x, y) => {
   const gap = 2
   const size = 5
   const lineWidth = 1
 
   ctx.beginPath()
   ctx.lineWidth = lineWidth
-  ctx.strokeStyle = state ? '#00ff00' : '#000000'
+  ctx.strokeStyle = '#000000'
 
   // Top
   ctx.moveTo(x, y - gap)
