@@ -29,6 +29,32 @@ export const isPointInPolygon = (x, y, element) => {
   return inside
 }
 
+export const isPointInText = (x, y, element, fontConfig) => {
+  const atlas = fontConfig.atlas
+  const charMap = Object.fromEntries(atlas.character.map((c) => [c.id, c]))
+
+  const lines = element.text.split('\n')
+  // Calculate max width
+  let maxWidth = 0
+  for (const line of lines) {
+    let lineWidth = 0
+    for (const char of line) {
+      const charInfo = charMap[char] || charMap[' ']
+      lineWidth +=
+        charInfo.letterSpacing !== undefined ? charInfo.letterSpacing : atlas.letterSpacing || 0
+    }
+    maxWidth = Math.max(maxWidth, lineWidth)
+  }
+
+  // Calculate height
+  const totalHeight = lines.length * 8
+
+  // Check if point is in bounding box
+  return (
+    x >= element.x && x <= element.x + maxWidth && y >= element.y && y <= element.y + totalHeight
+  )
+}
+
 /**
  * Check if a point is inside a polygon using pre-transformed vertices
  * @param {number} x - X coordinate of the point

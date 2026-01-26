@@ -16,6 +16,7 @@ const useJsonStore = defineStore('jsonStore', {
     selectedIndividualShapeId: null, // For individual shape selection within a layer
     selectedElementCoords: null, // For individual element selection (x,y coordinates)
     selectedElementCoordsArray: [], // For multiple element selection via drag box
+    selectedTextCoords: null, // For text element selection (x,y coordinates)
     currentInteractionIndex: null, // Add this for interaction selection
   }),
   getters: {
@@ -103,12 +104,12 @@ const useJsonStore = defineStore('jsonStore', {
           // Step 3: Find the matching element
           const element = shape.elements.find((e) => e.x === coords.x && e.y === coords.y)
           const anchorsInElement = shape.anchors.filter((anchor) =>
-          isPointInPolygon(anchor.x, anchor.y, element),
-        )
-        for (const anchor of anchorsInElement) {
-          anchor.x += dx
-          anchor.y += dy
-        }
+            isPointInPolygon(anchor.x, anchor.y, element),
+          )
+          for (const anchor of anchorsInElement) {
+            anchor.x += dx
+            anchor.y += dy
+          }
           if (element) {
             // Step 4: Move the element
             element.x += dx
@@ -149,6 +150,21 @@ const useJsonStore = defineStore('jsonStore', {
           // Update selection
           this.selectedElementCoords.x += dx
           this.selectedElementCoords.y += dy
+        }
+        return
+      }
+      if (this.selectedTextCoords) {
+        const text = this.currentInfolayer[0].elements.find(
+          (e) => e.x === this.selectedTextCoords.x && e.y === this.selectedTextCoords.y,
+        )
+        if (text) {
+          // Move it
+          text.x += dx
+          text.y += dy
+
+          // Update selection
+          this.selectedTextCoords.x += dx
+          this.selectedTextCoords.y += dy
         }
         return
       }
@@ -239,6 +255,9 @@ const useJsonStore = defineStore('jsonStore', {
       this.selectedIndividualShapeId = null
       this.selectedElementCoords = null
       this.selectedElementCoordsArray = []
+    },
+    setSelectedTextCoords(coords) {
+      this.selectedTextCoords = coords
     },
     updateShapeColor(shapeId, newColor) {
       // Update color in interactionShapes array (what gets rendered)

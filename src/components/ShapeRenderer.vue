@@ -2,6 +2,7 @@
 import { ref, onMounted, onUnmounted, watchEffect, watch, computed } from 'vue'
 import { useJsonStore, useTransformStore } from '@/stores/store'
 import {
+  isPointInText,
   isPointInPolygon,
   isPointInBoundingBox,
   isPolygonIntersectingRectangle,
@@ -86,7 +87,10 @@ const handleKeyDown = (event) => {
   // Don't intercept space if user is typing in an input or textarea
   if (event.code === 'Space' && !event.repeat) {
     const activeElement = document.activeElement
-    if (activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA')) {
+    if (
+      activeElement &&
+      (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA')
+    ) {
       return // Let the input handle the space key
     }
     event.preventDefault() // Prevent page scroll
@@ -292,6 +296,34 @@ const renderShapes = () => {
   })
 }
 
+const getTextBoundingBox = (element) => {
+  const atlas = bitmapFontConfig.atlas
+  const charMap = Object.fromEntries(atlas.character.map((c) => [c.id, c]))
+
+  const lines = element.text.split('\n')
+  let maxWidth = 0
+
+  for (const line of lines) {
+    let lineWidth = 0
+    for (const char of line) {
+      const charInfo = charMap[char] || charMap[' ']
+      lineWidth +=
+        charInfo.letterSpacing !== undefined ? charInfo.letterSpacing : atlas.letterSpacing || 0
+    }
+    maxWidth = Math.max(maxWidth, lineWidth)
+  }
+
+  const totalHeight = lines.length * 8
+
+  const padding = 2 // pixels of space around text
+  return {
+    x: element.x - padding - 1,
+    y: element.y - padding - 1,
+    width: maxWidth + 2 * padding,
+    height: totalHeight + 2 * padding,
+  }
+}
+
 const renderInfoLayer = () => {
   if (!infoLayerCtx || !jsonStore.currentInfolayer) return
 
@@ -326,6 +358,21 @@ const renderInfoLayer = () => {
           }
         }
       })
+      if (jsonStore.selectedTextCoords) {
+        const selectedElement = jsonStore.currentInfolayer[0].elements.find(
+          (el) =>
+            el.type === 'Text' &&
+            el.x === jsonStore.selectedTextCoords.x &&
+            el.y === jsonStore.selectedTextCoords.y,
+        )
+
+        if (selectedElement) {
+          const bbox = getTextBoundingBox(selectedElement)
+          infoLayerCtx.strokeStyle = '#00aaff'
+          infoLayerCtx.lineWidth = 2
+          infoLayerCtx.strokeRect(bbox.x, bbox.y, bbox.width, bbox.height)
+        }
+      }
     }
   } else if (infoLayerHasText) {
     jsonStore.currentInfolayer[0].elements.forEach((element) => {
@@ -379,10 +426,7 @@ const handleCanvasClick = (event) => {
   if (viewContainer && viewContainer.style.cursor === 'grab') {
     return
   }
-  // Don't select shapes if in infolayer grayscale mode
-  if (jsonStore.selectedInfolayerId && transformStore.grayscale) {
-    return
-  }
+
   const currentTime = Date.now()
   const rect = canvas.value.getBoundingClientRect()
   const scaleX = canvas.value.width / rect.width
@@ -390,6 +434,24 @@ const handleCanvasClick = (event) => {
 
   const x = (event.clientX - rect.left) * scaleX
   const y = (event.clientY - rect.top) * scaleY
+
+  // Don't select shapes if in infolayer grayscale mode
+  if (jsonStore.selectedInfolayerId && transformStore.grayscale) {
+    // Check if click is on a text element
+    if (jsonStore.currentInfolayer?.[0]?.elements) {
+      for (const element of jsonStore.currentInfolayer[0].elements) {
+        if (element.type === 'Text') {
+          if (isPointInText(x, y, element, bitmapFontConfig)) {
+            console.log('Clicked on text:', element.text, 'at', element.x, element.y)
+            jsonStore.setSelectedTextCoords({ x: element.x, y: element.y })
+            return
+          }
+        }
+      }
+    }
+    console.log('Clicked in info layer mode but not on any text')
+    return
+  }
 
   // Check shapes from top to bottom (reverse order)
   for (let i = jsonStore.currentInteractionShapes.length - 1; i >= 0; i--) {
@@ -766,6 +828,7 @@ watch(
       background: transparent;
       user-select: none;
     "
+    @click="handleCanvasClick"
   ></div>
 </template>
 <style scoped>

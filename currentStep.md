@@ -91,7 +91,7 @@ Potential solutions to explore:
 
 ---
 
-### **➡️ Step 3: Delete Layer/Shape with Soft Delete & Undo** (Current)
+### **➡️ Step 3: Delete Layer/Shape with Soft Delete & Undo** (Complete)
 
 Implement a professional deletion system with undo capability before permanent save:
 
@@ -154,7 +154,7 @@ Implement a professional deletion system with undo capability before permanent s
 
 ---
 
-### Step 4: Keyboard-Based Shape Movement
+### Step 4: Keyboard-Based Shape Movement (Complete)
 
 Move selected shapes using keyboard shortcuts with incremental precision:
 
@@ -175,7 +175,7 @@ Move selected shapes using keyboard shortcuts with incremental precision:
 
 ---
 
-### Step 5: Text Editing in Infolayers
+### Step 5: Text Editing in Infolayers (Current)
 
 Enable editing of text elements in infolayers:
 
