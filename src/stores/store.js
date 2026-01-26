@@ -16,7 +16,9 @@ const useJsonStore = defineStore('jsonStore', {
     selectedIndividualShapeId: null, // For individual shape selection within a layer
     selectedElementCoords: null, // For individual element selection (x,y coordinates)
     selectedElementCoordsArray: [], // For multiple element selection via drag box
+    selectedInfoLayerElements: [], // For multiple infolayer element selection via drag box
     selectedTextCoords: null, // For text element selection (x,y coordinates)
+    selectedImageCoords: null, // For image element selection (x,y coordinates)
     currentInteractionIndex: null, // Add this for interaction selection
   }),
   getters: {
@@ -63,6 +65,9 @@ const useJsonStore = defineStore('jsonStore', {
         this.selectedIndividualShapeId = null // Clear individual selection when changing states
         this.selectedElementCoords = null // Clear element selection when changing states
         this.selectedElementCoordsArray = [] // Clear multiple selection when changing states
+        this.selectedInfoLayerElements = [] // Clear multiple infolayer selection when changing states
+        this.selectedTextCoords = null // Clear text element selection when changing states
+        this.selectedImageCoords = null // Clear image element selection when changing states
         this.currentInteractionIndex = null // Clear interaction selection when changing states
 
         if (!this.states[index].infolayer) {
@@ -86,6 +91,9 @@ const useJsonStore = defineStore('jsonStore', {
         console.log('setting info layer to:', this.currentInfolayer)
       }
     },
+    setSelectedImageCoords(coords) {
+      this.selectedImageCoords = coords
+    },
     moveSelectedElements(dy, dx) {
       console.log('Move called with dx:', dx, 'dy:', dy)
       console.log('Selection state:', {
@@ -93,6 +101,21 @@ const useJsonStore = defineStore('jsonStore', {
         individualSelected: !!this.selectedElementCoords,
         layerSelected: this.selectedShapeId,
       })
+      // Priority 0: Multiple infolayer elements
+      if (this.selectedInfoLayerElements && this.selectedInfoLayerElements.length > 0) {
+        for (const coords of this.selectedInfoLayerElements) {
+          const element = this.currentInfolayer[0].elements.find(
+            (e) => e.x === coords.x && e.y === coords.y,
+          )
+          if (element) {
+            element.x += dx
+            element.y += dy
+            coords.x += dx
+            coords.y += dy
+          }
+        }
+        return
+      }
       // Priority 1: Multiple elements
       if (this.selectedElementCoordsArray && this.selectedElementCoordsArray.length > 0) {
         // Step 1: Find the shape
@@ -165,6 +188,21 @@ const useJsonStore = defineStore('jsonStore', {
           // Update selection
           this.selectedTextCoords.x += dx
           this.selectedTextCoords.y += dy
+        }
+        return
+      }
+      if (this.selectedImageCoords) {
+        const image = this.currentInfolayer[0].elements.find(
+          (e) =>
+            e.x === this.selectedImageCoords.x &&
+            e.y === this.selectedImageCoords.y &&
+            e.type === 'ImageObject',
+        )
+        if (image) {
+          image.x += dx
+          image.y += dy
+          this.selectedImageCoords.x += dx
+          this.selectedImageCoords.y += dy
         }
         return
       }
@@ -241,6 +279,11 @@ const useJsonStore = defineStore('jsonStore', {
       this.selectedElementCoords = null // Clear individual coordinates
       // Keep layer selection but add multiple element selection
     },
+    setMultipleInfoLayerElements(elementCoordsArray) {
+      this.selectedInfoLayerElements = elementCoordsArray
+      this.selectedTextCoords = null
+      this.selectedImageCoords = null
+    },
     setCurrentInfolayer(name) {
       console.log('Selecting infolayer:', name)
       this.selectedInfolayerId = name
@@ -248,6 +291,7 @@ const useJsonStore = defineStore('jsonStore', {
       this.selectedIndividualShapeId = null
       this.selectedElementCoords = null
       this.selectedElementCoordsArray = []
+      this.selectedInfoLayerElements = []
     },
     setInteractionShapeById(shapeId) {
       this.selectedShapeId = shapeId
@@ -255,6 +299,9 @@ const useJsonStore = defineStore('jsonStore', {
       this.selectedIndividualShapeId = null
       this.selectedElementCoords = null
       this.selectedElementCoordsArray = []
+      this.selectedInfoLayerElements = []
+      this.selectedTextCoords = null
+      this.selectedImageCoords = null
     },
     setSelectedTextCoords(coords) {
       this.selectedTextCoords = coords
@@ -429,8 +476,67 @@ const useHistoryStore = defineStore('historyStore', {
     deleteShapeHistory: [],
     deleteInteractionToolHistory: [],
     deleteInteractionLayerHistory: [],
+    infolayerHistory: [],
   }),
   actions: {
+    addInfoLayerAction(action) {
+      const jsonStore = useJsonStore()
+      if (!this.infolayerHistory[jsonStore.currentStateIndex]) {
+        this.infolayerHistory[jsonStore.currentStateIndex] = []
+      }
+      this.infolayerHistory[jsonStore.currentStateIndex].push({
+        ...action,
+        timestamp: Date.now(),
+      })
+    },
+    undoInfoLayerAction() {
+      const jsonStore = useJsonStore()
+      const stateHistory = this.infolayerHistory[jsonStore.currentStateIndex]
+      if (!stateHistory || stateHistory.length === 0) return
+
+      const lastAction = stateHistory.pop()
+      const elements = jsonStore.currentInfolayer[0].elements
+
+      switch (lastAction.type) {
+        case 'add': {
+          // Remove the added element
+          const addIndex = elements.findIndex(
+            (el) => el.x === lastAction.element.x && el.y === lastAction.element.y,
+          )
+          if (addIndex !== -1) {
+            elements.splice(addIndex, 1)
+          }
+          break
+        }
+
+        case 'batchDelete': {
+          // Restore all deleted elements from batch
+          if (lastAction.elements && Array.isArray(lastAction.elements)) {
+            lastAction.elements.forEach((element) => {
+              elements.push(element)
+            })
+          }
+          break
+        }
+
+        case 'delete': {
+          // Restore the deleted element
+          elements.push(lastAction.element)
+          break
+        }
+
+        case 'edit': {
+          // Restore previous text value
+          const editElement = elements.find(
+            (el) => el.x === lastAction.element.x && el.y === lastAction.element.y,
+          )
+          if (editElement && editElement.type === 'Text') {
+            editElement.text = lastAction.oldText
+          }
+          break
+        }
+      }
+    },
     deleteShape() {
       const jsonStore = useJsonStore()
       //lazy init delete history for current state

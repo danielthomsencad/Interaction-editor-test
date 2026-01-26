@@ -55,6 +55,15 @@ export const isPointInText = (x, y, element, fontConfig) => {
   )
 }
 
+export const isPointInImage = (x, y, element, img) => {
+  if (!img || !img.naturalWidth) return false
+
+  const width = img.naturalWidth
+  const height = img.naturalHeight
+
+  return x >= element.x && x <= element.x + width && y >= element.y && y <= element.y + height
+}
+
 /**
  * Check if a point is inside a polygon using pre-transformed vertices
  * @param {number} x - X coordinate of the point

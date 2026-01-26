@@ -1,7 +1,8 @@
 <script setup>
-import { ref, onMounted, onUnmounted, watchEffect, watch, computed } from 'vue'
-import { useJsonStore, useTransformStore } from '@/stores/store'
+import { ref, onMounted, onUnmounted, watchEffect, watch, computed, defineEmits } from 'vue'
+import { useJsonStore, useTransformStore, useHistoryStore } from '@/stores/store'
 import {
+  isPointInImage,
   isPointInText,
   isPointInPolygon,
   isPointInBoundingBox,
@@ -18,6 +19,7 @@ const props = defineProps({
 })
 const jsonStore = useJsonStore()
 const transformStore = useTransformStore()
+const historyStore = useHistoryStore()
 
 const fontImage = new Image()
 fontImage.src = fontImageUrl
@@ -25,9 +27,12 @@ fontImage.src = fontImageUrl
 // Image cache to prevent reloading images on every render
 const imageCache = new Map()
 
+const emit = defineEmits(['openTextEditor'])
+
 const isInfoLayerMode = computed(() => transformStore.grayscale)
 const canvas = ref(null)
 const infoLayerCanvas = ref(null)
+const infoLayerOverlay = ref(null)
 
 let ctx = null
 let infoLayerCtx = null
@@ -119,17 +124,26 @@ const updateCursor = () => {
   // Priority order: Ctrl (zoom) > Space (grab) > normal behavior
   if (isCtrlPressed.value) {
     canvas.value.style.cursor = 'zoom-in'
+    if (infoLayerOverlay.value) {
+      infoLayerOverlay.value.style.cursor = 'zoom-in'
+    }
     return
   }
 
   if (isSpacePressed.value) {
     canvas.value.style.cursor = 'grab'
+    if (infoLayerOverlay.value) {
+      infoLayerOverlay.value.style.cursor = 'grab'
+    }
     return
   }
 
   // When keys are released, immediately determine correct cursor based on current state
   if (!ctx || !jsonStore.currentInteractionShapes) {
     canvas.value.style.cursor = 'default'
+    if (infoLayerOverlay.value) {
+      infoLayerOverlay.value.style.cursor = 'default'
+    }
     return
   }
 
@@ -144,6 +158,9 @@ const updateCursor = () => {
 
   // Default to normal cursor - will be updated on next mouse movement
   canvas.value.style.cursor = 'default'
+  if (infoLayerOverlay.value) {
+    infoLayerOverlay.value.style.cursor = 'default'
+  }
 }
 
 const drawPolygon = (shape, isLayerSelected = false, isIndividualSelected = false) => {
@@ -358,7 +375,38 @@ const renderInfoLayer = () => {
           }
         }
       })
-      if (jsonStore.selectedTextCoords) {
+      // Render selection boxes for multiple selected elements
+      if (jsonStore.selectedInfoLayerElements && jsonStore.selectedInfoLayerElements.length > 0) {
+        jsonStore.selectedInfoLayerElements.forEach((coords) => {
+          const element = jsonStore.currentInfolayer[0].elements.find(
+            (el) => el.x === coords.x && el.y === coords.y,
+          )
+
+          if (element) {
+            if (element.type === 'Text') {
+              const bbox = getTextBoundingBox(element)
+              infoLayerCtx.strokeStyle = '#00aaff'
+              infoLayerCtx.lineWidth = 2
+              infoLayerCtx.strokeRect(bbox.x, bbox.y, bbox.width, bbox.height)
+            } else if (element.type === 'ImageObject' && element.image) {
+              const imagePath = `data/${element.image}`
+              const cachedImg = imageCache.get(imagePath)
+              if (cachedImg) {
+                infoLayerCtx.strokeStyle = '#00aaff'
+                infoLayerCtx.lineWidth = 2
+                infoLayerCtx.strokeRect(
+                  element.x - 2,
+                  element.y - 2,
+                  cachedImg.naturalWidth + 4,
+                  cachedImg.naturalHeight + 4,
+                )
+              }
+            }
+          }
+        })
+      }
+      // Render selection box for single text element (only if no multiple selection)
+      else if (jsonStore.selectedTextCoords) {
         const selectedElement = jsonStore.currentInfolayer[0].elements.find(
           (el) =>
             el.type === 'Text' &&
@@ -371,6 +419,30 @@ const renderInfoLayer = () => {
           infoLayerCtx.strokeStyle = '#00aaff'
           infoLayerCtx.lineWidth = 2
           infoLayerCtx.strokeRect(bbox.x, bbox.y, bbox.width, bbox.height)
+        }
+      }
+      // Render selection box for single image element (only if no multiple selection)
+      else if (jsonStore.selectedImageCoords) {
+        const selectedImage = jsonStore.currentInfolayer[0].elements.find(
+          (el) =>
+            el.type === 'ImageObject' &&
+            el.x === jsonStore.selectedImageCoords.x &&
+            el.y === jsonStore.selectedImageCoords.y,
+        )
+
+        if (selectedImage) {
+          const imagePath = `data/${selectedImage.image}`
+          const cachedImg = imageCache.get(imagePath)
+          if (cachedImg) {
+            infoLayerCtx.strokeStyle = '#00aaff'
+            infoLayerCtx.lineWidth = 2
+            infoLayerCtx.strokeRect(
+              selectedImage.x - 2,
+              selectedImage.y - 2,
+              cachedImg.naturalWidth + 4,
+              cachedImg.naturalHeight + 4,
+            )
+          }
         }
       }
     }
@@ -408,6 +480,30 @@ const handleCanvasClick = (event) => {
     return
   }
 
+  const currentTime = Date.now()
+  const rect = canvas.value.getBoundingClientRect()
+  const scaleX = canvas.value.width / rect.width
+  const scaleY = canvas.value.height / rect.height
+
+  const x = (event.clientX - rect.left) * scaleX
+  const y = (event.clientY - rect.top) * scaleY
+
+  if (event.shiftKey) {
+    console.log('Shift+click: Adding popup image at:', x, y)
+    const newImageElement = {
+      type: 'ImageObject',
+      image: 'images/Popup.png',
+      x: Math.round(x),
+      y: Math.round(y),
+    }
+    jsonStore.currentInfolayer[0].elements.push(newImageElement)
+    historyStore.addInfoLayerAction({
+      type: 'add',
+      element: newImageElement,
+    })
+    renderInfoLayer()
+    return
+  }
   // Don't select shapes if any modifier keys or space key are pressed
   if (
     event.ctrlKey ||
@@ -427,29 +523,82 @@ const handleCanvasClick = (event) => {
     return
   }
 
-  const currentTime = Date.now()
-  const rect = canvas.value.getBoundingClientRect()
-  const scaleX = canvas.value.width / rect.width
-  const scaleY = canvas.value.height / rect.height
-
-  const x = (event.clientX - rect.left) * scaleX
-  const y = (event.clientY - rect.top) * scaleY
-
   // Don't select shapes if in infolayer grayscale mode
   if (jsonStore.selectedInfolayerId && transformStore.grayscale) {
-    // Check if click is on a text element
+    // Check if click is on a text or image element
+    let clickedOnElement = false
     if (jsonStore.currentInfolayer?.[0]?.elements) {
       for (const element of jsonStore.currentInfolayer[0].elements) {
+        if (element.type === 'ImageObject' && element.image) {
+          const imagePath = `data/${element.image}`
+          const cachedImg = imageCache.get(imagePath)
+
+          if (cachedImg && isPointInImage(x, y, element, cachedImg)) {
+            clickedOnElement = true
+            console.log('Image clicked at:', element.x, element.y)
+            // Clear multiple selection and set single selection
+            jsonStore.setMultipleInfoLayerElements([])
+            jsonStore.setSelectedImageCoords({ x: element.x, y: element.y })
+            jsonStore.setSelectedTextCoords(null) // Clear text selection
+            lastClickTime = currentTime
+            return
+          }
+        }
         if (element.type === 'Text') {
           if (isPointInText(x, y, element, bitmapFontConfig)) {
-            console.log('Clicked on text:', element.text, 'at', element.x, element.y)
-            jsonStore.setSelectedTextCoords({ x: element.x, y: element.y })
+            clickedOnElement = true
+            // Check for double-click FIRST
+            const isDoubleClick =
+              currentTime - lastClickTime < DOUBLE_CLICK_DELAY &&
+              lastClickedShape === element.x + ',' + element.y // Use unique ID
+
+            if (isDoubleClick) {
+              console.log('Double-click: Text element at:', element.x, element.y)
+              // Clear multiple selection before editing
+              jsonStore.setMultipleInfoLayerElements([])
+              emit('openTextEditor', element)
+            } else {
+              console.log('Single click: Text selected at:', element.x, element.y)
+              // Clear multiple selection and set single selection
+              jsonStore.setMultipleInfoLayerElements([])
+              jsonStore.setSelectedTextCoords({ x: element.x, y: element.y })
+              jsonStore.setSelectedImageCoords(null) // Clear image selection
+            }
+
+            lastClickTime = currentTime
+            lastClickedShape = element.x + ',' + element.y // Track last clicked text
             return
           }
         }
       }
     }
-    console.log('Clicked in info layer mode but not on any text')
+
+    if (!clickedOnElement) {
+      const isDoubleClick =
+        currentTime - lastClickTime < DOUBLE_CLICK_DELAY && lastClickedShape === 'empty'
+
+      if (isDoubleClick) {
+        console.log('Double-click on empty area - creating new text at:', x, y)
+        // Create a new empty text element
+        const newTextElement = {
+          type: 'Text',
+          text: '',
+          x: Math.round(x),
+          y: Math.round(y),
+          rotation: 0,
+          color: 'white',
+        }
+        emit('openTextEditor', newTextElement)
+      } else {
+        console.log('Clicked in info layer mode but not on any text')
+        jsonStore.setMultipleInfoLayerElements([])
+        jsonStore.setSelectedTextCoords(null)
+        jsonStore.setSelectedImageCoords(null)
+      }
+
+      lastClickTime = currentTime
+      lastClickedShape = 'empty'
+    }
     return
   }
 
@@ -519,8 +668,11 @@ const handleMouseMove = (event) => {
     const deltaX = Math.abs(x - dragStart.value.x)
     const deltaY = Math.abs(y - dragStart.value.y)
 
-    // Start dragging if mouse moved more than 5 pixels AND we have an active layer
-    if ((deltaX > 5 || deltaY > 5) && jsonStore.selectedShapeId) {
+    // Start dragging if mouse moved more than 5 pixels AND we have an active layer (interaction or infolayer)
+    if (
+      (deltaX > 5 || deltaY > 5) &&
+      (jsonStore.selectedShapeId || (jsonStore.selectedInfolayerId && transformStore.grayscale))
+    ) {
       isDragging.value = true
       dragOccurred.value = true
       // Prevent click event from firing
@@ -585,9 +737,93 @@ const handleMouseMove = (event) => {
   // Update cursor style
   canvas.value.style.cursor = overShape ? 'pointer' : 'default'
 }
+const handleInfoLayerMouseMove = (event) => {
+  if (!infoLayerOverlay.value || !jsonStore.selectedInfolayerId) return
+
+  const rect = infoLayerOverlay.value.getBoundingClientRect()
+  const scaleX = canvas.value.width / rect.width
+  const scaleY = canvas.value.height / rect.height
+
+  const x = (event.clientX - rect.left) * scaleX
+  const y = (event.clientY - rect.top) * scaleY
+
+  // Check if we should start dragging (mouse moved far enough)
+  if (!isDragging.value && dragStart.value.x !== 0) {
+    const deltaX = Math.abs(x - dragStart.value.x)
+    const deltaY = Math.abs(y - dragStart.value.y)
+
+    // Start dragging if mouse moved more than 5 pixels
+    if (deltaX > 5 || deltaY > 5) {
+      isDragging.value = true
+      dragOccurred.value = true
+      event.preventDefault()
+    }
+  }
+
+  // Handle drag selection - update drag end position
+  if (isDragging.value) {
+    dragEnd.value = { x, y }
+    return
+  }
+
+  // Check modifier keys first - Ctrl takes priority, then Space
+  if (isCtrlPressed.value) {
+    infoLayerOverlay.value.style.cursor = 'zoom-in'
+    return
+  }
+
+  if (isSpacePressed.value) {
+    infoLayerOverlay.value.style.cursor = 'grab'
+    return
+  }
+
+  // Don't change cursor if ViewContainer is in pan mode
+  const viewContainer = infoLayerOverlay.value?.closest('.view-container')
+  if (
+    viewContainer &&
+    (viewContainer.style.cursor === 'grab' || viewContainer.style.cursor === 'grabbing')
+  ) {
+    return
+  }
+
+  // Find the selected infolayer
+  const infoLayer = jsonStore.currentInfolayer.find(
+    (info) => info.name === jsonStore.selectedInfolayerId,
+  )
+
+  if (!infoLayer || !infoLayer.elements) {
+    infoLayerOverlay.value.style.cursor = 'default'
+    return
+  }
+
+  // Check text elements (reverse order for top-to-bottom hit detection)
+  for (let i = infoLayer.elements.length - 1; i >= 0; i--) {
+    const element = infoLayer.elements[i]
+
+    if (element.type === 'Text') {
+      if (isPointInText(x, y, element, bitmapFontConfig)) {
+        infoLayerOverlay.value.style.cursor = 'pointer'
+        return
+      }
+    } else if (element.type === 'ImageObject' && element.image) {
+      const imagePath = `data/${element.image}`
+      const cachedImage = imageCache.get(imagePath)
+      if (cachedImage && cachedImage.complete) {
+        if (isPointInImage(x, y, element, cachedImage)) {
+          infoLayerOverlay.value.style.cursor = 'pointer'
+          return
+        }
+      }
+    }
+  }
+
+  // Not over any clickable element
+  infoLayerOverlay.value.style.cursor = 'default'
+}
 
 const handleMouseDown = (event) => {
-  if (!ctx || !jsonStore.currentInteractionShapes) return
+  // Allow mousedown in both interaction mode and infolayer mode
+  if (!ctx && !transformStore.grayscale) return
 
   // Don't start drag if modifier keys or space is pressed
   if (
@@ -603,14 +839,22 @@ const handleMouseDown = (event) => {
   const viewContainer = canvas.value?.closest('.view-container')
   if (viewContainer && viewContainer.style.cursor === 'grab') return
 
-  const rect = canvas.value.getBoundingClientRect()
+  // Use infolayer overlay rect if in infolayer mode, otherwise use canvas rect
+  const targetElement =
+    jsonStore.selectedInfolayerId && transformStore.grayscale && infoLayerOverlay.value
+      ? infoLayerOverlay.value
+      : canvas.value
+
+  if (!targetElement) return
+
+  const rect = targetElement.getBoundingClientRect()
   const scaleX = canvas.value.width / rect.width
   const scaleY = canvas.value.height / rect.height
 
   const x = (event.clientX - rect.left) * scaleX
   const y = (event.clientY - rect.top) * scaleY
 
-  // Always track drag start for click detection, but only enable drag selection if we have an active layer
+  // Always track drag start for click detection
   dragStart.value = { x, y }
   dragEnd.value = { x, y }
   dragOccurred.value = false
@@ -634,7 +878,53 @@ const handleMouseUp = () => {
   const minY = Math.min(dragStart.value.y, dragEnd.value.y)
   const maxY = Math.max(dragStart.value.y, dragEnd.value.y)
 
-  // Only check elements from the currently selected layer
+  // Handle infolayer drag selection
+  if (jsonStore.selectedInfolayerId && transformStore.grayscale) {
+    const selectedElements = []
+    const infoLayer = jsonStore.currentInfolayer.find(
+      (info) => info.name === jsonStore.selectedInfolayerId,
+    )
+
+    if (infoLayer && infoLayer.elements) {
+      infoLayer.elements.forEach((element) => {
+        if (element.type === 'Text') {
+          const bbox = getTextBoundingBox(element)
+          // Check if text bounding box intersects with selection box
+          if (
+            bbox.x < maxX &&
+            bbox.x + bbox.width > minX &&
+            bbox.y < maxY &&
+            bbox.y + bbox.height > minY
+          ) {
+            selectedElements.push({ x: element.x, y: element.y })
+          }
+        } else if (element.type === 'ImageObject' && element.image) {
+          const imagePath = `data/${element.image}`
+          const cachedImage = imageCache.get(imagePath)
+          if (cachedImage && cachedImage.complete) {
+            const imgWidth = cachedImage.naturalWidth
+            const imgHeight = cachedImage.naturalHeight
+            // Check if image intersects with selection box
+            if (
+              element.x < maxX &&
+              element.x + imgWidth > minX &&
+              element.y < maxY &&
+              element.y + imgHeight > minY
+            ) {
+              selectedElements.push({ x: element.x, y: element.y })
+            }
+          }
+        }
+      })
+    }
+
+    console.log('Infolayer drag selection completed. Selected elements:', selectedElements)
+    jsonStore.setMultipleInfoLayerElements(selectedElements)
+    dragStart.value = { x: 0, y: 0 }
+    return
+  }
+
+  // Handle interaction shape drag selection
   if (!jsonStore.selectedShapeId) {
     dragStart.value = { x: 0, y: 0 }
     return
@@ -816,8 +1106,10 @@ watch(
       height: Math.abs(dragEnd.y - dragStart.y) + 'px',
     }"
   />
+
   <div
     v-if="isInfoLayerMode"
+    ref="infoLayerOverlay"
     style="
       position: absolute;
       top: 0;
@@ -827,9 +1119,14 @@ watch(
       z-index: 20;
       background: transparent;
       user-select: none;
+      cursor: default;
     "
     @click="handleCanvasClick"
+    @mousedown="handleMouseDown"
+    @mousemove="handleInfoLayerMouseMove"
+    @mouseup="handleMouseUp"
   ></div>
+  <!-- Text editing textarea -->
 </template>
 <style scoped>
 .drag-selection-box {
@@ -837,6 +1134,6 @@ watch(
   border: 1px dashed #0066ff;
   background-color: rgba(0, 102, 255, 0.1);
   pointer-events: none;
-  z-index: 15;
+  z-index: 25;
 }
 </style>

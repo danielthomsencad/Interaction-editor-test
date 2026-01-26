@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useTransformStore, useJsonStore, useHistoryStore } from '@/stores/store'
+import InfoTextEditor from './InfoTextEditor.vue'
 
 const viewContainer = ref(null)
 const transformStore = useTransformStore()
@@ -19,6 +20,50 @@ const dragStartY = ref(0)
 const initialPanX = ref(0) // Pan position when drag started
 const initialPanY = ref(0)
 const activeMovementModifier = ref(null) // Track first-pressed modifier: 'ctrl' | 'shift' | null
+const isEditingText = ref(false)
+const editingTextElement = ref(null)
+
+const handleTextSave = (newText) => {
+  if (!editingTextElement.value) return
+
+  const element = jsonStore.currentInfolayer[0].elements.find(
+    (el) => el.x === editingTextElement.value.x && el.y === editingTextElement.value.y,
+  )
+
+  if (element) {
+    // Track edit action with old value
+    historyStore.addInfoLayerAction({
+      type: 'edit',
+      element: { x: element.x, y: element.y },
+      oldText: element.text,
+      newText: newText.toUpperCase(),
+    })
+    element.text = newText.toUpperCase()
+  } else {
+    // New element - track add
+    if (newText.trim()) {
+      const newElement = {
+        ...editingTextElement.value,
+        text: newText.toUpperCase(),
+      }
+      jsonStore.currentInfolayer[0].elements.push(newElement)
+      historyStore.addInfoLayerAction({
+        type: 'add',
+        element: newElement,
+      })
+    }
+  }
+
+  isEditingText.value = false
+  editingTextElement.value = null
+}
+
+// Expose method for child components to trigger text editing
+const openTextEditor = (textElement) => {
+  editingTextElement.value = textElement
+  isEditingText.value = true
+}
+defineExpose({ openTextEditor })
 
 const clampPanToBounds = (panX, panY) => {
   // Get ViewContainer dimensions
@@ -101,6 +146,7 @@ const deactivateListener = () => {
   viewContainer.value?.removeEventListener('mousemove', handleMouseMove)
 }
 const handleKeyDown = (event) => {
+  if (isEditingText.value) return
   // Track Ctrl key for movement modifier priority
   if (event.ctrlKey && !isCtrlPressed.value) {
     isCtrlPressed.value = true
@@ -132,17 +178,20 @@ const handleKeyDown = (event) => {
         event.preventDefault()
         break
       case 'z':
-        historyStore.restoreShape() 
+        if (transformStore.grayscale && jsonStore.selectedInfolayerId) {
+          historyStore.undoInfoLayerAction()
+        } else {
+          historyStore.restoreShape()
+        }
         event.preventDefault()
         break
     }
-
   } else if (event.key === ' ') {
     isSpacePressed.value = true
     updateCursor()
     event.preventDefault() // Prevent page scroll
   }
-  
+
   if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
     if (event.repeat) return
     console.log('Arrow key pressed in ViewContainer:', event.key)
@@ -176,10 +225,65 @@ const handleKeyDown = (event) => {
     event.preventDefault() // Prevent page scroll
   }
   if (event.key === 'Delete') {
-    // Clear active movement modifier on Escape
-    console.log('Delete key pressed in ViewContainer')
-    historyStore.deleteShape()
+    if (transformStore.grayscale) {
+      const elements = jsonStore.currentInfolayer[0].elements
 
+      // Priority 1: Multiple infolayer elements
+      if (jsonStore.selectedInfoLayerElements && jsonStore.selectedInfoLayerElements.length > 0) {
+        const deletedElements = []
+        // Delete in reverse order to avoid index shifting issues
+        for (let i = jsonStore.selectedInfoLayerElements.length - 1; i >= 0; i--) {
+          const coords = jsonStore.selectedInfoLayerElements[i]
+          const index = elements.findIndex((el) => el.x === coords.x && el.y === coords.y)
+          if (index !== -1) {
+            const deletedElement = elements.splice(index, 1)[0]
+            deletedElements.unshift(deletedElement) // Add to front to maintain order
+          }
+        }
+        // Track as single batch deletion
+        if (deletedElements.length > 0) {
+          historyStore.addInfoLayerAction({
+            type: 'batchDelete',
+            elements: deletedElements,
+          })
+        }
+        jsonStore.setMultipleInfoLayerElements([])
+      }
+      // Priority 2: Single text element
+      else if (jsonStore.selectedTextCoords) {
+        const index = elements.findIndex(
+          (el) =>
+            el.x === jsonStore.selectedTextCoords.x && el.y === jsonStore.selectedTextCoords.y,
+        )
+        if (index !== -1) {
+          const deletedElement = elements.splice(index, 1)[0]
+          historyStore.addInfoLayerAction({
+            type: 'delete',
+            element: deletedElement,
+          })
+          jsonStore.setSelectedTextCoords(null)
+        }
+      }
+      // Priority 3: Single image element
+      else if (jsonStore.selectedImageCoords) {
+        const index = elements.findIndex(
+          (el) =>
+            el.type === 'ImageObject' &&
+            el.x === jsonStore.selectedImageCoords.x &&
+            el.y === jsonStore.selectedImageCoords.y,
+        )
+        if (index !== -1) {
+          const deletedElement = elements.splice(index, 1)[0]
+          historyStore.addInfoLayerAction({
+            type: 'delete',
+            element: deletedElement,
+          })
+          jsonStore.setSelectedImageCoords(null)
+        }
+      }
+    } else {
+      historyStore.deleteShape()
+    }
   }
 }
 const handleMouseMove = (event) => {
@@ -230,6 +334,8 @@ const updateCursor = () => {
   }
 }
 const handleMouseDown = (event) => {
+  if (isEditingText.value) return
+
   if (isSpacePressed.value && event.button === 0) {
     event.preventDefault()
     event.stopPropagation()
@@ -257,6 +363,8 @@ const handleMouseUp = () => {
   }
 }
 const handleMouseWheel = (event) => {
+  if (isEditingText.value) return
+
   if (event.ctrlKey) {
     event.preventDefault()
     const delta = Math.sign(event.deltaY)
@@ -311,6 +419,12 @@ const onMouseLeave = () => {
     ref="viewContainer"
   >
     <slot />
+    <InfoTextEditor
+      :is-open="isEditingText"
+      :text-element="editingTextElement"
+      @close="isEditingText = false"
+      @save="handleTextSave"
+    />
   </div>
 </template>
 <style scoped>

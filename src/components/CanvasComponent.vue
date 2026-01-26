@@ -5,7 +5,6 @@ import { useJsonStore, useTransformStore } from '@/stores/store'
 import { watchEffect, ref, watch } from 'vue'
 import ShapeRenderer from './ShapeRenderer.vue'
 
-
 const img = new Image()
 const jsonStore = useJsonStore()
 const transformStore = useTransformStore()
@@ -43,25 +42,32 @@ watchEffect(() => {
   }
 })
 
-watch(() => jsonStore.selectedInfolayerId, (infolayer) => {
-  console.log('Detected change in selectedInfolayer:', infolayer);
-  if (infolayer) {
-    console.log('Applying grayscale for infolayer:', infolayer);
-    transformStore.setGrayscale();
-  } else {
-    console.log('Clearing grayscale');
-    transformStore.clearGrayscale();
-  }
-});
+watch(
+  () => jsonStore.selectedInfolayerId,
+  (infolayer) => {
+    console.log('Detected change in selectedInfolayer:', infolayer)
+    if (infolayer) {
+      console.log('Applying grayscale for infolayer:', infolayer)
+      transformStore.setGrayscale()
+    } else {
+      console.log('Clearing grayscale')
+      transformStore.clearGrayscale()
+    }
+  },
+)
 </script>
 <template>
-  <ViewContainer :ref="viewContainerRef">
+  <ViewContainer ref="viewContainerRef">
     <div
       class="canvas-wrapper"
       :style="`transform: translate(${transformStore.panX}px, ${transformStore.panY}px) scale(${transformStore.zoomLevel})`"
     >
-      <img :src="jsonStore.currentImg" :style="transformStore.grayscale ? 'filter: grayscale(100%) brightness(50%)' : ''" style="user-select: none;" />
-      <ShapeRenderer :canvasId="'myCanvas'" />
+      <img
+        :src="jsonStore.currentImg"
+        :style="transformStore.grayscale ? 'filter: grayscale(100%) brightness(50%)' : ''"
+        style="user-select: none"
+      />
+      <ShapeRenderer :canvasId="'myCanvas'" @open-text-editor="viewContainerRef?.openTextEditor" />
     </div>
   </ViewContainer>
 </template>
