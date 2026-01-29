@@ -55,6 +55,9 @@ const rubberBandEnd = ref({ x: 0, y: 0 })
 const isSpacePressed = ref(false)
 const isCtrlPressed = ref(false)
 
+// Clipboard for copy/paste functionality
+const clipboard = ref(null)
+
 onMounted(() => {
   canvas.value = document.getElementById(props.canvasId)
   infoLayerCanvas.value = document.getElementById(props.canvasId + '-infoLayer')
@@ -92,6 +95,158 @@ const handleGlobalMouseUp = () => {
 }
 
 const handleKeyDown = (event) => {
+  // Don't intercept keyboard shortcuts if user is typing in an input or textarea
+  const activeElement = document.activeElement
+  if (
+    activeElement &&
+    (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA')
+  ) {
+    // Allow space key to pass through for text input
+    if (event.code === 'Space') {
+      return
+    }
+  }
+
+  // Ctrl+C: Copy selected element(s)
+  if (event.ctrlKey && event.key === 'c') {
+    console.log('Ctrl+C pressed')
+    console.log('selectedIndividualShapeId:', jsonStore.selectedIndividualShapeId)
+    console.log('selectedShapeId:', jsonStore.selectedShapeId)
+    console.log('selectedElementCoords:', jsonStore.selectedElementCoords)
+    console.log('selectedElementCoordsArray:', jsonStore.selectedElementCoordsArray)
+    
+    event.preventDefault()
+    
+    // Determine source shape ID (could be individual or layer selection)
+    const sourceShapeId = jsonStore.selectedIndividualShapeId || jsonStore.selectedShapeId
+    
+    // Copy multiple elements from a shape
+    if (sourceShapeId && jsonStore.selectedElementCoordsArray.length > 0) {
+      const shape = jsonStore.currentInteractionShapes.find(
+        (s) => s.id === sourceShapeId
+      )
+      
+      console.log('Found shape for multiple elements:', shape?.name)
+      
+      if (shape && shape.elements) {
+        const elementsToCopy = shape.elements.filter((el) =>
+          jsonStore.selectedElementCoordsArray.some(
+            (coord) => coord.x === el.x && coord.y === el.y
+          )
+        )
+        
+        if (elementsToCopy.length > 0) {
+          clipboard.value = {
+            shapeId: sourceShapeId,
+            elements: JSON.parse(JSON.stringify(elementsToCopy)), // Deep copy
+            anchors: shape.anchors ? JSON.parse(JSON.stringify(shape.anchors)) : [] // Copy anchors
+          }
+          console.log('Copied', elementsToCopy.length, 'element(s) and', (shape.anchors?.length || 0), 'anchor(s)')
+        } else {
+          console.log('No elements matched coordinates')
+        }
+      }
+    } else if (sourceShapeId && jsonStore.selectedElementCoords) {
+      // Single element selected
+      const shape = jsonStore.currentInteractionShapes.find(
+        (s) => s.id === sourceShapeId
+      )
+      
+      console.log('Found shape for single element:', shape?.name)
+      
+      if (shape && shape.elements) {
+        const elementToCopy = shape.elements.find(
+          (el) => el.x === jsonStore.selectedElementCoords.x && el.y === jsonStore.selectedElementCoords.y
+        )
+        
+        console.log('Element to copy:', elementToCopy)
+        
+        if (elementToCopy) {
+          clipboard.value = {
+            shapeId: sourceShapeId,
+            elements: [JSON.parse(JSON.stringify(elementToCopy))], // Deep copy
+            anchors: shape.anchors ? JSON.parse(JSON.stringify(shape.anchors)) : [] // Copy anchors
+          }
+          console.log('Copied element at:', elementToCopy.x, elementToCopy.y, 'with', (shape.anchors?.length || 0), 'anchor(s)')
+        } else {
+          console.log('Element not found at coordinates')
+        }
+      }
+    } else {
+      console.log('No element(s) selected to copy')
+    }
+    return
+  }
+
+  // Ctrl+V: Paste element(s)
+  if (event.ctrlKey && event.key === 'v') {
+    console.log('Ctrl+V pressed')
+    console.log('Clipboard:', clipboard.value)
+    
+    event.preventDefault()
+    
+    if (!clipboard.value || !clipboard.value.elements || clipboard.value.elements.length === 0) {
+      console.log('Nothing to paste')
+      return
+    }
+    
+    // Paste into the same shape or currently selected shape
+    const targetShapeId = jsonStore.selectedIndividualShapeId || jsonStore.selectedShapeId || clipboard.value.shapeId
+    console.log('Target shape ID:', targetShapeId)
+    
+    const shape = jsonStore.currentInteractionShapes.find((s) => s.id === targetShapeId)
+    console.log('Found target shape:', shape?.name)
+    
+    if (!shape || !shape.elements) {
+      console.log('No target shape found')
+      return
+    }
+    
+    const pastedElements = []
+    const offset = 10 // Offset pasted elements by 10 pixels
+    
+    clipboard.value.elements.forEach((element) => {
+      const newElement = JSON.parse(JSON.stringify(element)) // Deep copy
+      newElement.x += offset
+      newElement.y += offset
+      
+      shape.elements.push(newElement)
+      pastedElements.push({ x: newElement.x, y: newElement.y })
+      console.log('Pasted element at:', newElement.x, newElement.y)
+    })
+    
+    // Paste anchors if they exist in clipboard
+    if (clipboard.value.anchors && clipboard.value.anchors.length > 0) {
+      // Initialize anchors array if it doesn't exist
+      if (!shape.anchors) {
+        shape.anchors = []
+      }
+      
+      clipboard.value.anchors.forEach((anchor) => {
+        const newAnchor = {
+          x: anchor.x + offset,
+          y: anchor.y + offset
+        }
+        shape.anchors.push(newAnchor)
+        console.log('Pasted anchor at:', newAnchor.x, newAnchor.y)
+      })
+    }
+    
+    // Mark as modified and select the pasted elements
+    jsonStore.markAsModified()
+    
+    if (pastedElements.length === 1) {
+      jsonStore.setIndividualElement(targetShapeId, pastedElements[0])
+    } else if (pastedElements.length > 1) {
+      jsonStore.selectedIndividualShapeId = targetShapeId
+      jsonStore.setMultipleElementCoords(pastedElements)
+    }
+    
+    console.log('Paste complete, rendering shapes')
+    renderShapes()
+    return
+  }
+
   // Ctrl+Z: Undo based on mode
   if (event.ctrlKey && event.key === 'z' && !event.shiftKey) {
     event.preventDefault()
@@ -123,13 +278,9 @@ const handleKeyDown = (event) => {
     }
   }
 
-  // Don't intercept space if user is typing in an input or textarea
+  // Don't intercept space if user is already typing
   if (event.code === 'Space' && !event.repeat) {
-    const activeElement = document.activeElement
-    if (
-      activeElement &&
-      (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA')
-    ) {
+    if (activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA')) {
       return // Let the input handle the space key
     }
     event.preventDefault() // Prevent page scroll
@@ -352,6 +503,10 @@ const renderShapes = () => {
     if (isInfoLayerMode.value) {
       return // Don't draw anything
     }
+    // Skip drawing if shape is hidden
+    if (jsonStore.hiddenShapeIds.includes(shape.id)) {
+      return
+    }
     drawPolygon(shape, isLayerSelected, isIndividualSelected)
   })
 
@@ -433,7 +588,8 @@ const renderInfoLayer = () => {
         if (element.type === 'Text') {
           drawText(element)
         } else if (element.type === 'ImageObject' && element.image) {
-          const imagePath = `data/${element.image}`
+          // Use dynamic base path from JSON location
+          const imagePath = `${jsonStore.imageBasePath}${element.image}`
 
           // Check cache first
           if (imageCache.has(imagePath)) {
@@ -546,6 +702,35 @@ const renderInfoLayer = () => {
   }
 }
 const handleCreationClick = (x, y, isShiftPressed) => {
+  // Handle anchor placement mode (mutually exclusive with vertex drawing)
+  if (jsonStore.isAddAnchorModeActive) {
+    // Auto-detect which shape contains the click point
+    let targetShape = null
+    for (let i = jsonStore.currentInteractionShapes.length - 1; i >= 0; i--) {
+      const shape = jsonStore.currentInteractionShapes[i]
+      if (isPointInShape(x, y, shape)) {
+        targetShape = shape
+        break
+      }
+    }
+
+    if (targetShape) {
+      // Initialize anchors array if it doesn't exist
+      if (!targetShape.anchors) {
+        targetShape.anchors = []
+      }
+      // Add new anchor at click position
+      targetShape.anchors.push({ x: Math.round(x), y: Math.round(y) })
+      console.log('Anchor added to', targetShape.name, 'at:', Math.round(x), Math.round(y))
+      jsonStore.markAsModified()
+      renderShapes() // Re-render to show new anchor
+      updateCursor()
+    } else {
+      console.log('No shape found at click position')
+    }
+    return
+  }
+
   // First vertex requires shift
   if (jsonStore.currentDrawingVertices.length === 0) {
     if (!isShiftPressed) return
@@ -554,6 +739,7 @@ const handleCreationClick = (x, y, isShiftPressed) => {
     // Initialize rubber band end to first vertex position
     rubberBandEnd.value = { x, y }
     renderShapes()
+    updateCursor() // Ensure crosshair cursor is maintained
     return
   }
 
@@ -564,12 +750,14 @@ const handleCreationClick = (x, y, isShiftPressed) => {
     // Initialize rubber band end to first vertex position of new shape
     rubberBandEnd.value = { x, y }
     renderShapes()
+    updateCursor() // Ensure crosshair cursor is maintained
     return
   }
 
   // Subsequent vertices - add with history tracking
   jsonStore.addVertex(x, y)
   renderShapes() // Trigger preview update
+  updateCursor() // Ensure crosshair cursor is maintained
 }
 
 const handleContextMenu = (event) => {
@@ -609,6 +797,7 @@ const handleCanvasClick = (event) => {
   // Priority 0: Creation tool mode - only handle vertex placement
   if (jsonStore.isCreationToolActive) {
     handleCreationClick(x, y, event.shiftKey)
+    updateCursor()
     return
   }
 
@@ -861,6 +1050,12 @@ const handleMouseMove = (event) => {
   const x = (event.clientX - rect.left) * scaleX
   const y = (event.clientY - rect.top) * scaleY
 
+  // Don't change cursor if in creation mode - crosshair should always show
+  if (jsonStore.isCreationToolActive) {
+    canvas.value.style.cursor = 'crosshair'
+    return
+  }
+
   // Check if mouse is over any shape
   let overShape = false
   for (let i = jsonStore.currentInteractionShapes.length - 1; i >= 0; i--) {
@@ -992,6 +1187,7 @@ const handleMouseDown = (event) => {
   const y = (event.clientY - rect.top) * scaleY
 
   // Always track drag start for click detection
+  if( jsonStore.isCreationToolActive) return // Don't start drag in creation mode
   dragStart.value = { x, y }
   dragEnd.value = { x, y }
   dragOccurred.value = false

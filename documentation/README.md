@@ -613,21 +613,5 @@ User double-clicks shape
 - Deletion history with restoration
 - Info layer change tracking
 
-## Future Development
 
-### Planned Features
 
-- Save JSON back to filesystem
-- Electron distribution packaging
-- Additional shape types (circles, rectangles)
-- Copy/paste shapes
-- Snap-to-grid
-- Alignment tools
-- Export to different formats
-
-### Known Limitations
-
-- No Vue Router routes configured
-- Electron packaging not set up
-- Single undo level for some operations
-- No shape validation (self-intersecting polygons)

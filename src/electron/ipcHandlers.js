@@ -14,7 +14,8 @@ export function registerIpcHandlers() {
   ipcMain.handle('show-open-dialog', async () => {
     const { canceled, filePaths } = await dialog.showOpenDialog({})
     if (!canceled) {
-      return JSON.parse(readFileSync(filePaths[0], 'utf-8'))
+      const data = JSON.parse(readFileSync(filePaths[0], 'utf-8'))
+      return { data, filePath: filePaths[0] }
     }
   })
 
@@ -31,5 +32,50 @@ export function registerIpcHandlers() {
       detail: options.detail,
     })
     return result.response === 1 // Returns true if "Delete" clicked
+  })
+
+  ipcMain.handle('show-save-changes-dialog', async (event) => {
+    const parentWindow = BrowserWindow.fromWebContents(event.sender)
+  
+    const result = await dialog.showMessageBox(parentWindow, {
+      type: 'warning',
+      buttons: ['Cancel', 'Don\'t Save', 'Save'],
+      defaultId: 2,
+      cancelId: 0,
+      title: 'Save Changes?',
+      message: 'Do you want to save changes to this file?',
+      detail: 'Your changes will be lost if you don\'t save them.',
+    })
+    // Returns: 0 = Cancel, 1 = Don't Save, 2 = Save
+    return result.response
+  })
+
+  ipcMain.handle('show-save-confirm-dialog', async (event) => {
+    const parentWindow = BrowserWindow.fromWebContents(event.sender)
+  
+    const result = await dialog.showMessageBox(parentWindow, {
+      type: 'question',
+      buttons: ['Cancel', 'Save'],
+      defaultId: 1,
+      cancelId: 0,
+      title: 'Confirm Save',
+      message: 'Are you sure you want to save this file?',
+      detail: 'This will overwrite the existing file with your changes.',
+    })
+    return result.response === 1 // Returns true if "Save" clicked
+  })
+
+  ipcMain.handle('load-image', (event, filePath) => {
+    try {
+      const imageBuffer = readFileSync(filePath)
+      const base64 = imageBuffer.toString('base64')
+      // Determine MIME type from file extension
+      const ext = filePath.split('.').pop().toLowerCase()
+      const mimeType = ext === 'png' ? 'image/png' : ext === 'gif' ? 'image/gif' : 'image/jpeg'
+      return `data:${mimeType};base64,${base64}`
+    } catch (error) {
+      console.error('Failed to load image:', filePath, error)
+      return null
+    }
   })
 }

@@ -25,7 +25,7 @@ main {
   grid-template-areas:
     'toolbar toolbar'
     'content sidebar';
-  grid-template-columns: 1fr 300px; /* adjustable sidebar width */
+  grid-template-columns: 1fr 350px; /* adjustable sidebar width */
   grid-template-rows: auto 1fr; /* toolbar auto-height, content fills remaining */
 }
 .toolbar {

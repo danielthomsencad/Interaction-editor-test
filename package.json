@@ -1,15 +1,29 @@
 {
   "name": "interaction-editor-test",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "main": "./src/electron-main.js",
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
   },
+  "build": {
+    "appId": "app.cadpeople.interaction-editor",
+    "productName": "interaction-editor",
+    "directories": {
+      "output": "dist-electron"
+    },
+    "files": [
+    "dist/**",
+    "src/electron-main.js",
+    "src/electron/",
+  "package.json"
+    ]
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "electron:build": "electron-builder",
     "electron": "electron .",
     "preview": "vite preview",
     "lint": "eslint . --fix --cache",
@@ -20,7 +34,6 @@
     "@codemirror/lang-json": "^6.0.2",
     "@codemirror/lint": "^6.9.2",
     "codemirror": "^6.0.2",
-    "electron": "^39.1.2",
     "pinia": "^3.0.4",
     "vue": "^3.5.22",
     "vue-router": "^4.6.3"
@@ -30,8 +43,10 @@
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/eslint-config-prettier": "^10.2.0",
     "concurrently": "^9.2.1",
+    "electron-builder": "^26.4.0",
     "electron-reload": "^2.0.0-alpha.1",
     "eslint": "^9.37.0",
+     "electron": "^39.1.2",
     "eslint-plugin-vue": "~10.5.0",
     "globals": "^16.4.0",
     "prettier": "3.6.2",

@@ -2,19 +2,27 @@
 import useToolBar from '@/composables/toolBarComposable'
 import { useJsonStore } from '@/stores/store'
 
-const { openFile } = useToolBar()
+const { openFile, saveFile } = useToolBar()
 const jsonStore = useJsonStore()
 </script>
 
 <template>
   <nav>
     <button @click="openFile">Open file</button>
+    <button @click="saveFile" :disabled="!jsonStore.currentFilePath">Save</button>
     <button
       @click="jsonStore.toggleCreationTool"
       :disabled="!jsonStore.selectedShapeId"
       :class="{ active: jsonStore.isCreationToolActive }"
     >
       {{ jsonStore.isCreationToolActive ? 'Drawing Mode' : 'Create Shape' }}
+    </button>
+    <button
+      v-if="jsonStore.isCreationToolActive"
+      @click="jsonStore.toggleAddAnchorMode"
+      :class="{ active: jsonStore.isAddAnchorModeActive }"
+    >
+      {{ jsonStore.isAddAnchorModeActive ? 'Anchor Mode (ON)' : 'Add Anchors' }}
     </button>
   </nav>
 </template>

@@ -2829,10 +2829,71 @@
                   "x": 0,
                   "y": 4246
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 20,
+                "maxX": 842,
+                "minY": 20,
+                "maxY": 4267
+              }
+            },
+            {
+              "type": "Polygon",
+              "id": "element_1769680764214_5hq3scqql",
+              "x": 347.5,
+              "y": 1709.5,
+              "vertices": [
+                {
+                  "x": 587,
+                  "y": 74
+                },
+                {
+                  "x": 733,
+                  "y": 421
+                },
+                {
+                  "x": 471,
+                  "y": 626
+                },
+                {
+                  "x": 0,
+                  "y": 519
+                },
+                {
+                  "x": 91,
+                  "y": 0
+                }
+              ],
+              "boundingBox": {
+                "minX": 347.5,
+                "maxX": 1080.5,
+                "minY": 1709.5,
+                "maxY": 2335.5
+              }
             }
           ],
-          "anchors": [],
+          "anchors": [
+            {
+              "x": 740,
+              "y": 1942
+            },
+            {
+              "x": 504,
+              "y": 1968
+            },
+            {
+              "x": 699,
+              "y": 2180
+            },
+            {
+              "x": 933,
+              "y": 2110
+            },
+            {
+              "x": 865,
+              "y": 1883
+            }
+          ],
           "index": 0
         },
         {
@@ -2981,7 +3042,13 @@
                   "x": 289,
                   "y": 4
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 893,
+                "maxX": 1493,
+                "minY": 90,
+                "maxY": 229
+              }
             },
             {
               "type": "Polygon",
@@ -3020,7 +3087,13 @@
                   "x": 5,
                   "y": 102
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1228,
+                "maxX": 1259,
+                "minY": 3098,
+                "maxY": 3200
+              }
             },
             {
               "type": "Polygon",
@@ -3043,7 +3116,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1126,
+                "maxX": 1138,
+                "minY": 660,
+                "maxY": 677
+              }
             },
             {
               "type": "Polygon",
@@ -3066,7 +3145,13 @@
                   "x": -1,
                   "y": 10
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1473,
+                "maxX": 1483,
+                "minY": 1867,
+                "maxY": 1877
+              }
             },
             {
               "type": "Polygon",
@@ -3101,7 +3186,13 @@
                   "x": 6,
                   "y": -1
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1613,
+                "maxX": 1631,
+                "minY": 1237,
+                "maxY": 1323
+              }
             },
             {
               "type": "Polygon",
@@ -3208,7 +3299,13 @@
                   "x": 5,
                   "y": -33
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1293,
+                "maxX": 1365,
+                "minY": 2619,
+                "maxY": 2740
+              }
             },
             {
               "type": "Polygon",
@@ -3299,7 +3396,13 @@
                   "x": 0,
                   "y": 58
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1057,
+                "maxX": 1265,
+                "minY": 1943,
+                "maxY": 2088
+              }
             },
             {
               "type": "Polygon",
@@ -3322,7 +3425,13 @@
                   "x": -1,
                   "y": 17
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1440,
+                "maxX": 1467,
+                "minY": 836,
+                "maxY": 853
+              }
             },
             {
               "type": "Polygon",
@@ -3345,7 +3454,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1089,
+                "maxX": 1101,
+                "minY": 1093,
+                "maxY": 1110
+              }
             },
             {
               "type": "Polygon",
@@ -3476,7 +3591,13 @@
                   "x": -20,
                   "y": 0
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 961,
+                "maxX": 1088,
+                "minY": 2548,
+                "maxY": 2742
+              }
             },
             {
               "type": "Polygon",
@@ -3523,7 +3644,13 @@
                   "x": 4,
                   "y": 18
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1316,
+                "maxX": 1336,
+                "minY": 941,
+                "maxY": 1060
+              }
             },
             {
               "type": "Polygon",
@@ -3558,7 +3685,13 @@
                   "x": 2,
                   "y": -40
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1110,
+                "maxX": 1133,
+                "minY": 813,
+                "maxY": 854
+              }
             },
             {
               "type": "Polygon",
@@ -3617,7 +3750,13 @@
                   "x": 2,
                   "y": 73
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1072,
+                "maxX": 1088,
+                "minY": 950,
+                "maxY": 1088
+              }
             },
             {
               "type": "Polygon",
@@ -3656,7 +3795,13 @@
                   "x": -6,
                   "y": 17
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1552,
+                "maxX": 1610,
+                "minY": 1711,
+                "maxY": 1792
+              }
             },
             {
               "type": "Polygon",
@@ -3679,7 +3824,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1384,
+                "maxX": 1396,
+                "minY": 1229,
+                "maxY": 1246
+              }
             },
             {
               "type": "Polygon",
@@ -3702,7 +3853,13 @@
                   "x": -1,
                   "y": 10
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1533,
+                "maxX": 1543,
+                "minY": 1850,
+                "maxY": 1860
+              }
             },
             {
               "type": "Polygon",
@@ -3725,7 +3882,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1059,
+                "maxX": 1071,
+                "minY": 1197,
+                "maxY": 1214
+              }
             },
             {
               "type": "Polygon",
@@ -3768,7 +3931,13 @@
                   "x": -5,
                   "y": 25
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1306,
+                "maxX": 1387,
+                "minY": 1769,
+                "maxY": 1853
+              }
             },
             {
               "type": "Polygon",
@@ -4171,7 +4340,13 @@
                   "x": -40,
                   "y": 5
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 847,
+                "maxX": 1559,
+                "minY": 3704,
+                "maxY": 4198
+              }
             },
             {
               "type": "Polygon",
@@ -4194,7 +4369,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1385,
+                "maxX": 1397,
+                "minY": 1093,
+                "maxY": 1110
+              }
             },
             {
               "type": "Polygon",
@@ -4265,7 +4446,13 @@
                   "x": 0,
                   "y": 31
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1229,
+                "maxX": 1313,
+                "minY": 2551,
+                "maxY": 2702
+              }
             },
             {
               "type": "Polygon",
@@ -4288,7 +4475,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1369,
+                "maxX": 1381,
+                "minY": 1197,
+                "maxY": 1214
+              }
             },
             {
               "type": "Polygon",
@@ -4311,7 +4504,13 @@
                   "x": 6,
                   "y": 25
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1221,
+                "maxX": 1227,
+                "minY": 788,
+                "maxY": 813
+              }
             },
             {
               "type": "Polygon",
@@ -4350,7 +4549,13 @@
                   "x": -6,
                   "y": 306
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1458,
+                "maxX": 1554,
+                "minY": 1014,
+                "maxY": 1324
+              }
             },
             {
               "type": "Polygon",
@@ -4385,7 +4590,13 @@
                   "x": 1,
                   "y": 18
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1209,
+                "maxX": 1223,
+                "minY": 784,
+                "maxY": 818
+              }
             },
             {
               "type": "Polygon",
@@ -4420,7 +4631,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1491,
+                "maxX": 1503,
+                "minY": 153,
+                "maxY": 170
+              }
             },
             {
               "type": "Polygon",
@@ -4551,7 +4768,13 @@
                   "x": -14,
                   "y": 32
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1003,
+                "maxX": 1155,
+                "minY": 3098,
+                "maxY": 3205
+              }
             },
             {
               "type": "Polygon",
@@ -4582,7 +4805,13 @@
                   "x": 0,
                   "y": -20
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1190,
+                "maxX": 1204,
+                "minY": 1000,
+                "maxY": 1079
+              }
             },
             {
               "type": "Polygon",
@@ -4613,7 +4842,13 @@
                   "x": -5,
                   "y": 20
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1255,
+                "maxX": 1299,
+                "minY": 1769,
+                "maxY": 1804
+              }
             },
             {
               "type": "Polygon",
@@ -4656,7 +4891,13 @@
                   "x": -5,
                   "y": 23
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1149,
+                "maxX": 1170,
+                "minY": 1252,
+                "maxY": 1287
+              }
             },
             {
               "type": "Polygon",
@@ -4679,7 +4920,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1370,
+                "maxX": 1382,
+                "minY": 1125,
+                "maxY": 1142
+              }
             },
             {
               "type": "Polygon",
@@ -4702,7 +4949,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1112,
+                "maxX": 1124,
+                "minY": 630,
+                "maxY": 647
+              }
             },
             {
               "type": "Polygon",
@@ -4725,7 +4978,13 @@
                   "x": -1,
                   "y": 10
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1533,
+                "maxX": 1543,
+                "minY": 1859,
+                "maxY": 1869
+              }
             },
             {
               "type": "Polygon",
@@ -4784,7 +5043,13 @@
                   "x": -4,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1168,
+                "maxX": 1255,
+                "minY": 1250,
+                "maxY": 1297
+              }
             },
             {
               "type": "Polygon",
@@ -4835,7 +5100,13 @@
                   "x": 35,
                   "y": 33
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1226,
+                "maxX": 1475,
+                "minY": 2868,
+                "maxY": 3056
+              }
             },
             {
               "type": "Polygon",
@@ -4858,7 +5129,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1094,
+                "maxX": 1106,
+                "minY": 730,
+                "maxY": 747
+              }
             },
             {
               "type": "Polygon",
@@ -4877,7 +5154,13 @@
                   "x": -3,
                   "y": 17
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1308,
+                "maxX": 1323,
+                "minY": 1247,
+                "maxY": 1264
+              }
             },
             {
               "type": "Polygon",
@@ -4900,7 +5183,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1480,
+                "maxX": 1492,
+                "minY": 702,
+                "maxY": 719
+              }
             },
             {
               "type": "Polygon",
@@ -4923,7 +5212,13 @@
                   "x": 2,
                   "y": 14
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1623,
+                "maxX": 1632,
+                "minY": 800,
+                "maxY": 821
+              }
             },
             {
               "type": "Polygon",
@@ -4946,7 +5241,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1074,
+                "maxX": 1086,
+                "minY": 1229,
+                "maxY": 1246
+              }
             },
             {
               "type": "Polygon",
@@ -4969,7 +5270,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1103,
+                "maxX": 1115,
+                "minY": 1229,
+                "maxY": 1246
+              }
             },
             {
               "type": "Polygon",
@@ -5012,7 +5319,13 @@
                   "x": 7,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1591,
+                "maxX": 1631,
+                "minY": 798,
+                "maxY": 853
+              }
             },
             {
               "type": "Polygon",
@@ -5167,7 +5480,13 @@
                   "x": 1,
                   "y": 310
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1367,
+                "maxX": 1556,
+                "minY": 2233,
+                "maxY": 2745
+              }
             },
             {
               "type": "Polygon",
@@ -5194,7 +5513,13 @@
                   "x": 1,
                   "y": -24
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1077,
+                "maxX": 1088,
+                "minY": 827,
+                "maxY": 851
+              }
             },
             {
               "type": "Polygon",
@@ -5217,7 +5542,13 @@
                   "x": -1,
                   "y": 10
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1533,
+                "maxX": 1543,
+                "minY": 1868,
+                "maxY": 1878
+              }
             },
             {
               "type": "Polygon",
@@ -5332,7 +5663,13 @@
                   "x": 4,
                   "y": 59
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1319,
+                "maxX": 1417,
+                "minY": 3098,
+                "maxY": 3206
+              }
             },
             {
               "type": "Polygon",
@@ -5359,7 +5696,13 @@
                   "x": -6,
                   "y": 38
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1138,
+                "maxX": 1155,
+                "minY": 1253,
+                "maxY": 1291
+              }
             },
             {
               "type": "Polygon",
@@ -5406,7 +5749,13 @@
                   "x": 0,
                   "y": 95
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1554,
+                "maxX": 1632,
+                "minY": 317,
+                "maxY": 415
+              }
             },
             {
               "type": "Polygon",
@@ -5429,7 +5778,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1340,
+                "maxX": 1352,
+                "minY": 1197,
+                "maxY": 1214
+              }
             },
             {
               "type": "Polygon",
@@ -5452,7 +5807,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1481,
+                "maxX": 1493,
+                "minY": 466,
+                "maxY": 483
+              }
             },
             {
               "type": "Polygon",
@@ -5603,7 +5964,13 @@
                   "x": 133,
                   "y": -1
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 862,
+                "maxX": 1355,
+                "minY": 193,
+                "maxY": 464
+              }
             },
             {
               "type": "Polygon",
@@ -5654,7 +6021,13 @@
                   "x": -1,
                   "y": 8
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1384,
+                "maxX": 1409,
+                "minY": 945,
+                "maxY": 1128
+              }
             },
             {
               "type": "Polygon",
@@ -5705,7 +6078,13 @@
                   "x": -7,
                   "y": 33
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1079,
+                "maxX": 1134,
+                "minY": 1255,
+                "maxY": 1315
+              }
             },
             {
               "type": "Polygon",
@@ -5796,7 +6175,13 @@
                   "x": 32,
                   "y": -18
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1083,
+                "maxX": 1410,
+                "minY": 1261,
+                "maxY": 1343
+              }
             },
             {
               "type": "Polygon",
@@ -5847,7 +6232,13 @@
                   "x": -15,
                   "y": 40
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1202,
+                "maxX": 1230,
+                "minY": 957,
+                "maxY": 1081
+              }
             },
             {
               "type": "Polygon",
@@ -5870,7 +6261,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1356,
+                "maxX": 1368,
+                "minY": 1125,
+                "maxY": 1142
+              }
             },
             {
               "type": "Polygon",
@@ -5893,7 +6290,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1355,
+                "maxX": 1367,
+                "minY": 1197,
+                "maxY": 1214
+              }
             },
             {
               "type": "Polygon",
@@ -5920,7 +6323,13 @@
                   "x": 6,
                   "y": 14
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1135,
+                "maxX": 1152,
+                "minY": 2591,
+                "maxY": 2616
+              }
             },
             {
               "type": "Polygon",
@@ -5951,7 +6360,13 @@
                   "x": -4,
                   "y": 20
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1309,
+                "maxX": 1318,
+                "minY": 945,
+                "maxY": 1005
+              }
             },
             {
               "type": "Polygon",
@@ -5978,7 +6393,13 @@
                   "x": 0,
                   "y": 23
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1232,
+                "maxX": 1238,
+                "minY": 796,
+                "maxY": 821
+              }
             },
             {
               "type": "Polygon",
@@ -6021,7 +6442,13 @@
                   "x": -6,
                   "y": 20
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1497,
+                "maxX": 1552,
+                "minY": 794,
+                "maxY": 856
+              }
             },
             {
               "type": "Polygon",
@@ -6052,7 +6479,13 @@
                   "x": 7,
                   "y": 52
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1091,
+                "maxX": 1121,
+                "minY": 2551,
+                "maxY": 2603
+              }
             },
             {
               "type": "Polygon",
@@ -6087,7 +6520,13 @@
                   "x": -4,
                   "y": 26
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1550,
+                "maxX": 1632,
+                "minY": 87,
+                "maxY": 133
+              }
             },
             {
               "type": "Polygon",
@@ -6174,7 +6613,13 @@
                   "x": -38,
                   "y": -2
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 875,
+                "maxX": 1028,
+                "minY": 3885,
+                "maxY": 4033
+              }
             },
             {
               "type": "Polygon",
@@ -6285,7 +6730,13 @@
                   "x": 16,
                   "y": -6
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 997,
+                "maxX": 1289,
+                "minY": 1857,
+                "maxY": 1976
+              }
             },
             {
               "type": "Polygon",
@@ -6320,7 +6771,13 @@
                   "x": 2,
                   "y": -10
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1196,
+                "maxX": 1229,
+                "minY": 841,
+                "maxY": 853
+              }
             },
             {
               "type": "Polygon",
@@ -6343,7 +6800,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1369,
+                "maxX": 1381,
+                "minY": 1229,
+                "maxY": 1246
+              }
             },
             {
               "type": "Polygon",
@@ -6366,7 +6829,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1126,
+                "maxX": 1138,
+                "minY": 630,
+                "maxY": 647
+              }
             },
             {
               "type": "Polygon",
@@ -6389,7 +6858,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1088,
+                "maxX": 1100,
+                "minY": 1197,
+                "maxY": 1214
+              }
             },
             {
               "type": "Polygon",
@@ -6440,7 +6915,13 @@
                   "x": -1,
                   "y": 8
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1451,
+                "maxX": 1539,
+                "minY": 3573,
+                "maxY": 3628
+              }
             },
             {
               "type": "Polygon",
@@ -6467,7 +6948,13 @@
                   "x": -3,
                   "y": 44
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1550,
+                "maxX": 1577,
+                "minY": 806,
+                "maxY": 852
+              }
             },
             {
               "type": "Polygon",
@@ -6490,7 +6977,13 @@
                   "x": -1,
                   "y": -28
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1540,
+                "maxX": 1550,
+                "minY": 573,
+                "maxY": 602
+              }
             },
             {
               "type": "Polygon",
@@ -6529,7 +7022,13 @@
                   "x": -11,
                   "y": 72
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1053,
+                "maxX": 1075,
+                "minY": 994,
+                "maxY": 1092
+              }
             },
             {
               "type": "Polygon",
@@ -6568,7 +7067,13 @@
                   "x": 2,
                   "y": 55
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1330,
+                "maxX": 1433,
+                "minY": 778,
+                "maxY": 855
+              }
             },
             {
               "type": "Polygon",
@@ -6591,7 +7096,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1075,
+                "maxX": 1087,
+                "minY": 1125,
+                "maxY": 1142
+              }
             },
             {
               "type": "Polygon",
@@ -6614,7 +7125,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1096,
+                "maxX": 1108,
+                "minY": 661,
+                "maxY": 678
+              }
             },
             {
               "type": "Polygon",
@@ -6637,7 +7154,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1088,
+                "maxX": 1100,
+                "minY": 1229,
+                "maxY": 1246
+              }
             },
             {
               "type": "Polygon",
@@ -6668,7 +7191,13 @@
                   "x": 15,
                   "y": 41
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1542,
+                "maxX": 1584,
+                "minY": 554,
+                "maxY": 632
+              }
             },
             {
               "type": "Polygon",
@@ -6691,7 +7220,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1341,
+                "maxX": 1353,
+                "minY": 1123,
+                "maxY": 1140
+              }
             },
             {
               "type": "Polygon",
@@ -6718,7 +7253,13 @@
                   "x": -6,
                   "y": 30
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1611,
+                "maxX": 1631,
+                "minY": 1708,
+                "maxY": 1783
+              }
             },
             {
               "type": "Polygon",
@@ -6789,7 +7330,13 @@
                   "x": 1,
                   "y": -7
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1192,
+                "maxX": 1239,
+                "minY": 590,
+                "maxY": 667
+              }
             },
             {
               "type": "Polygon",
@@ -6824,7 +7371,13 @@
                   "x": -8,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1067,
+                "maxX": 1124,
+                "minY": 1771,
+                "maxY": 1798
+              }
             },
             {
               "type": "Polygon",
@@ -6879,7 +7432,13 @@
                   "x": -7,
                   "y": 35
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1334,
+                "maxX": 1356,
+                "minY": 942,
+                "maxY": 1120
+              }
             },
             {
               "type": "Polygon",
@@ -6902,7 +7461,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1442,
+                "maxX": 1454,
+                "minY": 466,
+                "maxY": 483
+              }
             },
             {
               "type": "Polygon",
@@ -6925,7 +7490,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1074,
+                "maxX": 1086,
+                "minY": 1197,
+                "maxY": 1214
+              }
             },
             {
               "type": "Polygon",
@@ -6972,7 +7543,13 @@
                   "x": -12,
                   "y": 10
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 994,
+                "maxX": 1038,
+                "minY": 951,
+                "maxY": 1035
+              }
             },
             {
               "type": "Polygon",
@@ -7007,7 +7584,13 @@
                   "x": 0,
                   "y": 157
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1554,
+                "maxX": 1631,
+                "minY": 1013,
+                "maxY": 1173
+              }
             },
             {
               "type": "Polygon",
@@ -7030,7 +7613,13 @@
                   "x": 15,
                   "y": -2
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1257,
+                "maxX": 1272,
+                "minY": 552,
+                "maxY": 562
+              }
             },
             {
               "type": "Polygon",
@@ -7065,7 +7654,13 @@
                   "x": 4,
                   "y": -13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1492,
+                "maxX": 1559,
+                "minY": 2104,
+                "maxY": 2148
+              }
             },
             {
               "type": "Polygon",
@@ -7104,7 +7699,13 @@
                   "x": -22,
                   "y": 44
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1374,
+                "maxX": 1445,
+                "minY": 1767,
+                "maxY": 1815
+              }
             },
             {
               "type": "Polygon",
@@ -7147,7 +7748,13 @@
                   "x": -36,
                   "y": 55
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1137,
+                "maxX": 1293,
+                "minY": 3700,
+                "maxY": 3757
+              }
             },
             {
               "type": "Polygon",
@@ -7166,7 +7773,13 @@
                   "x": 22,
                   "y": 0
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1128,
+                "maxX": 1150,
+                "minY": 2616,
+                "maxY": 2627
+              }
             },
             {
               "type": "Polygon",
@@ -7189,7 +7802,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1385,
+                "maxX": 1397,
+                "minY": 1125,
+                "maxY": 1142
+              }
             },
             {
               "type": "Polygon",
@@ -7212,7 +7831,13 @@
                   "x": -3,
                   "y": 17
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1187,
+                "maxX": 1195,
+                "minY": 834,
+                "maxY": 853
+              }
             },
             {
               "type": "Polygon",
@@ -7263,7 +7888,13 @@
                   "x": 0,
                   "y": 12
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1564,
+                "maxX": 1612,
+                "minY": 800,
+                "maxY": 852
+              }
             },
             {
               "type": "Polygon",
@@ -7310,7 +7941,13 @@
                   "x": -14,
                   "y": 31
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1026,
+                "maxX": 1054,
+                "minY": 950,
+                "maxY": 1051
+              }
             },
             {
               "type": "Polygon",
@@ -7361,7 +7998,13 @@
                   "x": 5,
                   "y": -11
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1549,
+                "maxX": 1584,
+                "minY": 1808,
+                "maxY": 1911
+              }
             },
             {
               "type": "Polygon",
@@ -7408,7 +8051,13 @@
                   "x": 3,
                   "y": -27
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1028,
+                "maxX": 1060,
+                "minY": 775,
+                "maxY": 853
+              }
             },
             {
               "type": "Polygon",
@@ -7443,7 +8092,13 @@
                   "x": -8,
                   "y": 40
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1073,
+                "maxX": 1099,
+                "minY": 1253,
+                "maxY": 1309
+              }
             },
             {
               "type": "Polygon",
@@ -7470,7 +8125,13 @@
                   "x": 1,
                   "y": 14
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1241,
+                "maxX": 1264,
+                "minY": 798,
+                "maxY": 827
+              }
             },
             {
               "type": "Polygon",
@@ -7501,7 +8162,13 @@
                   "x": -12,
                   "y": 43
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1167,
+                "maxX": 1186,
+                "minY": 993,
+                "maxY": 1082
+              }
             },
             {
               "type": "Polygon",
@@ -7564,7 +8231,13 @@
                   "x": -20,
                   "y": 11
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1323,
+                "maxX": 1419,
+                "minY": 466,
+                "maxY": 668
+              }
             },
             {
               "type": "Polygon",
@@ -7711,7 +8384,13 @@
                   "x": -8,
                   "y": 6
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1041,
+                "maxX": 1282,
+                "minY": 2867,
+                "maxY": 3051
+              }
             },
             {
               "type": "Polygon",
@@ -7754,7 +8433,13 @@
                   "x": 2,
                   "y": 150
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1015,
+                "maxX": 1046,
+                "minY": 656,
+                "maxY": 810
+              }
             },
             {
               "type": "Polygon",
@@ -7809,7 +8494,13 @@
                   "x": -7,
                   "y": -50
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1554,
+                "maxX": 1633,
+                "minY": 1128,
+                "maxY": 1310
+              }
             },
             {
               "type": "Polygon",
@@ -7836,7 +8527,13 @@
                   "x": -4,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1118,
+                "maxX": 1166,
+                "minY": 1774,
+                "maxY": 1804
+              }
             },
             {
               "type": "Polygon",
@@ -7867,7 +8564,13 @@
                   "x": -2,
                   "y": 71
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1505,
+                "maxX": 1540,
+                "minY": 531,
+                "maxY": 604
+              }
             },
             {
               "type": "Polygon",
@@ -7890,7 +8593,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1384,
+                "maxX": 1396,
+                "minY": 1197,
+                "maxY": 1214
+              }
             },
             {
               "type": "Polygon",
@@ -7913,7 +8622,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1220,
+                "maxX": 1232,
+                "minY": 1067,
+                "maxY": 1084
+              }
             },
             {
               "type": "Polygon",
@@ -7984,7 +8699,13 @@
                   "x": 2,
                   "y": -1
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1112,
+                "maxX": 1163,
+                "minY": 948,
+                "maxY": 1087
+              }
             },
             {
               "type": "Polygon",
@@ -8015,7 +8736,13 @@
                   "x": -7,
                   "y": 18
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1308,
+                "maxX": 1357,
+                "minY": 3702,
+                "maxY": 3720
+              }
             },
             {
               "type": "Polygon",
@@ -8082,7 +8809,13 @@
                   "x": -9,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1146,
+                "maxX": 1190,
+                "minY": 949,
+                "maxY": 1089
+              }
             },
             {
               "type": "Polygon",
@@ -8133,7 +8866,13 @@
                   "x": 0,
                   "y": 288
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1458,
+                "maxX": 1562,
+                "minY": 3047,
+                "maxY": 3342
+              }
             },
             {
               "type": "Polygon",
@@ -8156,7 +8895,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1126,
+                "maxX": 1138,
+                "minY": 731,
+                "maxY": 748
+              }
             },
             {
               "type": "Polygon",
@@ -8179,7 +8924,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1370,
+                "maxX": 1382,
+                "minY": 1093,
+                "maxY": 1110
+              }
             },
             {
               "type": "Polygon",
@@ -8202,7 +8953,13 @@
                   "x": -3,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1474,
+                "maxX": 1492,
+                "minY": 835,
+                "maxY": 851
+              }
             },
             {
               "type": "Polygon",
@@ -8245,7 +9002,13 @@
                   "x": -1,
                   "y": 135
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1552,
+                "maxX": 1631,
+                "minY": 413,
+                "maxY": 632
+              }
             },
             {
               "type": "Polygon",
@@ -8276,7 +9039,13 @@
                   "x": 43,
                   "y": 5
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1580,
+                "maxX": 1631,
+                "minY": 1803,
+                "maxY": 1847
+              }
             },
             {
               "type": "Polygon",
@@ -8299,7 +9068,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1104,
+                "maxX": 1116,
+                "minY": 1125,
+                "maxY": 1142
+              }
             },
             {
               "type": "Polygon",
@@ -8322,7 +9097,13 @@
                   "x": -1,
                   "y": 10
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1473,
+                "maxX": 1483,
+                "minY": 1858,
+                "maxY": 1868
+              }
             },
             {
               "type": "Polygon",
@@ -8345,7 +9126,13 @@
                   "x": 15,
                   "y": -2
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1257,
+                "maxX": 1272,
+                "minY": 542,
+                "maxY": 552
+              }
             },
             {
               "type": "Polygon",
@@ -8368,7 +9155,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1226,
+                "maxX": 1238,
+                "minY": 762,
+                "maxY": 779
+              }
             },
             {
               "type": "Polygon",
@@ -8399,7 +9192,13 @@
                   "x": -3,
                   "y": 34
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1560,
+                "maxX": 1632,
+                "minY": 2503,
+                "maxY": 2702
+              }
             },
             {
               "type": "Polygon",
@@ -8418,7 +9217,13 @@
                   "x": 2,
                   "y": 6
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1109,
+                "maxX": 1117,
+                "minY": 1001,
+                "maxY": 1032
+              }
             },
             {
               "type": "Polygon",
@@ -8473,7 +9278,13 @@
                   "x": 1,
                   "y": 1
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1142,
+                "maxX": 1186,
+                "minY": 784,
+                "maxY": 852
+              }
             },
             {
               "type": "Polygon",
@@ -8516,7 +9327,13 @@
                   "x": 2,
                   "y": 124
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1466,
+                "maxX": 1541,
+                "minY": 1664,
+                "maxY": 1790
+              }
             },
             {
               "type": "Polygon",
@@ -8559,7 +9376,13 @@
                   "x": 3,
                   "y": 31
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1477,
+                "maxX": 1541,
+                "minY": 1950,
+                "maxY": 2047
+              }
             },
             {
               "type": "Polygon",
@@ -8594,7 +9417,13 @@
                   "x": -1,
                   "y": 7
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1168,
+                "maxX": 1186,
+                "minY": 2558,
+                "maxY": 2599
+              }
             },
             {
               "type": "Polygon",
@@ -8617,7 +9446,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1075,
+                "maxX": 1087,
+                "minY": 1093,
+                "maxY": 1110
+              }
             },
             {
               "type": "Polygon",
@@ -8716,7 +9551,13 @@
                   "x": -3,
                   "y": -4
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1099,
+                "maxX": 1285,
+                "minY": 2615,
+                "maxY": 2742
+              }
             },
             {
               "type": "Polygon",
@@ -8739,7 +9580,13 @@
                   "x": 12,
                   "y": -15
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1213,
+                "maxX": 1257,
+                "minY": 1768,
+                "maxY": 1810
+              }
             },
             {
               "type": "Polygon",
@@ -8762,7 +9609,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1355,
+                "maxX": 1367,
+                "minY": 1229,
+                "maxY": 1246
+              }
             },
             {
               "type": "Polygon",
@@ -8789,7 +9642,13 @@
                   "x": 1,
                   "y": -30
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1192,
+                "maxX": 1202,
+                "minY": 2574,
+                "maxY": 2607
+              }
             },
             {
               "type": "Polygon",
@@ -8812,7 +9671,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1226,
+                "maxX": 1238,
+                "minY": 741,
+                "maxY": 758
+              }
             },
             {
               "type": "Polygon",
@@ -8831,7 +9696,13 @@
                   "x": 5,
                   "y": -9
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1182,
+                "maxX": 1192,
+                "minY": 2611,
+                "maxY": 2620
+              }
             },
             {
               "type": "Polygon",
@@ -8854,7 +9725,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1089,
+                "maxX": 1101,
+                "minY": 1125,
+                "maxY": 1142
+              }
             },
             {
               "type": "Polygon",
@@ -8893,7 +9770,13 @@
                   "x": -5,
                   "y": 6
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1456,
+                "maxX": 1505,
+                "minY": 2019,
+                "maxY": 2166
+              }
             },
             {
               "type": "Polygon",
@@ -8928,7 +9811,13 @@
                   "x": -2,
                   "y": 0
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1609,
+                "maxX": 1630,
+                "minY": 1861,
+                "maxY": 1896
+              }
             },
             {
               "type": "Polygon",
@@ -9047,7 +9936,13 @@
                   "x": 14,
                   "y": 19
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1358,
+                "maxX": 1554,
+                "minY": 246,
+                "maxY": 549
+              }
             },
             {
               "type": "Polygon",
@@ -9070,7 +9965,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1114,
+                "maxX": 1126,
+                "minY": 731,
+                "maxY": 748
+              }
             },
             {
               "type": "Polygon",
@@ -9093,7 +9994,13 @@
                   "x": -1,
                   "y": 10
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1473,
+                "maxX": 1483,
+                "minY": 1849,
+                "maxY": 1859
+              }
             },
             {
               "type": "Polygon",
@@ -9200,7 +10107,13 @@
                   "x": 39,
                   "y": -16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1286,
+                "maxX": 1467,
+                "minY": 1858,
+                "maxY": 2093
+              }
             },
             {
               "type": "Polygon",
@@ -9223,7 +10136,13 @@
                   "x": -9,
                   "y": 11
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1165,
+                "maxX": 1184,
+                "minY": 1792,
+                "maxY": 1803
+              }
             },
             {
               "type": "Polygon",
@@ -9246,7 +10165,13 @@
                   "x": 1,
                   "y": 4
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1520,
+                "maxX": 1552,
+                "minY": 88,
+                "maxY": 113
+              }
             },
             {
               "type": "Polygon",
@@ -9269,7 +10194,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1356,
+                "maxX": 1368,
+                "minY": 1093,
+                "maxY": 1110
+              }
             },
             {
               "type": "Polygon",
@@ -9300,7 +10231,13 @@
                   "x": -4,
                   "y": 8
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1101,
+                "maxX": 1114,
+                "minY": 951,
+                "maxY": 1005
+              }
             },
             {
               "type": "Polygon",
@@ -9351,7 +10288,13 @@
                   "x": 1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1146,
+                "maxX": 1181,
+                "minY": 2556,
+                "maxY": 2620
+              }
             },
             {
               "type": "Polygon",
@@ -9498,7 +10441,13 @@
                   "x": -17,
                   "y": 128
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1050,
+                "maxX": 1299,
+                "minY": 447,
+                "maxY": 672
+              }
             },
             {
               "type": "Polygon",
@@ -9529,7 +10478,13 @@
                   "x": 39,
                   "y": 35
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1528,
+                "maxX": 1579,
+                "minY": 2083,
+                "maxY": 2129
+              }
             },
             {
               "type": "Polygon",
@@ -9552,7 +10507,13 @@
                   "x": 39,
                   "y": 26
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1540,
+                "maxX": 1579,
+                "minY": 2029,
+                "maxY": 2100
+              }
             },
             {
               "type": "Polygon",
@@ -9611,7 +10572,13 @@
                   "x": 12,
                   "y": 45
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1258,
+                "maxX": 1306,
+                "minY": 942,
+                "maxY": 1089
+              }
             },
             {
               "type": "Polygon",
@@ -9674,7 +10641,13 @@
                   "x": 1,
                   "y": 20
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1221,
+                "maxX": 1265,
+                "minY": 947,
+                "maxY": 1091
+              }
             },
             {
               "type": "Polygon",
@@ -9713,7 +10686,13 @@
                   "x": -4,
                   "y": 12
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1265,
+                "maxX": 1284,
+                "minY": 1256,
+                "maxY": 1286
+              }
             },
             {
               "type": "Polygon",
@@ -9736,7 +10715,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1126,
+                "maxX": 1138,
+                "minY": 763,
+                "maxY": 780
+              }
             },
             {
               "type": "Polygon",
@@ -9759,7 +10744,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1104,
+                "maxX": 1116,
+                "minY": 1093,
+                "maxY": 1110
+              }
             },
             {
               "type": "Polygon",
@@ -9782,7 +10773,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1114,
+                "maxX": 1126,
+                "minY": 763,
+                "maxY": 780
+              }
             },
             {
               "type": "Polygon",
@@ -9817,7 +10814,13 @@
                   "x": 3,
                   "y": 6
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1301,
+                "maxX": 1342,
+                "minY": 1770,
+                "maxY": 1805
+              }
             },
             {
               "type": "Polygon",
@@ -9860,7 +10863,13 @@
                   "x": -5,
                   "y": 10
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1082,
+                "maxX": 1097,
+                "minY": 984,
+                "maxY": 1078
+              }
             },
             {
               "type": "Polygon",
@@ -9883,7 +10892,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1103,
+                "maxX": 1115,
+                "minY": 1197,
+                "maxY": 1214
+              }
             },
             {
               "type": "Polygon",
@@ -9906,7 +10921,13 @@
                   "x": 14,
                   "y": -13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1193,
+                "maxX": 1212,
+                "minY": 2614,
+                "maxY": 2627
+              }
             },
             {
               "type": "Polygon",
@@ -9937,7 +10958,13 @@
                   "x": 2,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1179,
+                "maxX": 1188,
+                "minY": 1251,
+                "maxY": 1269
+              }
             },
             {
               "type": "Polygon",
@@ -9960,7 +10987,13 @@
                   "x": 15,
                   "y": -2
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1255,
+                "maxX": 1270,
+                "minY": 656,
+                "maxY": 666
+              }
             },
             {
               "type": "Polygon",
@@ -9991,7 +11024,13 @@
                   "x": -4,
                   "y": 19
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1285,
+                "maxX": 1293,
+                "minY": 1256,
+                "maxY": 1275
+              }
             },
             {
               "type": "Polygon",
@@ -10014,7 +11053,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1112,
+                "maxX": 1124,
+                "minY": 660,
+                "maxY": 677
+              }
             }
           ],
           "anchors": [
@@ -10365,7 +11410,13 @@
                   "x": 8,
                   "y": 199
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 820,
+                "maxX": 960,
+                "minY": 419,
+                "maxY": 631
+              }
             }
           ],
           "anchors": [],
@@ -10397,7 +11448,13 @@
                   "x": -1,
                   "y": 275
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 831,
+                "maxX": 1005,
+                "minY": 1175,
+                "maxY": 1467
+              }
             }
           ],
           "anchors": [],
@@ -10429,7 +11486,13 @@
                   "x": 13,
                   "y": 269
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 853,
+                "maxX": 1009,
+                "minY": 2892,
+                "maxY": 3163
+              }
             }
           ],
           "anchors": [],
@@ -10461,7 +11524,13 @@
                   "x": 14,
                   "y": 176
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 847,
+                "maxX": 995,
+                "minY": 3748,
+                "maxY": 3931
+              }
             }
           ],
           "anchors": [],
@@ -10493,7 +11562,13 @@
                   "x": -1,
                   "y": 14
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1511,
+                "maxX": 1523,
+                "minY": 3716,
+                "maxY": 3730
+              }
             }
           ],
           "anchors": [
@@ -10532,7 +11607,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1226,
+                "maxX": 1238,
+                "minY": 651,
+                "maxY": 668
+              }
             },
             {
               "type": "Polygon",
@@ -10575,7 +11656,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1511,
+                "maxX": 1523,
+                "minY": 153,
+                "maxY": 170
+              }
             }
           ],
           "anchors": [
@@ -10620,7 +11707,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1116,
+                "maxX": 1134,
+                "minY": 2542,
+                "maxY": 2556
+              }
             },
             {
               "type": "Polygon",
@@ -10643,7 +11736,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1372,
+                "maxX": 1390,
+                "minY": 2542,
+                "maxY": 2556
+              }
             },
             {
               "type": "Polygon",
@@ -10666,7 +11765,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1086,
+                "maxX": 1104,
+                "minY": 3676,
+                "maxY": 3690
+              }
             },
             {
               "type": "Polygon",
@@ -10689,7 +11794,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1352,
+                "maxX": 1370,
+                "minY": 3676,
+                "maxY": 3690
+              }
             }
           ],
           "anchors": [
@@ -10746,7 +11857,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1136,
+                "maxX": 1154,
+                "minY": 2542,
+                "maxY": 2556
+              }
             },
             {
               "type": "Polygon",
@@ -10769,7 +11886,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1392,
+                "maxX": 1410,
+                "minY": 2542,
+                "maxY": 2556
+              }
             },
             {
               "type": "Polygon",
@@ -10792,7 +11915,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1105,
+                "maxX": 1123,
+                "minY": 3676,
+                "maxY": 3690
+              }
             },
             {
               "type": "Polygon",
@@ -10815,7 +11944,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1371,
+                "maxX": 1389,
+                "minY": 3676,
+                "maxY": 3690
+              }
             }
           ],
           "anchors": [
@@ -10872,7 +12007,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1150,
+                "maxX": 1168,
+                "minY": 2542,
+                "maxY": 2556
+              }
             },
             {
               "type": "Polygon",
@@ -10895,7 +12036,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1406,
+                "maxX": 1424,
+                "minY": 2542,
+                "maxY": 2556
+              }
             },
             {
               "type": "Polygon",
@@ -10918,7 +12065,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1120,
+                "maxX": 1138,
+                "minY": 3676,
+                "maxY": 3690
+              }
             },
             {
               "type": "Polygon",
@@ -10941,7 +12094,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1385,
+                "maxX": 1403,
+                "minY": 3676,
+                "maxY": 3690
+              }
             }
           ],
           "anchors": [
@@ -10999,7 +12158,13 @@
                   "x": -1,
                   "y": 10
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1533,
+                "maxX": 1543,
+                "minY": 1839,
+                "maxY": 1849
+              }
             },
             {
               "type": "Polygon",
@@ -11022,7 +12187,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1166,
+                "maxX": 1178,
+                "minY": 1068,
+                "maxY": 1085
+              }
             },
             {
               "type": "Polygon",
@@ -11045,7 +12216,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1164,
+                "maxX": 1176,
+                "minY": 1189,
+                "maxY": 1206
+              }
             },
             {
               "type": "Polygon",
@@ -11068,7 +12245,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1190,
+                "maxX": 1202,
+                "minY": 1189,
+                "maxY": 1206
+              }
             },
             {
               "type": "Polygon",
@@ -11091,7 +12274,13 @@
                   "x": -1,
                   "y": 10
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1473,
+                "maxX": 1483,
+                "minY": 1838,
+                "maxY": 1848
+              }
             },
             {
               "type": "Polygon",
@@ -11114,7 +12303,13 @@
                   "x": -1,
                   "y": 10
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1473,
+                "maxX": 1483,
+                "minY": 1893,
+                "maxY": 1903
+              }
             },
             {
               "type": "Polygon",
@@ -11137,7 +12332,13 @@
                   "x": -1,
                   "y": 10
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1533,
+                "maxX": 1543,
+                "minY": 1894,
+                "maxY": 1904
+              }
             },
             {
               "type": "Polygon",
@@ -11160,7 +12361,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1191,
+                "maxX": 1203,
+                "minY": 735,
+                "maxY": 752
+              }
             }
           ],
           "anchors": [
@@ -11241,7 +12448,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1461,
+                "maxX": 1473,
+                "minY": 466,
+                "maxY": 483
+              }
             },
             {
               "type": "Polygon",
@@ -11264,7 +12477,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1149,
+                "maxX": 1161,
+                "minY": 1091,
+                "maxY": 1108
+              }
             },
             {
               "type": "Polygon",
@@ -11287,7 +12506,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1171,
+                "maxX": 1183,
+                "minY": 735,
+                "maxY": 752
+              }
             },
             {
               "type": "Polygon",
@@ -11310,7 +12535,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1276,
+                "maxX": 1288,
+                "minY": 1219,
+                "maxY": 1236
+              }
             },
             {
               "type": "Polygon",
@@ -11333,7 +12564,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1149,
+                "maxX": 1161,
+                "minY": 1091,
+                "maxY": 1108
+              }
             },
             {
               "type": "Polygon",
@@ -11356,7 +12593,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1065,
+                "maxX": 1077,
+                "minY": 731,
+                "maxY": 748
+              }
             },
             {
               "type": "Polygon",
@@ -11379,7 +12622,13 @@
                   "x": -1,
                   "y": 10
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1533,
+                "maxX": 1543,
+                "minY": 1914,
+                "maxY": 1924
+              }
             },
             {
               "type": "Polygon",
@@ -11406,7 +12655,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1472,
+                "maxX": 1484,
+                "minY": 153,
+                "maxY": 170
+              }
             },
             {
               "type": "Polygon",
@@ -11429,7 +12684,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1450,
+                "maxX": 1462,
+                "minY": 702,
+                "maxY": 719
+              }
             },
             {
               "type": "Polygon",
@@ -11452,7 +12713,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1423,
+                "maxX": 1435,
+                "minY": 702,
+                "maxY": 719
+              }
             },
             {
               "type": "Polygon",
@@ -11475,7 +12742,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1191,
+                "maxX": 1203,
+                "minY": 1094,
+                "maxY": 1111
+              }
             },
             {
               "type": "Polygon",
@@ -11498,7 +12771,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1325,
+                "maxX": 1337,
+                "minY": 1124,
+                "maxY": 1141
+              }
             },
             {
               "type": "Polygon",
@@ -11521,7 +12800,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 443,
+                "maxX": 455,
+                "minY": 1393,
+                "maxY": 1410
+              }
             },
             {
               "type": "Polygon",
@@ -11544,7 +12829,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1294,
+                "maxX": 1306,
+                "minY": 1124,
+                "maxY": 1141
+              }
             },
             {
               "type": "Polygon",
@@ -11567,7 +12858,13 @@
                   "x": -1,
                   "y": 10
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1473,
+                "maxX": 1483,
+                "minY": 1913,
+                "maxY": 1923
+              }
             },
             {
               "type": "Polygon",
@@ -11590,7 +12887,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1065,
+                "maxX": 1077,
+                "minY": 762,
+                "maxY": 779
+              }
             },
             {
               "type": "Polygon",
@@ -11613,7 +12916,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1295,
+                "maxX": 1307,
+                "minY": 1094,
+                "maxY": 1111
+              }
             },
             {
               "type": "Polygon",
@@ -11636,7 +12945,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1307,
+                "maxX": 1319,
+                "minY": 1197,
+                "maxY": 1214
+              }
             },
             {
               "type": "Polygon",
@@ -11659,7 +12974,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1079,
+                "maxX": 1091,
+                "minY": 661,
+                "maxY": 678
+              }
             },
             {
               "type": "Polygon",
@@ -11682,7 +13003,13 @@
                   "x": 15,
                   "y": -2
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1257,
+                "maxX": 1272,
+                "minY": 562,
+                "maxY": 572
+              }
             },
             {
               "type": "Polygon",
@@ -11705,7 +13032,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1065,
+                "maxX": 1077,
+                "minY": 628,
+                "maxY": 645
+              }
             },
             {
               "type": "Polygon",
@@ -11728,7 +13061,13 @@
                   "x": -1,
                   "y": 10
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1533,
+                "maxX": 1543,
+                "minY": 1922,
+                "maxY": 1932
+              }
             },
             {
               "type": "Polygon",
@@ -11751,7 +13090,13 @@
                   "x": -1,
                   "y": 10
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1533,
+                "maxX": 1543,
+                "minY": 1877,
+                "maxY": 1887
+              }
             },
             {
               "type": "Polygon",
@@ -11774,7 +13119,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1065,
+                "maxX": 1077,
+                "minY": 660,
+                "maxY": 677
+              }
             },
             {
               "type": "Polygon",
@@ -11797,7 +13148,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1323,
+                "maxX": 1335,
+                "minY": 1229,
+                "maxY": 1246
+              }
             },
             {
               "type": "Polygon",
@@ -11820,7 +13177,13 @@
                   "x": -1,
                   "y": 10
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1473,
+                "maxX": 1483,
+                "minY": 1903,
+                "maxY": 1913
+              }
             },
             {
               "type": "Polygon",
@@ -11843,7 +13206,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1253,
+                "maxX": 1265,
+                "minY": 1217,
+                "maxY": 1234
+              }
             },
             {
               "type": "Polygon",
@@ -11866,7 +13235,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1310,
+                "maxX": 1322,
+                "minY": 1124,
+                "maxY": 1141
+              }
             },
             {
               "type": "Polygon",
@@ -11889,7 +13264,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1127,
+                "maxX": 1139,
+                "minY": 1216,
+                "maxY": 1233
+              }
             },
             {
               "type": "Polygon",
@@ -11912,7 +13293,13 @@
                   "x": 15,
                   "y": -2
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1257,
+                "maxX": 1272,
+                "minY": 572,
+                "maxY": 582
+              }
             },
             {
               "type": "Polygon",
@@ -11935,7 +13322,13 @@
                   "x": -1,
                   "y": 10
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1473,
+                "maxX": 1483,
+                "minY": 1886,
+                "maxY": 1896
+              }
             },
             {
               "type": "Polygon",
@@ -11958,7 +13351,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1277,
+                "maxX": 1289,
+                "minY": 1094,
+                "maxY": 1111
+              }
             },
             {
               "type": "Polygon",
@@ -11981,7 +13380,13 @@
                   "x": -1,
                   "y": 10
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1473,
+                "maxX": 1483,
+                "minY": 1830,
+                "maxY": 1840
+              }
             },
             {
               "type": "Polygon",
@@ -12004,7 +13409,13 @@
                   "x": -1,
                   "y": 10
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1533,
+                "maxX": 1543,
+                "minY": 1831,
+                "maxY": 1841
+              }
             },
             {
               "type": "Polygon",
@@ -12027,7 +13438,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1026,
+                "maxX": 1038,
+                "minY": 1197,
+                "maxY": 1214
+              }
             },
             {
               "type": "Polygon",
@@ -12050,7 +13467,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1277,
+                "maxX": 1289,
+                "minY": 1094,
+                "maxY": 1111
+              }
             },
             {
               "type": "Polygon",
@@ -12073,7 +13496,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1026,
+                "maxX": 1038,
+                "minY": 1229,
+                "maxY": 1246
+              }
             },
             {
               "type": "Polygon",
@@ -12096,7 +13525,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1080,
+                "maxX": 1092,
+                "minY": 629,
+                "maxY": 646
+              }
             },
             {
               "type": "Polygon",
@@ -12119,7 +13554,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1294,
+                "maxX": 1306,
+                "minY": 1197,
+                "maxY": 1214
+              }
             },
             {
               "type": "Polygon",
@@ -12142,7 +13583,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1128,
+                "maxX": 1140,
+                "minY": 1093,
+                "maxY": 1110
+              }
             },
             {
               "type": "Polygon",
@@ -12165,7 +13612,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1148,
+                "maxX": 1160,
+                "minY": 1216,
+                "maxY": 1233
+              }
             },
             {
               "type": "Polygon",
@@ -12188,7 +13641,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1227,
+                "maxX": 1239,
+                "minY": 632,
+                "maxY": 649
+              }
             },
             {
               "type": "Polygon",
@@ -12211,7 +13670,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1325,
+                "maxX": 1337,
+                "minY": 1094,
+                "maxY": 1111
+              }
             },
             {
               "type": "Polygon",
@@ -12234,7 +13699,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1254,
+                "maxX": 1266,
+                "minY": 1094,
+                "maxY": 1111
+              }
             },
             {
               "type": "Polygon",
@@ -12257,7 +13728,13 @@
                   "x": -1,
                   "y": 10
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1473,
+                "maxX": 1483,
+                "minY": 1921,
+                "maxY": 1931
+              }
             },
             {
               "type": "Polygon",
@@ -12280,7 +13757,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1042,
+                "maxX": 1054,
+                "minY": 1197,
+                "maxY": 1214
+              }
             },
             {
               "type": "Polygon",
@@ -12303,7 +13786,13 @@
                   "x": 15,
                   "y": -2
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1257,
+                "maxX": 1272,
+                "minY": 522,
+                "maxY": 532
+              }
             },
             {
               "type": "Polygon",
@@ -12326,7 +13815,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 394,
+                "maxX": 406,
+                "minY": 1393,
+                "maxY": 1410
+              }
             },
             {
               "type": "Polygon",
@@ -12349,7 +13844,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1309,
+                "maxX": 1321,
+                "minY": 1094,
+                "maxY": 1111
+              }
             },
             {
               "type": "Polygon",
@@ -12372,7 +13873,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1013,
+                "maxX": 1025,
+                "minY": 1197,
+                "maxY": 1214
+              }
             },
             {
               "type": "Polygon",
@@ -12395,7 +13902,13 @@
                   "x": 15,
                   "y": -2
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1257,
+                "maxX": 1272,
+                "minY": 532,
+                "maxY": 542
+              }
             },
             {
               "type": "Polygon",
@@ -12418,7 +13931,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 392,
+                "maxX": 404,
+                "minY": 1334,
+                "maxY": 1351
+              }
             },
             {
               "type": "Polygon",
@@ -12441,7 +13960,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1307,
+                "maxX": 1319,
+                "minY": 1229,
+                "maxY": 1246
+              }
             },
             {
               "type": "Polygon",
@@ -12464,7 +13989,13 @@
                   "x": -1,
                   "y": 10
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1533,
+                "maxX": 1543,
+                "minY": 1821,
+                "maxY": 1831
+              }
             },
             {
               "type": "Polygon",
@@ -12487,7 +14018,13 @@
                   "x": -1,
                   "y": 10
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1533,
+                "maxX": 1543,
+                "minY": 1887,
+                "maxY": 1897
+              }
             },
             {
               "type": "Polygon",
@@ -12510,7 +14047,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1042,
+                "maxX": 1054,
+                "minY": 1229,
+                "maxY": 1246
+              }
             },
             {
               "type": "Polygon",
@@ -12533,7 +14076,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1013,
+                "maxX": 1025,
+                "minY": 1229,
+                "maxY": 1246
+              }
             },
             {
               "type": "Polygon",
@@ -12556,7 +14105,13 @@
                   "x": -1,
                   "y": 10
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1473,
+                "maxX": 1483,
+                "minY": 1820,
+                "maxY": 1830
+              }
             },
             {
               "type": "Polygon",
@@ -12579,7 +14134,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1078,
+                "maxX": 1090,
+                "minY": 763,
+                "maxY": 780
+              }
             },
             {
               "type": "Polygon",
@@ -12602,7 +14163,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 441,
+                "maxX": 453,
+                "minY": 1334,
+                "maxY": 1351
+              }
             },
             {
               "type": "Polygon",
@@ -12625,7 +14192,13 @@
                   "x": -1,
                   "y": 10
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1473,
+                "maxX": 1483,
+                "minY": 1876,
+                "maxY": 1886
+              }
             },
             {
               "type": "Polygon",
@@ -12648,7 +14221,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1294,
+                "maxX": 1306,
+                "minY": 1229,
+                "maxY": 1246
+              }
             },
             {
               "type": "Polygon",
@@ -12671,7 +14250,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1323,
+                "maxX": 1335,
+                "minY": 1197,
+                "maxY": 1214
+              }
             },
             {
               "type": "Polygon",
@@ -12694,7 +14279,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1422,
+                "maxX": 1434,
+                "minY": 466,
+                "maxY": 483
+              }
             },
             {
               "type": "Polygon",
@@ -12717,7 +14308,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1078,
+                "maxX": 1090,
+                "minY": 731,
+                "maxY": 748
+              }
             },
             {
               "type": "Polygon",
@@ -12740,7 +14337,13 @@
                   "x": -1,
                   "y": 16
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1165,
+                "maxX": 1177,
+                "minY": 1093,
+                "maxY": 1110
+              }
             },
             {
               "type": "Polygon",
@@ -12763,7 +14366,13 @@
                   "x": -1,
                   "y": 10
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1533,
+                "maxX": 1543,
+                "minY": 1904,
+                "maxY": 1914
+              }
             }
           ],
           "anchors": [
@@ -13198,7 +14807,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1589,
+                "maxX": 1607,
+                "minY": 1850,
+                "maxY": 1864
+              }
             },
             {
               "type": "Polygon",
@@ -13221,7 +14836,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1084,
+                "maxX": 1102,
+                "minY": 1546,
+                "maxY": 1560
+              }
             },
             {
               "type": "Polygon",
@@ -13244,7 +14865,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1542,
+                "maxX": 1560,
+                "minY": 1671,
+                "maxY": 1685
+              }
             },
             {
               "type": "Polygon",
@@ -13267,7 +14894,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1170,
+                "maxX": 1188,
+                "minY": 1546,
+                "maxY": 1560
+              }
             },
             {
               "type": "Polygon",
@@ -13290,7 +14923,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1606,
+                "maxX": 1624,
+                "minY": 748,
+                "maxY": 762
+              }
             },
             {
               "type": "Polygon",
@@ -13313,7 +14952,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1543,
+                "maxX": 1561,
+                "minY": 748,
+                "maxY": 762
+              }
             },
             {
               "type": "Polygon",
@@ -13336,7 +14981,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1573,
+                "maxX": 1591,
+                "minY": 1850,
+                "maxY": 1864
+              }
             },
             {
               "type": "Polygon",
@@ -13359,7 +15010,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1343,
+                "maxX": 1361,
+                "minY": 1546,
+                "maxY": 1560
+              }
             },
             {
               "type": "Polygon",
@@ -13382,7 +15039,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1535,
+                "maxX": 1553,
+                "minY": 3446,
+                "maxY": 3460
+              }
             },
             {
               "type": "Polygon",
@@ -13405,7 +15068,13 @@
                   "x": 15,
                   "y": -2
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1255,
+                "maxX": 1270,
+                "minY": 708,
+                "maxY": 718
+              }
             },
             {
               "type": "Polygon",
@@ -13428,7 +15097,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1061,
+                "maxX": 1079,
+                "minY": 2542,
+                "maxY": 2556
+              }
             },
             {
               "type": "Polygon",
@@ -13451,7 +15126,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1167,
+                "maxX": 1185,
+                "minY": 1666,
+                "maxY": 1680
+              }
             },
             {
               "type": "Polygon",
@@ -13474,7 +15155,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1340,
+                "maxX": 1358,
+                "minY": 1666,
+                "maxY": 1680
+              }
             },
             {
               "type": "Polygon",
@@ -13497,7 +15184,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1257,
+                "maxX": 1275,
+                "minY": 1546,
+                "maxY": 1560
+              }
             },
             {
               "type": "Polygon",
@@ -13520,7 +15213,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1608,
+                "maxX": 1626,
+                "minY": 632,
+                "maxY": 646
+              }
             },
             {
               "type": "Polygon",
@@ -13543,7 +15242,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1576,
+                "maxX": 1594,
+                "minY": 2131,
+                "maxY": 2145
+              }
             },
             {
               "type": "Polygon",
@@ -13566,7 +15271,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1307,
+                "maxX": 1325,
+                "minY": 2542,
+                "maxY": 2556
+              }
             },
             {
               "type": "Polygon",
@@ -13589,7 +15300,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1547,
+                "maxX": 1565,
+                "minY": 2345,
+                "maxY": 2359
+              }
             },
             {
               "type": "Polygon",
@@ -13612,7 +15329,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1022,
+                "maxX": 1040,
+                "minY": 3676,
+                "maxY": 3690
+              }
             },
             {
               "type": "Polygon",
@@ -13635,7 +15358,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1290,
+                "maxX": 1308,
+                "minY": 3676,
+                "maxY": 3690
+              }
             },
             {
               "type": "Polygon",
@@ -13658,7 +15387,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1592,
+                "maxX": 1610,
+                "minY": 2131,
+                "maxY": 2145
+              }
             },
             {
               "type": "Polygon",
@@ -13681,7 +15416,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1254,
+                "maxX": 1272,
+                "minY": 1666,
+                "maxY": 1680
+              }
             },
             {
               "type": "Polygon",
@@ -13704,7 +15445,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1544,
+                "maxX": 1562,
+                "minY": 2291,
+                "maxY": 2305
+              }
             },
             {
               "type": "Polygon",
@@ -13727,7 +15474,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1081,
+                "maxX": 1099,
+                "minY": 1666,
+                "maxY": 1680
+              }
             },
             {
               "type": "Polygon",
@@ -13750,7 +15503,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1543,
+                "maxX": 1561,
+                "minY": 633,
+                "maxY": 647
+              }
             }
           ],
           "anchors": [
@@ -13933,7 +15692,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1299,
+                "maxX": 1317,
+                "minY": 1546,
+                "maxY": 1560
+              }
             },
             {
               "type": "Polygon",
@@ -13956,7 +15721,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1123,
+                "maxX": 1141,
+                "minY": 1666,
+                "maxY": 1680
+              }
             },
             {
               "type": "Polygon",
@@ -13979,7 +15750,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1326,
+                "maxX": 1344,
+                "minY": 2542,
+                "maxY": 2556
+              }
             },
             {
               "type": "Polygon",
@@ -14002,7 +15779,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1576,
+                "maxX": 1594,
+                "minY": 632,
+                "maxY": 646
+              }
             },
             {
               "type": "Polygon",
@@ -14025,7 +15808,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1126,
+                "maxX": 1144,
+                "minY": 1546,
+                "maxY": 1560
+              }
             },
             {
               "type": "Polygon",
@@ -14048,7 +15837,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1042,
+                "maxX": 1060,
+                "minY": 3676,
+                "maxY": 3690
+              }
             },
             {
               "type": "Polygon",
@@ -14071,7 +15866,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1385,
+                "maxX": 1403,
+                "minY": 1546,
+                "maxY": 1560
+              }
             },
             {
               "type": "Polygon",
@@ -14094,7 +15895,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1575,
+                "maxX": 1593,
+                "minY": 750,
+                "maxY": 764
+              }
             },
             {
               "type": "Polygon",
@@ -14117,7 +15924,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1296,
+                "maxX": 1314,
+                "minY": 1666,
+                "maxY": 1680
+              }
             },
             {
               "type": "Polygon",
@@ -14140,7 +15953,13 @@
                   "x": 15,
                   "y": -2
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1255,
+                "maxX": 1270,
+                "minY": 688,
+                "maxY": 698
+              }
             },
             {
               "type": "Polygon",
@@ -14163,7 +15982,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1310,
+                "maxX": 1328,
+                "minY": 3676,
+                "maxY": 3690
+              }
             },
             {
               "type": "Polygon",
@@ -14186,7 +16011,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1209,
+                "maxX": 1227,
+                "minY": 1666,
+                "maxY": 1680
+              }
             },
             {
               "type": "Polygon",
@@ -14209,7 +16040,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1594,
+                "maxX": 1612,
+                "minY": 1672,
+                "maxY": 1686
+              }
             },
             {
               "type": "Polygon",
@@ -14232,7 +16069,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1212,
+                "maxX": 1230,
+                "minY": 1546,
+                "maxY": 1560
+              }
             },
             {
               "type": "Polygon",
@@ -14255,7 +16098,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1080,
+                "maxX": 1098,
+                "minY": 2542,
+                "maxY": 2556
+              }
             },
             {
               "type": "Polygon",
@@ -14278,7 +16127,13 @@
                   "x": -3,
                   "y": 13
                 }
-              ]
+              ],
+              "boundingBox": {
+                "minX": 1382,
+                "maxX": 1400,
+                "minY": 1666,
+                "maxY": 1680
+              }
             }
           ],
           "anchors": [
@@ -19499,7 +21354,6 @@
           "index": 0
         }
       ],
-
       "components": [
         {
           "id": "nac-cen08-estop01"

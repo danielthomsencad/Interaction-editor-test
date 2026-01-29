@@ -21,11 +21,32 @@ const useJsonStore = defineStore('jsonStore', {
     selectedImageCoords: null, // For image element selection (x,y coordinates)
     currentInteractionIndex: null, // Add this for interaction selection
     isCreationToolActive: false,
+    isAddAnchorModeActive: false, // For adding anchor points to shapes
     currentDrawingVertices: [],
     creationModeHistory: [], // Tracks vertices and deletions during creation mode
     deletionHistory: [], // Persistent deletion history (survives exiting creation mode)
+    hiddenShapeIds: [], // Runtime-only visibility state (not saved to JSON)
+    currentFilePath: null, // Track the currently opened file path for saving
+    hasUnsavedChanges: false, // Track if there are unsaved changes
   }),
   getters: {
+    // Compute base path for images based on JSON file location
+    imageBasePath: (state) => {
+      if (!state.currentFilePath) return 'data/'
+      // Find the 'json' folder and construct path to its parent directory
+      
+      // eslint-disable-next-line no-useless-escape
+      const pathParts = state.currentFilePath.split(/[\\\/]/) // Handle both \ and /
+      pathParts.pop() // Remove filename
+      
+      // Find the last occurrence of 'json' folder and remove everything from there
+      const jsonIndex = pathParts.lastIndexOf('json')
+      if (jsonIndex !== -1) {
+        pathParts.splice(jsonIndex) // Remove 'json' and everything after it
+      }
+      
+      return 'file:///' + pathParts.join('/') + '/'
+    },
     currentState: (state) => {
       if (state.states && state.states.length > 0 && state.currentStateIndex >= 0) {
         return state.states[state.currentStateIndex]
@@ -61,7 +82,8 @@ const useJsonStore = defineStore('jsonStore', {
 
       if (this.states && index >= 0 && index < this.states.length) {
         this.currentStateIndex = index
-        this.currentImg = `data/${this.states[index].img}`
+        // Use dynamic base path from JSON location
+        this.currentImg = `${this.imageBasePath}${this.states[index].img}`
         this.currentInteractionShapes = this.states[index].interactionShapes || []
         this.currentInteractions = this.states[index].interactions || {}
         this.selectedInfolayerId = null // Clear info layer selection when changing states
@@ -106,9 +128,38 @@ const useJsonStore = defineStore('jsonStore', {
           this.finalizeDrawing(this.selectedShapeId)
         } else {
           this.currentDrawingVertices = []
+        
         }
         // Clear creation mode history (vertices), but keep deletion history
         this.creationModeHistory = []
+        // Turn off anchor mode when exiting creation mode
+        this.isAddAnchorModeActive = false
+      }else {
+          this.selectedElementCoords = null
+          this.selectedIndividualShapeId = null
+          this.selectedElementCoordsArray = []
+      }
+    },
+    toggleAddAnchorMode() {
+      // If currently drawing a shape, finalize it before entering anchor mode
+      if (this.currentDrawingVertices.length >= 3 && this.selectedShapeId) {
+        this.finalizeDrawing(this.selectedShapeId)
+      } else if (this.currentDrawingVertices.length > 0) {
+        // Discard incomplete drawing (less than 3 vertices)
+        this.currentDrawingVertices = []
+        this.creationModeHistory = []
+      }
+      
+      this.isAddAnchorModeActive = !this.isAddAnchorModeActive
+    },
+    toggleShapeVisibility(shapeId) {
+      const index = this.hiddenShapeIds.indexOf(shapeId)
+      if (index > -1) {
+        // Shape is hidden, make it visible
+        this.hiddenShapeIds.splice(index, 1)
+      } else {
+        // Shape is visible, hide it
+        this.hiddenShapeIds.push(shapeId)
       }
     },
     finalizeDrawing(targetInteractionId) {
@@ -164,6 +215,7 @@ const useJsonStore = defineStore('jsonStore', {
 
       // Clear only the drawing vertices (keep history for undo)
       this.currentDrawingVertices = []
+      this.markAsModified()
     },
     addVertex(x, y) {
       // Add vertex to current drawing
@@ -174,6 +226,7 @@ const useJsonStore = defineStore('jsonStore', {
         type: 'addVertex',
         vertex: { x, y },
       })
+      this.markAsModified()
     },
     undoCreationStep() {
       if (this.creationModeHistory.length === 0) return
@@ -234,6 +287,7 @@ const useJsonStore = defineStore('jsonStore', {
 
         // Clear selection
         this.selectedElementCoordsArray = []
+        this.markAsModified()
       } else if (this.selectedElementCoords) {
         // Single element deletion
         const shape = this.currentInteractionShapes.find(
@@ -262,6 +316,7 @@ const useJsonStore = defineStore('jsonStore', {
         // Clear selection
         this.selectedElementCoords = null
         this.selectedIndividualShapeId = null
+        this.markAsModified()
       }
     },
     undoRegularDeletion() {
@@ -426,6 +481,37 @@ const useJsonStore = defineStore('jsonStore', {
         )
         // Add more fields if you have other per-state data (e.g., infolayer)
       }
+    },
+    async saveToFile() {
+      if (!this.currentFilePath) {
+        console.error('No file path available for saving')
+        return false
+      }
+
+      // Save current state edits first
+      this.saveCurrentStateEdits()
+
+      // Prepare data for saving - use JSON parse/stringify to ensure clean serializable data
+      // This removes any non-serializable references and creates a clean copy
+      const dataToSave = JSON.parse(
+        JSON.stringify({
+          ...this.jsonData,
+          states: this.states,
+        }),
+      )
+
+      try {
+        await window.api.saveJson(this.currentFilePath, dataToSave)
+        console.log('File saved successfully to:', this.currentFilePath)
+        this.hasUnsavedChanges = false
+        return true
+      } catch (error) {
+        console.error('Failed to save file:', error)
+        return false
+      }
+    },
+    markAsModified() {
+      this.hasUnsavedChanges = true
     },
     reorderInteractionShapes(fromIndex, toIndex) {
       // Remove from old position
@@ -837,6 +923,7 @@ const useHistoryStore = defineStore('historyStore', {
       jsonStore.selectedElementCoords = null
       jsonStore.selectedIndividualShapeId = null
       jsonStore.selectedElementCoordsArray = []
+      jsonStore.markAsModified()
     },
     restoreShape() {
       const jsonStore = useJsonStore()
