@@ -92,7 +92,7 @@ const allInteractions = computed(() => {
 
 const currentStateDeletedItems = computed(() => {
   return historyStore.deleteInteractionLayerHistory.filter(
-    (item) => item.stateIndex === jsonStore.currentStateIndex
+    (item) => item.stateIndex === jsonStore.currentStateIndex,
   )
 })
 const deleteInteractionLayer = async (interactionLayerId) => {
@@ -148,6 +148,16 @@ const toggleHistory = () => {
   }
 }
 
+const handleSidebarClick = (interactionId) => {
+  // Finalize any drawing in progress
+  if (jsonStore.currentDrawingVertices.length >= 3 && jsonStore.selectedShapeId) {
+    jsonStore.finalizeDrawing(jsonStore.selectedShapeId)
+  }
+
+  // Proceed with normal selection
+  jsonStore.setInteractionShapeById(interactionId)
+}
+
 const handleColorChange = (shapeId, event) => {
   const newColor = event.target.value
   jsonStore.updateShapeColor(shapeId, newColor)
@@ -172,6 +182,14 @@ const cancelEditing = () => {
   editingName.value = ''
 }
 
+const handleStateChange = (stateIndex) => {
+  // Finalize any drawing in progress before changing state
+  if (jsonStore.currentDrawingVertices.length >= 3 && jsonStore.selectedShapeId) {
+    jsonStore.finalizeDrawing(jsonStore.selectedShapeId)
+  }
+  jsonStore.setCurrentState(stateIndex)
+}
+
 const startEditingState = (stateIndex, currentName) => {
   editingStateIndex.value = stateIndex
   editingStateName.value = currentName
@@ -188,6 +206,14 @@ const finishEditingState = (stateIndex) => {
 const cancelEditingState = () => {
   editingStateIndex.value = null
   editingStateName.value = ''
+}
+
+const handleInfoLayerChange = (infoLayerName) => {
+  // Finalize any drawing in progress before changing to infolayer
+  if (jsonStore.currentDrawingVertices.length >= 3 && jsonStore.selectedShapeId) {
+    jsonStore.finalizeDrawing(jsonStore.selectedShapeId)
+  }
+  jsonStore.setCurrentInfolayer(infoLayerName)
 }
 
 const startEditingInfoLayer = (infoLayerId, currentName) => {
@@ -319,7 +345,7 @@ const handleDrop = (targetId, event) => {
             active: index === jsonStore.currentStateIndex,
             editing: editingStateIndex === index,
           }"
-          @click="editingStateIndex !== index && jsonStore.setCurrentState(index)"
+          @click="editingStateIndex !== index && handleStateChange(index)"
           @dblclick="editingStateIndex !== index && startEditingState(index, state.name)"
         >
           <input
@@ -361,7 +387,7 @@ const handleDrop = (targetId, event) => {
             'drop-after': dropTargetId === interaction.id && dropPosition === 'after',
             editing: editingId === interaction.id,
           }"
-          @click="editingId !== interaction.id && jsonStore.setInteractionShapeById(interaction.id)"
+          @click="editingId !== interaction.id && handleSidebarClick(interaction.id)"
           @dblclick="editingId !== interaction.id && startEditing(interaction.id, interaction.name)"
           :draggable="editingId !== interaction.id"
           @dragstart="handleDragStart(interaction.id, $event)"
@@ -439,9 +465,7 @@ const handleDrop = (targetId, event) => {
       <div class="delete-history" v-if="showHistory">
         <div class="header">
           <p>
-            {{
-              currentStateDeletedItems.length >= 1 ? 'Deleted Items' : 'No items to restore'
-            }}
+            {{ currentStateDeletedItems.length >= 1 ? 'Deleted Items' : 'No items to restore' }}
           </p>
           <svg
             fill="#000000"
@@ -489,9 +513,7 @@ const handleDrop = (targetId, event) => {
               active: infoItem.name === jsonStore.selectedInfolayerId,
               editing: editingInfoLayerId === infoItem.id,
             }"
-            @click="
-              editingInfoLayerId !== infoItem.id && jsonStore.setCurrentInfolayer(infoItem.name)
-            "
+            @click="editingInfoLayerId !== infoItem.id && handleInfoLayerChange(infoItem.name)"
             @dblclick="
               editingInfoLayerId !== infoItem.id &&
               startEditingInfoLayer(infoItem.id, infoItem.name)

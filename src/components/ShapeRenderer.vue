@@ -48,6 +48,9 @@ const dragStart = ref({ x: 0, y: 0 })
 const dragEnd = ref({ x: 0, y: 0 })
 const dragOccurred = ref(false)
 
+// Creation mode rubber band state
+const rubberBandEnd = ref({ x: 0, y: 0 })
+
 // Space and Ctrl key state for cursor management
 const isSpacePressed = ref(false)
 const isCtrlPressed = ref(false)
@@ -89,6 +92,37 @@ const handleGlobalMouseUp = () => {
 }
 
 const handleKeyDown = (event) => {
+  // Ctrl+Z: Undo based on mode
+  if (event.ctrlKey && event.key === 'z' && !event.shiftKey) {
+    event.preventDefault()
+
+    if (jsonStore.isCreationToolActive) {
+      // In creation mode: undo last step (vertex or deletion)
+      jsonStore.undoCreationStep()
+      renderShapes() // Re-render to show changes
+    } else {
+      // Not in creation mode: only undo deletions
+      jsonStore.undoRegularDeletion()
+      renderShapes()
+    }
+    return
+  }
+
+  // Escape key: finalize drawing if in creation mode
+  if (event.key === 'Escape' && jsonStore.isCreationToolActive) {
+    if (jsonStore.currentDrawingVertices.length >= 3 && jsonStore.selectedShapeId) {
+      jsonStore.finalizeDrawing(jsonStore.selectedShapeId)
+      renderShapes()
+      return
+    } else if (jsonStore.currentDrawingVertices.length > 0) {
+      // Discard incomplete drawing
+      jsonStore.currentDrawingVertices = []
+      jsonStore.creationModeHistory = []
+      renderShapes() // Re-render to clear preview
+      return
+    }
+  }
+
   // Don't intercept space if user is typing in an input or textarea
   if (event.code === 'Space' && !event.repeat) {
     const activeElement = document.activeElement
@@ -121,7 +155,7 @@ const handleKeyUp = (event) => {
 const updateCursor = () => {
   if (!canvas.value) return
 
-  // Priority order: Ctrl (zoom) > Space (grab) > normal behavior
+  // Priority order: Ctrl (zoom) > Space (grab) > Creation tool (crosshair) > normal behavior
   if (isCtrlPressed.value) {
     canvas.value.style.cursor = 'zoom-in'
     if (infoLayerOverlay.value) {
@@ -134,6 +168,15 @@ const updateCursor = () => {
     canvas.value.style.cursor = 'grab'
     if (infoLayerOverlay.value) {
       infoLayerOverlay.value.style.cursor = 'grab'
+    }
+    return
+  }
+
+  // Creation tool active - show crosshair
+  if (jsonStore.isCreationToolActive) {
+    canvas.value.style.cursor = 'crosshair'
+    if (infoLayerOverlay.value) {
+      infoLayerOverlay.value.style.cursor = 'crosshair'
     }
     return
   }
@@ -311,6 +354,38 @@ const renderShapes = () => {
     }
     drawPolygon(shape, isLayerSelected, isIndividualSelected)
   })
+
+  // Draw creation preview if in drawing mode
+  if (jsonStore.isCreationToolActive && jsonStore.currentDrawingVertices.length > 0) {
+    renderCreationPreview()
+  }
+}
+
+const renderCreationPreview = () => {
+  if (!ctx || jsonStore.currentDrawingVertices.length === 0) return
+
+  const vertices = jsonStore.currentDrawingVertices
+
+  // Draw lines connecting vertices
+  ctx.strokeStyle = '#00aaff'
+  ctx.lineWidth = 2
+  ctx.beginPath()
+  ctx.moveTo(vertices[0].x, vertices[0].y)
+  for (let i = 1; i < vertices.length; i++) {
+    ctx.lineTo(vertices[i].x, vertices[i].y)
+  }
+  ctx.stroke()
+
+  // Draw vertex dots
+  ctx.fillStyle = 'white'
+  ctx.strokeStyle = 'black'
+  ctx.lineWidth = 1
+  for (const vertex of vertices) {
+    ctx.beginPath()
+    ctx.arc(vertex.x, vertex.y, 4, 0, Math.PI * 2)
+    ctx.fill()
+    ctx.stroke()
+  }
 }
 
 const getTextBoundingBox = (element) => {
@@ -470,6 +545,49 @@ const renderInfoLayer = () => {
     })
   }
 }
+const handleCreationClick = (x, y, isShiftPressed) => {
+  // First vertex requires shift
+  if (jsonStore.currentDrawingVertices.length === 0) {
+    if (!isShiftPressed) return
+    // Start drawing with history tracking
+    jsonStore.addVertex(x, y)
+    // Initialize rubber band end to first vertex position
+    rubberBandEnd.value = { x, y }
+    renderShapes()
+    return
+  }
+
+  // Shift+click while drawing: finalize current and start new
+  if (isShiftPressed && jsonStore.currentDrawingVertices.length >= 3) {
+    jsonStore.finalizeDrawing(jsonStore.selectedShapeId)
+    jsonStore.addVertex(x, y) // Start new shape
+    // Initialize rubber band end to first vertex position of new shape
+    rubberBandEnd.value = { x, y }
+    renderShapes()
+    return
+  }
+
+  // Subsequent vertices - add with history tracking
+  jsonStore.addVertex(x, y)
+  renderShapes() // Trigger preview update
+}
+
+const handleContextMenu = (event) => {
+  // In creation mode, right-click finalizes the drawing
+  if (jsonStore.isCreationToolActive) {
+    event.preventDefault() // Prevent default context menu
+    
+    if (jsonStore.currentDrawingVertices.length >= 3 && jsonStore.selectedShapeId) {
+      jsonStore.finalizeDrawing(jsonStore.selectedShapeId)
+      renderShapes()
+    } else if (jsonStore.currentDrawingVertices.length > 0) {
+      // Discard incomplete drawing
+      jsonStore.currentDrawingVertices = []
+      jsonStore.creationModeHistory = []
+      renderShapes()
+    }
+  }
+}
 
 const handleCanvasClick = (event) => {
   if (!ctx || !jsonStore.currentInteractionShapes) return
@@ -488,7 +606,13 @@ const handleCanvasClick = (event) => {
   const x = (event.clientX - rect.left) * scaleX
   const y = (event.clientY - rect.top) * scaleY
 
-  if (event.shiftKey) {
+  // Priority 0: Creation tool mode - only handle vertex placement
+  if (jsonStore.isCreationToolActive) {
+    handleCreationClick(x, y, event.shiftKey)
+    return
+  }
+
+  if (event.shiftKey && jsonStore.selectedInfolayerId && transformStore.grayscale) {
     console.log('Shift+click: Adding popup image at:', x, y)
     const newImageElement = {
       type: 'ImageObject',
@@ -655,6 +779,19 @@ const handleMouseMove = (event) => {
   // Throttle mousemove updates for better performance
   const now = performance.now()
   const shouldUpdate = now - lastMouseMoveTime >= MOUSE_MOVE_THROTTLE
+
+  // Handle creation mode rubber band preview
+  if (jsonStore.isCreationToolActive && jsonStore.currentDrawingVertices.length > 0) {
+    const rect = canvas.value.getBoundingClientRect()
+    const scaleX = canvas.value.width / rect.width
+    const scaleY = canvas.value.height / rect.height
+    const mouseX = (event.clientX - rect.left) * scaleX
+    const mouseY = (event.clientY - rect.top) * scaleY
+
+    // Just update position - div overlay will handle rendering
+    rubberBandEnd.value = { x: mouseX, y: mouseY }
+    return
+  }
 
   // Check if we should start dragging (mouse moved far enough)
   if (!isDragging.value && dragStart.value.x !== 0) {
@@ -1067,6 +1204,13 @@ watch(
     }
   },
 )
+
+watch(
+  () => jsonStore.isCreationToolActive,
+  () => {
+    updateCursor()
+  },
+)
 </script>
 <template>
   <canvas
@@ -1080,6 +1224,7 @@ watch(
       user-select: none;
     "
     @click="handleCanvasClick"
+    @contextmenu="handleContextMenu"
     @mousedown="handleMouseDown"
     @mousemove="handleMouseMove"
     @mouseup="handleMouseUp"
@@ -1106,6 +1251,30 @@ watch(
       height: Math.abs(dragEnd.y - dragStart.y) + 'px',
     }"
   />
+
+  <!-- Creation mode rubber band line (SVG for performance) -->
+  <svg
+    v-if="jsonStore.isCreationToolActive && jsonStore.currentDrawingVertices.length > 0"
+    style="
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 26;
+    "
+  >
+    <line
+      :x1="jsonStore.currentDrawingVertices[jsonStore.currentDrawingVertices.length - 1].x"
+      :y1="jsonStore.currentDrawingVertices[jsonStore.currentDrawingVertices.length - 1].y"
+      :x2="rubberBandEnd.x"
+      :y2="rubberBandEnd.y"
+      stroke="#00aaff"
+      stroke-width="1"
+      stroke-dasharray="5,5"
+    />
+  </svg>
 
   <div
     v-if="isInfoLayerMode"

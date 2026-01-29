@@ -20,6 +20,10 @@ const useJsonStore = defineStore('jsonStore', {
     selectedTextCoords: null, // For text element selection (x,y coordinates)
     selectedImageCoords: null, // For image element selection (x,y coordinates)
     currentInteractionIndex: null, // Add this for interaction selection
+    isCreationToolActive: false,
+    currentDrawingVertices: [],
+    creationModeHistory: [], // Tracks vertices and deletions during creation mode
+    deletionHistory: [], // Persistent deletion history (survives exiting creation mode)
   }),
   getters: {
     currentState: (state) => {
@@ -93,6 +97,185 @@ const useJsonStore = defineStore('jsonStore', {
     },
     setSelectedImageCoords(coords) {
       this.selectedImageCoords = coords
+    },
+    toggleCreationTool() {
+      this.isCreationToolActive = !this.isCreationToolActive
+      if (!this.isCreationToolActive) {
+        // Tool turned off - finalize any drawing in progress
+        if (this.currentDrawingVertices.length >= 3 && this.selectedShapeId) {
+          this.finalizeDrawing(this.selectedShapeId)
+        } else {
+          this.currentDrawingVertices = []
+        }
+        // Clear creation mode history (vertices), but keep deletion history
+        this.creationModeHistory = []
+      }
+    },
+    finalizeDrawing(targetInteractionId) {
+      if (this.currentDrawingVertices.length < 3) {
+        this.currentDrawingVertices = []
+        return
+      }
+
+      // Find the target shape
+      const shape = this.currentInteractionShapes.find((s) => s.id === targetInteractionId)
+      const interaction = this.currentInteractions[targetInteractionId]
+
+      if (!shape || !interaction) {
+        this.currentDrawingVertices = []
+        return
+      }
+
+      // Calculate bounding box for relative positioning
+      const xCoords = this.currentDrawingVertices.map((v) => v.x)
+      const yCoords = this.currentDrawingVertices.map((v) => v.y)
+      const minX = Math.min(...xCoords)
+      const minY = Math.min(...yCoords)
+
+      // Convert to relative vertices
+      const relativeVertices = this.currentDrawingVertices.map((v) => ({
+        x: v.x - minX,
+        y: v.y - minY,
+      }))
+
+      // Create new polygon element with unique ID
+      const elementId = `element_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+      const newElement = {
+        type: 'Polygon',
+        id: elementId,
+        x: minX,
+        y: minY,
+        vertices: relativeVertices,
+      }
+
+      // Add to shape's elements
+      if (!shape.elements) {
+        shape.elements = []
+      }
+      shape.elements.push(newElement)
+
+      // Track finalized shape in history for undo (store vertices to restore)
+      this.creationModeHistory.push({
+        type: 'finalizeShape',
+        elementId: elementId,
+        shapeId: targetInteractionId,
+        vertices: [...this.currentDrawingVertices], // Store original absolute vertices
+      })
+
+      // Clear only the drawing vertices (keep history for undo)
+      this.currentDrawingVertices = []
+    },
+    addVertex(x, y) {
+      // Add vertex to current drawing
+      this.currentDrawingVertices.push({ x, y })
+
+      // Track in creation mode history for undo
+      this.creationModeHistory.push({
+        type: 'addVertex',
+        vertex: { x, y },
+      })
+    },
+    undoCreationStep() {
+      if (this.creationModeHistory.length === 0) return
+
+      const lastStep = this.creationModeHistory.pop()
+
+      if (lastStep.type === 'addVertex') {
+        // Remove last vertex
+        this.currentDrawingVertices.pop()
+      } else if (lastStep.type === 'finalizeShape') {
+        // Un-finalize: remove the element and restore vertices for continued editing
+        const shape = this.currentInteractionShapes.find((s) => s.id === lastStep.shapeId)
+        if (shape && shape.elements && lastStep.elementId) {
+          const index = shape.elements.findIndex((e) => e.id === lastStep.elementId)
+          if (index !== -1) {
+            shape.elements.splice(index, 1)
+            // Restore the vertices to currentDrawingVertices so user can continue editing
+            this.currentDrawingVertices = lastStep.vertices || []
+
+            // Switch to the shape this element belongs to (if different)
+            if (this.selectedShapeId !== lastStep.shapeId) {
+              this.selectedShapeId = lastStep.shapeId
+            }
+          }
+        }
+      }
+    },
+    deleteSelectedElements() {
+      // Delete currently selected elements
+      if (this.selectedElementCoordsArray && this.selectedElementCoordsArray.length > 0) {
+        const shape = this.currentInteractionShapes.find((s) => s.id === this.selectedShapeId)
+        if (!shape || !shape.elements) return
+
+        // Store deletions for undo (in reverse order for proper restoration)
+        const deletedElements = []
+
+        for (let i = this.selectedElementCoordsArray.length - 1; i >= 0; i--) {
+          const coords = this.selectedElementCoordsArray[i]
+          const elementIndex = shape.elements.findIndex((e) => e.x === coords.x && e.y === coords.y)
+
+          if (elementIndex !== -1) {
+            const deletedElement = shape.elements.splice(elementIndex, 1)[0]
+            deletedElements.push({
+              element: deletedElement,
+              elementIndex,
+              shapeId: this.selectedShapeId,
+            })
+          }
+        }
+
+        // Add to deletion history
+        deletedElements.forEach((del) => {
+          this.deletionHistory.push({
+            type: 'deleteElement',
+            ...del,
+          })
+        })
+
+        // Clear selection
+        this.selectedElementCoordsArray = []
+      } else if (this.selectedElementCoords) {
+        // Single element deletion
+        const shape = this.currentInteractionShapes.find(
+          (s) => s.id === this.selectedIndividualShapeId,
+        )
+        if (!shape || !shape.elements) return
+
+        const elementIndex = shape.elements.findIndex(
+          (e) => e.x === this.selectedElementCoords.x && e.y === this.selectedElementCoords.y,
+        )
+
+        if (elementIndex !== -1) {
+          const deletedElement = shape.elements.splice(elementIndex, 1)[0]
+          const deletion = {
+            element: deletedElement,
+            elementIndex,
+            shapeId: this.selectedIndividualShapeId,
+          }
+
+          this.deletionHistory.push({
+            type: 'deleteElement',
+            ...deletion,
+          })
+        }
+
+        // Clear selection
+        this.selectedElementCoords = null
+        this.selectedIndividualShapeId = null
+      }
+    },
+    undoRegularDeletion() {
+      // Only undo deletions from deletion history (not in creation mode)
+      if (this.deletionHistory.length === 0) return
+
+      const lastDeletion = this.deletionHistory.pop()
+
+      if (lastDeletion.type === 'deleteElement') {
+        const shape = this.currentInteractionShapes.find((s) => s.id === lastDeletion.shapeId)
+        if (shape && lastDeletion.element) {
+          shape.elements.splice(lastDeletion.elementIndex, 0, lastDeletion.element)
+        }
+      }
     },
     moveSelectedElements(dy, dx) {
       console.log('Move called with dx:', dx, 'dy:', dy)

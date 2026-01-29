@@ -175,7 +175,7 @@ Move selected shapes using keyboard shortcuts with incremental precision:
 
 ---
 
-### Step 5: Text Editing in Infolayers (Current)
+### Step 5: Text Editing in Infolayers (Complete)
 
 Enable editing of text elements in infolayers:
 
@@ -193,7 +193,7 @@ Enable editing of text elements in infolayers:
 
 ---
 
-### Step 5: Add/Remove Images
+### Step 6: Add/Remove Images (Complete)
 
 Add new images to infolayers and manage image elements:
 
@@ -212,7 +212,7 @@ Add new images to infolayers and manage image elements:
 
 ---
 
-### Step 6: Code Editor Integration for Actions
+### Step 6: Code Editor Integration for Actions (Complete)
 
 Edit action code in the CodeMirror editor:
 
@@ -231,22 +231,93 @@ Edit action code in the CodeMirror editor:
 
 ---
 
-### Step 7: Shape Creation Tools
+### **✅ Step 7: Shape Creation Tools** (COMPLETED)
 
-Add new shapes to the canvas:
+Implemented a polygon creation tool for drawing new shapes on the canvas:
 
-- Click to add polygon vertices
-- Close polygon on double-click or Enter key
-- Preview shape while drawing
-- Add new shape to interactionShapes array
+- **Creation Tool Button** in toolbar (disabled when no interaction selected)
+- **Shift+click** to start first vertex (prevents accidental creation)
+- **Regular clicks** to add subsequent vertices
+- **Visual Preview** with cyan connecting lines, vertex dots, and rubber band to cursor
+- **Multiple Finalization Triggers**:
+  - Click another interaction in sidebar
+  - Click infolayer to switch modes
+  - Change state
+  - Shift+click to start new shape
+  - Disable creation tool button
+  - Press Escape key (finalizes if >= 3 vertices)
+- **Smart Coordinate Conversion**: Absolute coordinates while drawing → relative vertices on finalization
+- **Cursor Management**: Crosshair cursor during creation mode
+- **Undo System for Creation**:
+  - **In Creation Mode**: Ctrl+Z undos last vertex OR last finalized shape
+  - **Out of Creation Mode**: Ctrl+Z only undos deletions (vertex history cleared on exit)
+  - Can undo finalized shapes immediately after creating them
+- **Simplified Creation Workflow**:
+  - No shape selection/deletion while in creation mode
+  - Focus on vertex placement and shape finalization
+  - Clean separation between creation and editing workflows
+- **Tool Persistence**: Stays active after finalization until manually disabled
 
-#### Key Concepts to Learn
+#### Key Concepts Learned
 
-- Interactive drawing state machines (idle → drawing → complete)
-- Path preview rendering (dashed lines, temporary shapes)
-- Coordinate capture and storage
-- Shape validation (minimum vertices, self-intersection check)
-- Store mutation for adding new objects to arrays
+**State Machine Pattern:**
+
+- Tool states: Inactive → Active/Not Drawing → Drawing → Finalized
+- Clean state transitions with multiple exit paths
+- Separate undo histories for different modes
+
+**Undo History Architecture:**
+
+- `creationModeHistory`: Tracks vertices + finalized shapes during creation (cleared on exit)
+- `deletionHistory`: Persistent deletion tracking (survives mode changes)
+- Context-aware undo: Different behavior based on `isCreationToolActive`
+- History step types: `addVertex`, `finalizeShape`
+
+**Canvas Drawing Workflow:**
+
+- Capturing click coordinates in canvas space
+- Converting absolute coordinates to relative vertex format
+- Bounding box calculation (minX, minY as element position)
+- Real-time preview rendering with dashed rubber band
+
+**Event Handler Priority:**
+
+- Ctrl+Z intercepts before other handlers
+- Creation mode focused on vertex placement only
+- Shift key determines finalization vs new shape
+- No selection/deletion during creation
+
+**Visual Feedback:**
+
+- Preview lines connecting placed vertices
+- Vertex markers (dots with outlines)
+- Rubber band line following mouse cursor
+- Crosshair cursor indicating active tool
+
+**Data Structure Integration:**
+
+- Adding elements to existing shape's elements array
+- Maintaining consistency between shapes and interactions
+- Automatic re-rendering on state changes
+- History tracking for vertices and finalized shapes
+
+#### What Was Implemented
+
+1. Store actions: `toggleCreationTool()`, `finalizeDrawing(targetId)`, `addVertex(x, y)`, `undoCreationStep()`, `undoRegularDeletion()`
+2. Store state: `creationModeHistory[]`, `deletionHistory[]`
+3. Toolbar: Creation tool button with active/disabled states
+4. ShapeRenderer:
+   - Click handler for vertex placement
+   - Preview rendering with rubber band effect
+   - Ctrl+Z undo handler (mode-aware, undos vertices and shapes)
+   - No shape selection in creation mode
+5. Sidebar: Auto-finalize on interaction/state/infolayer changes
+6. Keyboard:
+   - Escape to finalize/cancel drawing
+   - Ctrl+Z for undo (vertices and finalized shapes in creation mode)
+7. Coordinate conversion: Absolute → relative with bounding box
+8. Visual preview: Lines, dots, rubber band with dashed style
+9. Mode-aware undo system: Creation mode vs regular mode
 
 ---
 
